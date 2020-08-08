@@ -1,0 +1,57 @@
+{
+  "name": "tskeleton-tools",
+  "version": "1.0.0",
+  "description": "tools for nodetskeleton template",
+  "scripts": {
+    "full-test": "rm -rf coverage/* && npm run build && jest --coverage --collectCoverageFrom=src/**",
+    "test": "npm run build && jest --coverage --collectCoverageFrom=src/**",
+    "build": "rm -rf dist/* && tsc --sourceMap false",
+    "lint": "tsc --noEmit && eslint \"**/*.{js,ts}\" --quiet --fix",
+    "pretty-quick": "pretty-quick",
+    "pretty-check": "pretty-quick --check",
+    "precommit": "npm run lint && npm run pretty-quick --staged && npm run test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/harvic3/nodetskeleton-tools.git"
+  },
+  "keywords": [
+    "noejs",
+    "ts",
+    "skeleton",
+    "typescript",
+    "tools",
+    "clean",
+    "arquitectute"
+  ],
+  "author": "vickodev",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/harvic3/nodetskeleton-tools/issues"
+  },
+  "homepage": "https://github.com/harvic3/nodetskeleton-tools#readme",
+  "devDependencies": {
+    "@types/jest": "^26.0.8",
+    "@types/node": "^14.0.27",
+    "@types/node-fetch": "^2.5.7",
+    "@typescript-eslint/eslint-plugin": "^3.7.1",
+    "@typescript-eslint/parser": "^3.7.1",
+    "eslint": "^7.6.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-prettier": "^3.1.3",
+    "husky": "^4.2.5",
+    "jest": "^26.2.2",
+    "jest-fetch-mock": "^3.0.3",
+    "jest-mock-extended": "^1.0.9",
+    "prettier": "^2.0.5",
+    "pretty-quick": "^2.0.1",
+    "ts-jest": "^26.1.4",
+    "typescript": "^3.9.7"
+  },
+  "dependencies": {},
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run precommit"
+    }
+  }
+}

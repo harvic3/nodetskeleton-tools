@@ -1,0 +1,26 @@
+{
+  "name": "mapper",
+  "version": "1.0.0",
+  "description": "tool for use with or without NodeTskeleton template project",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/harvic3/nodetskeleton-tools"
+  },
+  "keywords": [
+    "node",
+    "ts",
+    "skeleton",
+    "nodejs",
+    "typescript",
+    "tool"
+  ],
+  "author": "vickodev",
+  "license": "MIT",
+  "homepage": "https://github.com/harvic3/nodetskeleton-tools/blob/master/README.md",
+  "devDependencies": {
+    "@types/node": "^14.0.27",
+    "typescript": "^3.9.7"
+  },
+  "dependencies": {
+  }
+}
