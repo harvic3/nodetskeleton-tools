@@ -1,4 +1,4 @@
-# ResultJs tool 
+# Result tool 🧰
 
 ResultJs tool y part of the `NodeTskeleton` template project.
 
@@ -6,47 +6,58 @@ ResultJs tool y part of the `NodeTskeleton` template project.
 
 <a href="https://github.com/harvic3/nodetskeleton" target="_blank" >Go to NodeTskeleton</a>
  
-### locals 🧰
+### Result
 
-It is a basic `internationalization` tool that will allow you to manage and administer the local messages of your application, even with enriched messages, for example:
+`result` is a `tool` that helps us control the flow of our `use cases` and allows us to `manage the response`, be it an `object`, an `array` of objects, a `message` or an `error` as follows:
 
 ```ts
-import resources, { resourceKeys } from "../locals/index";
+export class UseCaseProductGet extends BaseUseCase {
+	constructor(private productQueryService: IProductQueryService) {
+		super();
+	}
 
-const simpleMessage = resources.Get(this.resourceKeys.ITEM_PRODUCT_DOES_NOT_EXIST);
-
-const enrichedMessage = resources.GetWithParams(resourceKeys.SOME_PARAMETERS_ARE_MISSING, {
-	missingParams: keysNotFound.join(", "),
-});
-
-// The contents of the local files are as follows:
-/* 
-// en: 
-{
-	...
-	"SOME_PARAMETERS_ARE_MISSING": "Some parameters are missing: {{missingParams}}.",
-	"YOUR_OWN_NEED": "You are the user {{name}}, your last name is {{lastName}} and your age is {{age}}.",
-	...
+	async Execute(idMask: string): Promise<IResult<ProductDto>> {
+		// We create the instance of our type of result at the beginning of the use case.
+		const result = new Result<ProductDto>();
+		// With the resulting object we can control validations within other functions.
+		if (!this.validator.IsValidEntry(result, { productMaskId: idMask })) {
+			return result;
+		}
+		const product: Product = await this.productQueryService.GetByMaskId(idMask);
+		if (!product) {
+			// The result object helps us with the error response and the code.
+			result.SetError(
+				this.resources.Get(this.resourceKeys.PRODUCT_DOES_NOT_EXIST),
+				this.resultCodes.NOT_FOUND,
+			);
+			return result;
+		}
+		const productDto = this.mapper.MapObject<Product, ProductDto>(product, new ProductDto());
+		// The result object also helps you with the response data.
+		result.SetData(productDto, this.resultCodes.SUCCESS);
+		// And finally you give it back.
+		return result;
+	}
 }
-// es: 
-{
-	...
-	"SOME_PARAMETERS_ARE_MISSING": "Faltan algunos parámetros: {{missingParams}}.",
-	"YOUR_OWN_NEED": "Usted es el usuario {{name}}, su apellido es {{lastName}} y su edad es {{age}}.",
-	...
-}
-...
-*/
-
-// You can add enriched messages according to your own needs, for example:
-const yourEnrichedMessage = resources.GetWithParams(resourceKeys.YOUR_OWN_NEED, {
-	name: firstName, lastName, age: userAge
-});
-//
 ```
 
-And you can add all the parameters you need with as many messages in your application as required.
+The `result` object may or may not have a `type` of `response`, it fits your needs.
 
+The `result` object can help you in unit tests as shown below:
+
+```ts
+it("should return a 400 error if quantity is null or zero", async () => {
+	itemDto.quantity = null;
+	const result = await addUseCase.Execute(userUid, itemDto);
+	expect(result.success).toBeFalsy();
+	expect(result.error).toBe(
+		resources.GetWithParams(resourceKeys.SOME_PARAMETERS_ARE_MISSING, {
+			missingParams: "quantity",
+		}),
+	);
+	expect(result.statusCode).toBe(resultCodes.BAD_REQUEST);
+});
+```
 
 ## Code of Conduct 👌
 

@@ -1,52 +1,33 @@
-# LocalsJs tool 
+# Mapper tool 🧰
 
-LocalsJs tool y part of the `NodeTskeleton` template project.
+Mapper tool y part of the `NodeTskeleton` template project.
 
 `NodeTskeleton` is a `Clean Arquitecture` based `template project` for `NodeJs` using `TypeScript` to implement with any `web server framework` or even any user interface.
 
 <a href="https://github.com/harvic3/nodetskeleton" target="_blank" >Go to NodeTskeleton</a>
  
-### locals 🧰
+### Mapper
 
-It is a basic `internationalization` tool that will allow you to manage and administer the local messages of your application, even with enriched messages, for example:
+The mapper is a tool that will allow us to change the entities to the DTOs within our application, including entity changes between the data model and the domain and vice versa.
+
+## Using Locals
+
+This tool maps objects or arrays objects, for example:
 
 ```ts
-import resources, { resourceKeys } from "../locals/index";
+// For object
+const textFeelingDto = this.mapper.MapObject<TextFeeling, TextFeelingDto>(
+	textFeeling,
+	new TextFeelingDto(),
+);
 
-const simpleMessage = resources.Get(this.resourceKeys.ITEM_PRODUCT_DOES_NOT_EXIST);
-
-const enrichedMessage = resources.GetWithParams(resourceKeys.SOME_PARAMETERS_ARE_MISSING, {
-	missingParams: keysNotFound.join(", "),
-});
-
-// The contents of the local files are as follows:
-/* 
-// en: 
-{
-	...
-	"SOME_PARAMETERS_ARE_MISSING": "Some parameters are missing: {{missingParams}}.",
-	"YOUR_OWN_NEED": "You are the user {{name}}, your last name is {{lastName}} and your age is {{age}}.",
-	...
-}
-// es: 
-{
-	...
-	"SOME_PARAMETERS_ARE_MISSING": "Faltan algunos parámetros: {{missingParams}}.",
-	"YOUR_OWN_NEED": "Usted es el usuario {{name}}, su apellido es {{lastName}} y su edad es {{age}}.",
-	...
-}
-...
-*/
-
-// You can add enriched messages according to your own needs, for example:
-const yourEnrichedMessage = resources.GetWithParams(resourceKeys.YOUR_OWN_NEED, {
-	name: firstName, lastName, age: userAge
-});
-//
+// For array object
+const productsDto: ProductDto[] = this.mapper.MapArray<Product, ProductDto>(
+	products,
+	() => this.mapper.Activator(ProductDto),
+);
 ```
-
-And you can add all the parameters you need with as many messages in your application as required.
-
+`Activator` is the function responsible for returning a new instance for each call, otherwise you would have an array with the same object repeated N times. 
 
 ## Code of Conduct 👌
 

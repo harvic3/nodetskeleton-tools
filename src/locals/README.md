@@ -1,16 +1,16 @@
-# LocalsJs tool 
+# Locals tool 🧰
 
-LocalsJs tool y part of the `NodeTskeleton` template project.
+Locals tool y part of the `NodeTskeleton` template project.
 
 `NodeTskeleton` is a `Clean Arquitecture` based `template project` for `NodeJs` using `TypeScript` to implement with any `web server framework` or even any user interface.
 
 <a href="https://github.com/harvic3/nodetskeleton" target="_blank" >Go to NodeTskeleton</a>
  
-## locals-js 🧰
+## Locals
 
 It is a basic `internationalization` tool that will allow you to manage and administer the local messages of your application, even with enriched messages, for example:
 
-## Using LocalsJs
+## Using Locals
 
 The first thing to note is that your resource files must be in json or js format as shown in an example below:
 

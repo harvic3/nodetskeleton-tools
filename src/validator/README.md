@@ -1,4 +1,4 @@
-# Validator tool 
+# Validator tool 🧰
 
 Validator tool y part of the `NodeTskeleton` template project.
 
@@ -6,47 +6,34 @@ Validator tool y part of the `NodeTskeleton` template project.
 
 <a href="https://github.com/harvic3/nodetskeleton" target="_blank" >Go to NodeTskeleton</a>
  
-### locals 🧰
+### Validator
 
-It is a basic `internationalization` tool that will allow you to manage and administer the local messages of your application, even with enriched messages, for example:
+The `validator` is a `very basic` but `dynamic tool` and with it you will be able to `validate any type of object and/or parameters` that your use case `requires as input`, and with it you will be able to `return enriched messages` to the `client` regarding the `errors` or necessary parameters not identified in the `input requirements`, for example:
 
 ```ts
-import resources, { resourceKeys } from "../locals/index";
-
-const simpleMessage = resources.Get(this.resourceKeys.ITEM_PRODUCT_DOES_NOT_EXIST);
-
-const enrichedMessage = resources.GetWithParams(resourceKeys.SOME_PARAMETERS_ARE_MISSING, {
-	missingParams: keysNotFound.join(", "),
-});
-
-// The contents of the local files are as follows:
-/* 
-// en: 
-{
-	...
-	"SOME_PARAMETERS_ARE_MISSING": "Some parameters are missing: {{missingParams}}.",
-	"YOUR_OWN_NEED": "You are the user {{name}}, your last name is {{lastName}} and your age is {{age}}.",
-	...
+/*...*/
+async Execute(userUid: string, itemDto: CarItemDto): Promise<IResult<CarItemDto>> {
+	const result = new Result<CarItemDto>();
+	if (
+		!this.validator.IsValidEntry(result, {
+			User_Identifier: userUid,
+			Car_Item: itemDto,
+			Order_Id: itemDto?.orderId,
+			Product_Detail_Id: itemDto?.productDetailId,
+			Quantity: itemDto?.quantity,
+		})
+	) {
+		/* 
+		The error message on the result object will include a base message and will add to 
+		it all the parameter names that were passed on the object that do not have a valid value.
+		*/
+		return result;
+	}
+	/*...*/
+	return result;
 }
-// es: 
-{
-	...
-	"SOME_PARAMETERS_ARE_MISSING": "Faltan algunos parámetros: {{missingParams}}.",
-	"YOUR_OWN_NEED": "Usted es el usuario {{name}}, su apellido es {{lastName}} y su edad es {{age}}.",
-	...
-}
-...
-*/
-
-// You can add enriched messages according to your own needs, for example:
-const yourEnrichedMessage = resources.GetWithParams(resourceKeys.YOUR_OWN_NEED, {
-	name: firstName, lastName, age: userAge
-});
-//
+/*...*/
 ```
-
-And you can add all the parameters you need with as many messages in your application as required.
-
 
 ## Code of Conduct 👌
 
