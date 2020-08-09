@@ -38,7 +38,7 @@ So now we can set up our index file which we will use to manage our internationa
 
 ```ts
 // ./locals/index.ts
-import { Resources } from "@tskeleton/resources-tsk";
+import { Resources } from "resources-tsk";
 import * as esLocal from "./resources/es.local.json";
 import * as enLocal from "./resources/en.local.json";
 
