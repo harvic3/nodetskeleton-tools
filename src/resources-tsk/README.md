@@ -1,16 +1,16 @@
-# Locals tool 🧰
+# Resources tool 🧰
 
-Locals tool y part of the `NodeTskeleton` template project.
+Resources tool (Locals) y part of the `NodeTskeleton` template project.
 
 `NodeTskeleton` is a `Clean Arquitecture` based `template project` for `NodeJs` using `TypeScript` to implement with any `web server framework` or even any user interface.
 
 <a href="https://github.com/harvic3/nodetskeleton" target="_blank" >Go to NodeTskeleton</a>
  
-## Locals
+## Resources
 
 It is a basic `internationalization` tool that will allow you to manage and administer the local messages of your application, even with enriched messages, for example:
 
-## Using Locals
+## Using Resources
 
 The first thing to note is that your resource files must be in json or js format as shown in an example below:
 
@@ -38,7 +38,7 @@ So now we can set up our index file which we will use to manage our internationa
 
 ```ts
 // ./locals/index.ts
-import { Resources } from "@tskeleton/resources-js";
+import { Resources } from "@tskeleton/resources-tsk";
 import * as esLocal from "./resources/es.local.json";
 import * as enLocal from "./resources/en.local.json";
 
