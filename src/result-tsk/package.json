@@ -1,5 +1,5 @@
 {
-  "name": "result",
+  "name": "result-tsk",
   "version": "1.0.0",
   "description": "tool for use with or without NodeTskeleton template project",
   "main": "./dist/index.js",

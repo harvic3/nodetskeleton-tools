@@ -1,5 +1,5 @@
-import { IResult } from "../../result/src/Result.interface";
-import { Resources } from "../../locals/src/Resources";
+import { IResult } from "../../result-tsk/src/Result.interface";
+import { Resources } from "../../resources-tsk/src/Resources";
 
 const BAD_REQUEST = 400;
 

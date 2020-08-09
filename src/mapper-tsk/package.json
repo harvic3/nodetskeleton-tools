@@ -1,8 +1,7 @@
 {
-  "name": "validator",
+  "name": "mapper-tsk",
   "version": "1.0.0",
   "description": "tool for use with or without NodeTskeleton template project",
-  "main": "./lib/index.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/harvic3/nodetskeleton-tools"
@@ -18,7 +17,7 @@
   ],
   "author": "vickodev",
   "license": "MIT",
-  "homepage": "https://github.com/harvic3/nodetskeleton-tools/blob/master/src/validator/README.md",
+  "homepage": "https://github.com/harvic3/nodetskeleton-tools/blob/master/src/mapper/README.md",
   "scripts": {
     "nsp": "nsp"
   },
