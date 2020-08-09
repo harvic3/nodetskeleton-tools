@@ -1,0 +1,21 @@
+{
+  "version": "3.9.7",
+  "compilerOptions": {
+    "lib": ["es5", "es6"],
+    "outDir": "./lib/",
+    "sourceMap": true,
+    "target": "es5",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "resolveJsonModule": true,
+    "allowJs": true,
+    "alwaysStrict": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "declaration": true,
+  },
+  "exclude": ["./src/**/test/", "./**/*.test.ts"],
+  "include": ["./src/**/*"]
+}

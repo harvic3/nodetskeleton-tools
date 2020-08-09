@@ -1,7 +1,7 @@
 export class Resources {
-  private defaultLanguage: string;
-  private language: string;
-  private locals: { [key: string]: { [key: string]: string } };
+  private defaultLanguage: string = null;
+  private language: string = null;
+  private locals: { [key: string]: { [key: string]: string } } = null;
   resourceKeys: { [key: string]: string };
   constructor(
     locals: { [key: string]: { [key: string]: string } },

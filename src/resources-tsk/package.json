@@ -6,7 +6,9 @@
     "type": "git",
     "url": "https://github.com/harvic3/nodetskeleton-tools"
   },
-  "publishConfig": { "registry": "https://npm.pkg.github.com/" },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
   "keywords": [
     "node",
     "ts",
@@ -19,13 +21,13 @@
   "license": "MIT",
   "homepage": "https://github.com/harvic3/nodetskeleton-tools/blob/master/src/locals/README.md",
   "scripts": {
+    "build": "rm -rf lib/* && tsc --sourceMap false",
     "nsp": "nsp"
   },
   "devDependencies": {
     "@types/node": "^14.0.27",
-    "typescript": "^3.9.7",
-    "nsp": "^2.3.3"
+    "nsp": "^3.2.1",
+    "typescript": "^3.9.7"
   },
-  "dependencies": {
-  }
+  "dependencies": {}
 }
