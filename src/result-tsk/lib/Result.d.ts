@@ -1,6 +1,6 @@
 import { IResult } from "./Result.interface";
 import { ResultDto } from "./ResultDto";
-export default class Result implements IResult {
+export declare class Result implements IResult {
     statusCode: number;
     success: boolean;
     message: string;

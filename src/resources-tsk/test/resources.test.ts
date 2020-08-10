@@ -2,7 +2,7 @@ import * as esLocal from "./locals/resources/es.local.json";
 import * as enLocal from "./locals/resources/en.local.json";
 
 import * as localKeys from "./locals/resources/keys.json";
-import { Resources } from "../src/Resources";
+import { Resources } from "../src";
 
 const locals = {
   es: esLocal,

@@ -11,11 +11,17 @@ Validator tool y part of the `NodeTskeleton` template project.
 The `validator` is a `very basic` but `dynamic tool` and with it you will be able to `validate any type of object and/or parameters` that your use case `requires as input`, and with it you will be able to `return enriched messages` to the `client` regarding the `errors` or necessary parameters not identified in the `input requirements`, for example:
 
 ```ts
+import { Validator } from "validator-tsk";
+import resources from "../../locals/index";
+
+const resourceKey = "SOME_PARAMETERS_ARE_MISSING";
+const validator = new Validator(resources, resourceKey);
+
 /*...*/
 async Execute(userUid: string, itemDto: CarItemDto): Promise<IResult<CarItemDto>> {
 	const result = new Result<CarItemDto>();
 	if (
-		!this.validator.IsValidEntry(result, {
+		!validator.IsValidEntry(result, {
 			User_Identifier: userUid,
 			Car_Item: itemDto,
 			Order_Id: itemDto?.orderId,
@@ -35,6 +41,12 @@ async Execute(userUid: string, itemDto: CarItemDto): Promise<IResult<CarItemDto>
 /*...*/
 ```
 
+## Params for constructor
+
+- resources: you need install and initialize `npm i resources-tsk`.
+- resourceKey: resource message to search the local archive collection.
+- defaultErrorCode: code error for result, by default is 400 (BAD_REQUEST), `it's optional`.
+
 ## Code of Conduct 👌
 
 The Contributor Covenant Code of Conduct for this project is based on Covenant Contributor which you can find at the following link:
@@ -48,5 +60,3 @@ The Contributor Covenant Code of Conduct for this project is based on Covenant C
 -`You are welcome to contribute to this project, dare to do so.`
 
 -`If you are interested you can contact me by this means.`
-
-- 📫 <a href="mailto:harvic3@protonmail.com" target="_blank" >Write to him</a>

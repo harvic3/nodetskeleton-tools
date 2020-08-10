@@ -1,14 +1,15 @@
-import { IResult } from "../../result-tsk/src/Result.interface";
-import { Resources } from "../../resources-tsk/src/Resources";
+import { IResult } from "result-tsk";
+import { Resources } from "resources-tsk";
 
 const BAD_REQUEST = 400;
 
 export class Validator {
   constructor(
     private resources: Resources,
-    private resourceKeys: { [key: string]: string },
+    private resourceKey: string,
     private defaultErrorCode: number = BAD_REQUEST,
   ) {}
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   IsValidEntry(result: IResult, paramsToValidate: { [key: string]: any }): boolean {
     let isValid = true;
     const keysToValidate = Object.keys(paramsToValidate);
@@ -21,7 +22,7 @@ export class Validator {
     if (keysNotFound.length > 0) {
       isValid = false;
       result.SetError(
-        this.resources.GetWithParams(this.resourceKeys.SOME_PARAMETERS_ARE_MISSING, {
+        this.resources.GetWithParams(this.resourceKey, {
           missingParams: keysNotFound.join(", "),
         }),
         this.defaultErrorCode,

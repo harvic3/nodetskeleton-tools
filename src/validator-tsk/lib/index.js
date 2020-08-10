@@ -3,12 +3,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Validator = void 0;
 var BAD_REQUEST = 400;
 var Validator = /** @class */ (function () {
-    function Validator(resources, resourceKeys, defaultErrorCode) {
+    function Validator(resources, resourceKey, defaultErrorCode) {
         if (defaultErrorCode === void 0) { defaultErrorCode = BAD_REQUEST; }
         this.resources = resources;
-        this.resourceKeys = resourceKeys;
+        this.resourceKey = resourceKey;
         this.defaultErrorCode = defaultErrorCode;
     }
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     Validator.prototype.IsValidEntry = function (result, paramsToValidate) {
         var isValid = true;
         var keysToValidate = Object.keys(paramsToValidate);
@@ -20,7 +21,7 @@ var Validator = /** @class */ (function () {
         });
         if (keysNotFound.length > 0) {
             isValid = false;
-            result.SetError(this.resources.GetWithParams(this.resourceKeys.SOME_PARAMETERS_ARE_MISSING, {
+            result.SetError(this.resources.GetWithParams(this.resourceKey, {
                 missingParams: keysNotFound.join(", "),
             }), this.defaultErrorCode);
         }

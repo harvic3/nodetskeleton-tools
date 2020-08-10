@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Result = void 0;
 var ResultDto_1 = require("../ResultDto");
 var Result = /** @class */ (function () {
     function Result() {
@@ -32,4 +33,4 @@ var Result = /** @class */ (function () {
     };
     return Result;
 }());
-exports.default = Result;
+exports.Result = Result;

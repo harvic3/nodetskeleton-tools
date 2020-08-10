@@ -16,12 +16,11 @@
     "url": "git+https://github.com/harvic3/nodetskeleton-tools.git"
   },
   "keywords": [
-    "noejs",
+    "nodejs",
     "ts",
     "skeleton",
     "typescript",
     "tools",
-    "clean",
     "arquitectute"
   ],
   "author": "vickodev",

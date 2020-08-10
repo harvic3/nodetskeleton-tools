@@ -8,23 +8,25 @@ Mapper tool y part of the `NodeTskeleton` template project.
  
 ### Mapper
 
-The mapper is a tool that will allow us to change the entities to the DTOs within our application, including entity changes between the data model and the domain and vice versa.
+The `mapper` is a tool that will allow us to change the entities to the `DTOs` within our application, including entity changes between the data model and the domain and vice versa.
 
 ## Using Locals
 
 This tool maps objects or arrays objects, for example:
 
 ```ts
+import mapper from "mapper-tsk";
+
 // For object
-const textFeelingDto = this.mapper.MapObject<TextFeeling, TextFeelingDto>(
+const textFeelingDto = mapper.MapObject<TextFeeling, TextFeelingDto>(
 	textFeeling,
 	new TextFeelingDto(),
 );
 
 // For array object
-const productsDto: ProductDto[] = this.mapper.MapArray<Product, ProductDto>(
+const productsDto: ProductDto[] = mapper.MapArray<Product, ProductDto>(
 	products,
-	() => this.mapper.Activator(ProductDto),
+	() => mapper.Activator(ProductDto),
 );
 ```
 `Activator` is the function responsible for returning a new instance for each call, otherwise you would have an array with the same object repeated N times. 
@@ -42,5 +44,3 @@ The Contributor Covenant Code of Conduct for this project is based on Covenant C
 -`You are welcome to contribute to this project, dare to do so.`
 
 -`If you are interested you can contact me by this means.`
-
-- 📫 <a href="mailto:harvic3@protonmail.com" target="_blank" >Write to him</a>

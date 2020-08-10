@@ -6,11 +6,13 @@ ResultJs tool y part of the `NodeTskeleton` template project.
 
 <a href="https://github.com/harvic3/nodetskeleton" target="_blank" >Go to NodeTskeleton</a>
  
-### Result
+### Using Result
 
-`result` is a `tool` that helps us control the flow of our `use cases` and allows us to `manage the response`, be it an `object`, an `array` of objects, a `message` or an `error` as follows:
+`Result` is a `tool` that helps us control the flow of our `use cases` and allows us to `manage the response`, be it an `object`, an `array` of objects, a `message` or an `error` as follows:
 
 ```ts
+import { IResult } from "result-tsk";
+
 export class UseCaseProductGet extends BaseUseCase {
 	constructor(private productQueryService: IProductQueryService) {
 		super();
@@ -41,7 +43,13 @@ export class UseCaseProductGet extends BaseUseCase {
 }
 ```
 
-The `result` object may or may not have a `type` of `response`, it fits your needs.
+The `result` object may or may not have a `type` of `response`, it fits your needs, and the `result instance without type` cannot be assigned `data`.
+
+```ts
+const resultWithType = new Result<ProductDto>();
+// or
+const resultWithoutType = new Result();
+```
 
 The `result` object can help you in unit tests as shown below:
 
@@ -72,5 +80,3 @@ The Contributor Covenant Code of Conduct for this project is based on Covenant C
 -`You are welcome to contribute to this project, dare to do so.`
 
 -`If you are interested you can contact me by this means.`
-
-- 📫 <a href="mailto:harvic3@protonmail.com" target="_blank" >Write to him</a>

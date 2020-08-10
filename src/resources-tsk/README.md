@@ -103,5 +103,3 @@ The Contributor Covenant Code of Conduct for this project is based on Covenant C
 -`You are welcome to contribute to this project, dare to do so.`
 
 -`If you are interested you can contact me by this means.`
-
-- 📫 <a href="mailto:harvic3@protonmail.com" target="_blank" >Write to him</a>
