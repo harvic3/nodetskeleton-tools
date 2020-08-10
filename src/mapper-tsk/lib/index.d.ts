@@ -5,4 +5,5 @@ declare class Mapper implements IMap {
     Activator<D>(type: new () => D): D;
 }
 declare const mapper: Mapper;
+export { IMap };
 export default mapper;

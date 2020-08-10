@@ -33,4 +33,5 @@ class Mapper implements IMap {
 
 const mapper = new Mapper();
 
+export { IMap };
 export default mapper;
