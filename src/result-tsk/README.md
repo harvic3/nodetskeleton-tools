@@ -11,16 +11,16 @@ ResultJs tool y part of the `NodeTskeleton` template project.
 `Result` is a `tool` that helps us control the flow of our `use cases` and allows us to `manage the response`, be it an `object`, an `array` of objects, a `message` or an `error` as follows:
 
 ```ts
-import { IResult } from "result-tsk";
+import { IResultT, ResultT } from "result-tsk";
 
 export class UseCaseProductGet extends BaseUseCase {
 	constructor(private productQueryService: IProductQueryService) {
 		super();
 	}
 
-	async Execute(idMask: string): Promise<IResult<ProductDto>> {
+	async Execute(idMask: string): Promise<IResultT<ProductDto>> {
 		// We create the instance of our type of result at the beginning of the use case.
-		const result = new Result<ProductDto>();
+		const result = new ResultT<ProductDto>();
 		// With the resulting object we can control validations within other functions.
 		if (!this.validator.IsValidEntry(result, { productMaskId: idMask })) {
 			return result;
