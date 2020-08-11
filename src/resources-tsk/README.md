@@ -87,6 +87,9 @@ And you can add all the parameters you need with as many messages in your applic
 Don't forget to perform the language initialization for your resource manager in the localization middleware:
 
 ```ts
+import resources from "../locals/index";
+
+// add this line into your localization function
 resources.Init(req.headers["accept-language"] || defaultLang);
 ```
 
