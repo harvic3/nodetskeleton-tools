@@ -46,7 +46,7 @@ export class UseCaseProductGet extends BaseUseCase {
 The `result` object may or may not have a `type` of `response`, it fits your needs, and the `result instance without type` cannot be assigned `data`.
 
 ```ts
-const resultWithType = new Result<ProductDto>();
+const resultWithType = new ResultT<ProductDto>();
 // or
 const resultWithoutType = new Result();
 ```
