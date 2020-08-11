@@ -6,7 +6,7 @@ Validator tool y part of the `NodeTskeleton` template project.
 
 <a href="https://github.com/harvic3/nodetskeleton" target="_blank" >Go to NodeTskeleton</a>
  
-### Validator
+## Validator
 
 The `validator` is a `very basic` but `dynamic tool` and with it you will be able to `validate any type of object and/or parameters` that your use case `requires as input`, and with it you will be able to `return enriched messages` to the `client` regarding the `errors` or necessary parameters not identified in the `input requirements`, for example:
 
@@ -41,21 +41,21 @@ async Execute(userUid: string, itemDto: CarItemDto): Promise<IResult<CarItemDto>
 /*...*/
 ```
 
-## Validations functions
+### Validations functions
 
-The validation functions extend the `IsValidEntry` method to inject `small functions` created for your `own needs`.
+The `validation functions` extend the `IsValidEntry` method to inject `small functions` created for `your own needs`.
 
-The philosophy of this tool is that it adapts to your own needs and not that you adapt to it.
+The philosophy of this tool is that `it adapts to your own needs` and not that you adapt to it.
 
 To do this the `IsValidEntry function` input value key pair also accepts `array of small functions` that must perform a specific task with the parameter to be validated.
 
 ### Observation
 
-If you are going to use the `validation functions` feature, you must send as a parameter an array even if it is only a function.
+If you are going to use the `validation functions` feature, you must send as a parameter an array `even if it is only a function`.
 
 ### Important note
 
-The validation functions should return `NULL` if the parameter for validate `is valid` and a `string message` indicating the reason why the parameter `is not valid`.
+The validation function should return `NULL` if the parameter for validate `is valid` and a `string message` indicating the reason why the parameter `is not valid`.
 
 ```ts
 // Validator functions created to meet your own needs
