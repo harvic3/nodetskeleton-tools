@@ -6,7 +6,7 @@ ResultJs tool y part of the `NodeTskeleton` template project.
 
 <a href="https://github.com/harvic3/nodetskeleton" target="_blank" >Go to NodeTskeleton</a>
  
-### Using Result
+## Using Result
 
 `Result` is a `tool` that helps us control the flow of our `use cases` and allows us to `manage the response`, be it an `object`, an `array` of objects, a `message` or an `error` as follows:
 
@@ -51,7 +51,7 @@ const resultWithType = new Result<ProductDto>();
 const resultWithoutType = new Result();
 ```
 
-The `result` object can help you in unit tests as shown below:
+The `result object` can help you in `unit tests` as shown below:
 
 ```ts
 it("should return a 400 error if quantity is null or zero", async () => {

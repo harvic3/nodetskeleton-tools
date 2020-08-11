@@ -6,7 +6,7 @@ Validator tool y part of the `NodeTskeleton` template project.
 
 <a href="https://github.com/harvic3/nodetskeleton" target="_blank" >Go to NodeTskeleton</a>
  
-## Validator
+## Using Validator
 
 The `validator` is a `very basic` but `dynamic tool` and with it you will be able to `validate any type of object and/or parameters` that your use case `requires as input`, and with it you will be able to `return enriched messages` to the `client` regarding the `errors` or necessary parameters not identified in the `input requirements`, for example:
 
@@ -41,7 +41,7 @@ async Execute(userUid: string, itemDto: CarItemDto): Promise<IResult<CarItemDto>
 /*...*/
 ```
 
-### Validations functions
+### Validations functions (New Feature 🤩)
 
 The `validation functions` extend the `IsValidEntry` method to inject `small functions` created for `your own needs`.
 

@@ -12,7 +12,7 @@ The `mapper` is a tool that will allow us to change the entities to the `DTOs` w
 
 ## Using Mapper
 
-This tool maps objects or arrays objects, for example:
+This tool maps `objects` or `arrays objects`, for example:
 
 ```ts
 import mapper from "mapper-tsk";
