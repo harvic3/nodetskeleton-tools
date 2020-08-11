@@ -31,6 +31,22 @@ const productsDto: ProductDto[] = mapper.MapArray<Product, ProductDto>(
 ```
 `Activator` is the function responsible for returning a new instance for each call, otherwise you would have an array with the same object repeated N times. 
 
+## Important notes
+
+If you are using or plan to use the `DTO pattern`, you `must initialize` the properties of the entities in `NULL`, otherwise the tool will not be able to map the property because it will be `UNDEFINED`, for example:
+
+```ts
+export class PersonDto {
+  name: string = null;
+  lastName: string = null;
+  age: number;
+}
+// In this case, `Age` will be `undefined`, therefore the mapper will not be able to have it in scope.
+```
+
+It is also important to know that `for efficiency` the `mapper links the entity based on the destination`, that is, it goes through the properties of the destination entity and not those of the origin entity.
+
+
 ## Code of Conduct 👌
 
 The Contributor Covenant Code of Conduct for this project is based on Covenant Contributor which you can find at the following link:
