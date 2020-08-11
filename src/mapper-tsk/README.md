@@ -6,11 +6,11 @@ Mapper tool y part of the `NodeTskeleton` template project.
 
 <a href="https://github.com/harvic3/nodetskeleton" target="_blank" >Go to NodeTskeleton</a>
  
-### Mapper
+## Mapper
 
 The `mapper` is a tool that will allow us to change the entities to the `DTOs` within our application, including entity changes between the data model and the domain and vice versa.
 
-## Using Locals
+## Using Mapper
 
 This tool maps objects or arrays objects, for example:
 

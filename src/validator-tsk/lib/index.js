@@ -18,6 +18,15 @@ var Validator = /** @class */ (function () {
             if (!paramsToValidate[key]) {
                 keysNotFound.push(key);
             }
+            else if (Array.isArray(paramsToValidate[key])) {
+                var validations = paramsToValidate[key];
+                validations.forEach(function (validation) {
+                    var resultMessage = validation();
+                    if (resultMessage) {
+                        keysNotFound.push(resultMessage);
+                    }
+                });
+            }
         });
         if (keysNotFound.length > 0) {
             isValid = false;
