@@ -85,12 +85,11 @@ function EvenNumber(numberName: string, evaluate: number): string {
   });
 }
 
-// In any use case
+// Input in any use case
+const person = new Person("Jhon", "Doe", 21, "myemail@orion.com");
+/*...*/
 const result = new Result();
-const person = new Person("Jhon", "Doe", 21);
-const validEmail = "myemail@orion.com";
-person.SetEmail(validEmail);
-const isValid = validator.IsValidEntry(result, {
+if(!validator.IsValidEntry(result, {
 	Name: person.name,
 	Last_Name: person.lastName,
 	Age: [
@@ -98,9 +97,13 @@ const isValid = validator.IsValidEntry(result, {
 		() => EvenNumber("Age", person.age),
 	],
 	Email: [() => ValidateEmail(person.email)],
-});
-// result.error would have the following message
-// "Some parameters are missing or not valid: The number Age must be greater than 25, The Age param should be even."
+})) {
+	return result;
+}
+/* 
+	result.error would have the following message
+	"Some parameters are missing or not valid: The number Age must be greater than 25, The Age param should be even."
+*/
 ```
 
 ## Params for constructor
