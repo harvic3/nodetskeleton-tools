@@ -112,16 +112,6 @@ import resources from "../locals/index";
 resources.Init(req.headers["accept-language"] || defaultLang);
 ```
 
-## Code of Conduct 👌
-
-The Contributor Covenant Code of Conduct for this project is based on Covenant Contributor which you can find at the following link:
-
-- <a href="https://www.contributor-covenant.org/version/2/0/code_of_conduct/code_of_conduct.md" target="_blank" >Go to Code of Conduct</a>
-
 ## Warning 💀
 
 > Use this resource at your own risk.
-
--`You are welcome to contribute to this project, dare to do so.`
-
--`If you are interested you can contact me by this means.`

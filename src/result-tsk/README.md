@@ -66,17 +66,52 @@ it("should return a 400 error if quantity is null or zero", async () => {
 	expect(result.statusCode).toBe(resultCodes.BAD_REQUEST);
 });
 ```
+The `result object` has a method named `ToResultDto`, you must `call this method to reconstruct the result` that will be returned to the client, normally this must be done in the `request handler` (controller).
 
-## Code of Conduct 👌
+The recommendation is to `build a base controller class` where the request handling is done, something like this:
 
-The Contributor Covenant Code of Conduct for this project is based on Covenant Contributor which you can find at the following link:
+```ts
+export default class BaseController {
+  constructor() {
+    this.router = Router();
+  }
+  router: RouterType;
+  HandleResult(res: Response, result: IResult): void {
+    if (result.success) {
+      res
+        .status(result.statusCode)
+        .json(result.message ? result.ToResultDto() : result.ToResultDto().data);
+    } else {
+      res.status(result.statusCode).json(result.ToResultDto());
+    }
+  }
+}
 
-- <a href="https://www.contributor-covenant.org/version/2/0/code_of_conduct/code_of_conduct.md" target="_blank" >Go to Code of Conduct</a>
+// In some controller you will have lines like this:
+/*...*/
+	const textDto: TextDto = req.body;
+	this.HandleResult(res, await getLowestFeelingSentenceUseCase.Execute(textDto));
+/*...*/
+```
+The result obtained from this function is something like this:
+
+```js
+// For result with type (ResultT)
+{
+	data: "your response data",
+	message: "your message",
+	error: "your error message"
+}
+// For result without type (Result)
+{
+	message: "your message",
+	error: "your error message"
+}
+```
+## Observation
+
+Only properties that `are not NULL or UNDEFINED` will be considered when resolving the result.
 
 ## Warning 💀
 
 > Use this resource at your own risk.
-
--`You are welcome to contribute to this project, dare to do so.`
-
--`If you are interested you can contact me by this means.`

@@ -10,3 +10,11 @@
 ## [1.0.3] - 2020-08-09
 ### Added
 - Types and root file.
+
+## [1.0.4] - 2020-08-10
+### Updated
+- Documentation.
+
+## [1.0.5] - 2020-08-11
+### Updated
+- Documentation.
