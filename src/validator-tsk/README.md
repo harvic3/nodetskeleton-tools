@@ -46,9 +46,14 @@ async Execute(userUid: string, itemDto: CarItemDto): Promise<IResult<CarItemDto>
 }
 /*...*/
 ```
+
+Suppose that in the above example the itemDto object has no `orderId` and no `quantity`, then the `result of the error` in the `object result` based on the message of the `SOME_PARAMETERS_ARE_MISSING` for `english local file` would be something like this:
+
+`Some parameters are missing or not valid: Order_Id, Quantity.`
+
 ### Important note
 
-In the validation process the result of messages obtained will be inserted in the `{{missingParams}}` key of the local message.
+In the `validation process` the result of messages obtained will be inserted in the `{{missingParams}}` key of the local message.
 > You can change the message, but not the key `{{missingParams}}`.
 
 ### Validations functions (New Feature 🤩)
