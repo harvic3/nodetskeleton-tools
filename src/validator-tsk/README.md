@@ -15,6 +15,12 @@ import { Validator } from "validator-tsk";
 import resources from "../../locals/index";
 
 const resourceKey = "SOME_PARAMETERS_ARE_MISSING";
+/*
+ english local key for validator:
+ "SOME_PARAMETERS_ARE_MISSING": "Some parameters are missing or not valid: {{missingParams}}.",
+ Note: You can change the message, but not the key `{{missingParams}}` 
+*/
+
 const validator = new Validator(resources, resourceKey);
 
 /*...*/
@@ -40,6 +46,10 @@ async Execute(userUid: string, itemDto: CarItemDto): Promise<IResult<CarItemDto>
 }
 /*...*/
 ```
+### Important note
+
+In the validation process the result of messages obtained will be inserted in the `{{missingParams}}` key of the local message.
+> You can change the message, but not the key `{{missingParams}}`.
 
 ### Validations functions (New Feature 🤩)
 
