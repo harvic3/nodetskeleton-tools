@@ -18,3 +18,11 @@
 ## [1.0.4] - 2020-08-12
 ### Updated
 - Documentation.
+
+## [1.0.5] - 2020-08-13
+### Added
+- Runkit example file.
+
+## [1.0.6] - 2020-08-13
+### Updated
+- Runkit example file.

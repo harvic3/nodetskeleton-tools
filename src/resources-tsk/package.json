@@ -1,6 +1,6 @@
 {
   "name": "resources-tsk",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "tool for use with or without NodeTskeleton template project",
   "repository": {
     "type": "git",
@@ -22,6 +22,7 @@
   },
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
+  "runkitExampleFilename": "runkitExample.js",
   "scripts": {
     "build": "rm -rf lib/* && tsc --sourceMap false",
     "upload": "npm run build && npm publish"
