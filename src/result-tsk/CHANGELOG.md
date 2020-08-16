@@ -1,20 +1,20 @@
 # Changelog
 
-## [1.0.0] - 2020-08-09
+## [1.0.0] — 2020-08-09
 - Release first version
 
-## [1.0.1] - 2020-08-09
+## [1.0.1] — 2020-08-09
 ### Added
 - Types and root lib
 
-## [1.0.2] - 2020-08-10
+## [1.0.2] — 2020-08-10
 ### Apdated
 - Documentation.
 
-## [1.0.3] - 2020-08-11
+## [1.0.3] — 2020-08-11
 ### Updated
 - Documentation.
 
-## [1.0.4] - 2020-08-13
+## [1.0.4] — 2020-08-13
 ### Added
 - Runkit example file.

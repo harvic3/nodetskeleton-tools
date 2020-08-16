@@ -44,13 +44,42 @@ module.exports = resources;
 resources.Init("en");
 
 // In any Use Case
+var Person = (function () {
+  function Person(name, lastName, age, language) {
+    this.name = name;
+    this.lastName = lastName;
+    this.age = age;
+    this.language = language;
+  }
+  return Person;
+})();
+
+var user = new Person("Carl", "Sagan", new Date().getFullYear() - 1934, "es");
+
 const simpleMessage = resources.Get(resourceKeys.SOMETHING_WENT_WRONG);
 
 const enrichedMessage = resources.GetWithParams(resourceKeys.YOUR_OWN_NEED, {
-  name: "Carl",
-  lastName: "Sagan",
-  age: new Date().getFullYear() - 1934,
+  name: user.name,
+  lastName: user.lastName,
+  age: user.age,
 });
 
-console.log("Simple: ", simpleMessage);
-console.log("Enriched: ", enrichedMessage);
+console.log("Simple with global language:", simpleMessage);
+console.log("Enriched with global language:", enrichedMessage);
+
+// Or with optional language param
+
+const simpleMessage2 = resources.Get(resourceKeys.SOMETHING_WENT_WRONG, user.language);
+
+const enrichedMessage2 = resources.GetWithParams(
+  resourceKeys.YOUR_OWN_NEED,
+  {
+    name: user.name,
+    lastName: user.lastName,
+    age: user.age,
+  },
+  user.language,
+);
+
+console.log("Simple with language as param:", simpleMessage2);
+console.log("Enriched with language as param:", enrichedMessage2);

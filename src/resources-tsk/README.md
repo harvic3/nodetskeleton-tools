@@ -103,13 +103,24 @@ And you can add all the parameters you need with as many messages in your applic
 
 ## Important
 
-> Don't forget to perform the language initialization for your resource manager in the localization middleware:
+> Don't forget to perform the language initialization for your resource manager in the localization middleware as following:
 
 ```ts
 import resources from "../locals/index";
 
 // add this line into your localization function considering the web framework you're using
 resources.Init(req.headers["accept-language"] || defaultLang);
+```
+But if you prefer, applying the concept of `pure function`, you have the option to pass the `optional language parameter` in the functions to get the parameters as shown below:
+
+```ts
+const message = resources.Get(localKeys.SOMETHING_WENT_WRONG, user.language);
+// Or
+const enrichedMessage = resources.GetWithParams(
+	localKeys.NOT_VALID_EMAIL,
+	{ email: user.email },
+	user.language,
+);
 ```
 
 ## Warning 💀

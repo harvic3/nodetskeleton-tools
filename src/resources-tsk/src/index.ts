@@ -1,6 +1,6 @@
 export class Resources {
   private defaultLanguage: string = null;
-  private language: string = null;
+  private globalLanguage: string = null;
   private locals: { [key: string]: { [key: string]: string } } = null;
   resourceKeys: { [key: string]: string };
   constructor(
@@ -37,11 +37,17 @@ export class Resources {
       console.log(`Accept-Language "${language}" not found in locals resource.`);
       return;
     }
-    this.language = language;
+    this.globalLanguage = language;
   }
-  Get(resourceName: string): string {
-    if (this.locals[this.language] && this.locals[this.language][resourceName]) {
-      return this.locals[this.language][resourceName];
+  Get(resourceName: string, language: string = null): string {
+    if (language && this.locals[language] && this.locals[language][resourceName]) {
+      return this.locals[language][resourceName];
+    }
+    if (
+      this.locals[this.globalLanguage] &&
+      this.locals[this.globalLanguage][resourceName]
+    ) {
+      return this.locals[this.globalLanguage][resourceName];
     }
     if (
       this.locals[this.defaultLanguage] &&
@@ -51,10 +57,19 @@ export class Resources {
     }
     throw new Error(`Resource ${resourceName} not found in any local resource.`);
   }
-  GetWithParams(resourceName: string, params: { [key: string]: string }): string {
-    let resource: string;
-    if (this.locals[this.language] && this.locals[this.language][resourceName]) {
-      resource = this.locals[this.language][resourceName];
+  GetWithParams(
+    resourceName: string,
+    params: { [key: string]: string },
+    language: string = null,
+  ): string {
+    let resource: string = null;
+    if (language && this.locals[language] && this.locals[language][resourceName]) {
+      resource = this.locals[language][resourceName];
+    } else if (
+      this.locals[this.globalLanguage] &&
+      this.locals[this.globalLanguage][resourceName]
+    ) {
+      resource = this.locals[this.globalLanguage][resourceName];
     } else if (
       this.locals[this.defaultLanguage] &&
       this.locals[this.defaultLanguage][resourceName]

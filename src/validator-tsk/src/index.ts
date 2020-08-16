@@ -18,6 +18,7 @@ export class Validator {
       if (!paramsToValidate[key]) {
         keysNotFound.push(key);
       } else if (Array.isArray(paramsToValidate[key])) {
+        /* eslint-disable @typescript-eslint/no-explicit-any */
         const validations: any[] = paramsToValidate[key];
         validations.forEach((validation) => {
           const resultMessage = validation();
@@ -28,13 +29,13 @@ export class Validator {
       }
     });
     if (keysNotFound.length > 0) {
-      isValid = false;
       result.SetError(
         this.resources.GetWithParams(this.resourceKey, {
           missingParams: keysNotFound.join(", "),
         }),
         this.defaultErrorCode,
       );
+      isValid = false;
     }
     return isValid;
   }
