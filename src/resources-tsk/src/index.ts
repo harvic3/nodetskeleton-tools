@@ -83,10 +83,8 @@ export class Resources {
     keys.forEach((key) => {
       const pattern = `({{)${key}(}})`;
       const regex = RegExp(pattern);
-      if (regex.test(resource)) {
-        while (regex.test(resource)) {
-          resource = resource.replace(`{{${key}}}`, params[key]);
-        }
+      while (regex.test(resource)) {
+        resource = resource.replace(`{{${key}}}`, params[key]);
       }
     });
     return resource;

@@ -23,6 +23,6 @@
 ### Added
 - Runkit example file.
 
-## [1.0.7] — 2020-08-16
+## [1.1.0] — 2020-08-16
 ### Updated
 - Pure function concept was supported.
