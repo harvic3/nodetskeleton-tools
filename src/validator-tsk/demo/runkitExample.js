@@ -80,7 +80,7 @@ const personOne = new Person("Carl", null, 0);
 const personTwo = new Person("Carl", "Sagan", undefined);
 const personThree = new Person(undefined, "Sagan", undefined);
 const personFour = new Person("Carl", "Sagan", 17);
-const personFive = new Person("Carl", "Sagan", 86);
+const personFive = new Person("Carl", "Sagan", new Date().getFullYear() - 1934);
 
 const resultOne = new result_tsk.ResultT();
 const resultTwo = new result_tsk.ResultT();

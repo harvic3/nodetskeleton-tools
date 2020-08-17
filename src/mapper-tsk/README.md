@@ -46,6 +46,10 @@ export class PersonDto {
 
 It is also important to know that `for efficiency` the `mapper links the entity based on the destination`, that is, it goes through the properties of the destination entity and not those of the origin entity.
 
+## RunKit demo
+
+Go to this <a href="https://runkit.com/harvic3/demo-mapper-tsk" target="_blank" >Link</a> or click in `Try on RunKit button` on the right side of the page.
+
 ## Warning 💀
 
 > Use this resource at your own risk.

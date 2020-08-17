@@ -22,7 +22,7 @@ var Person = (function () {
 })();
 
 var personOne = new Person("Jhon", "Doe", 30);
-var personTwo = new Person("Carl", "Sagan", 86);
+var personTwo = new Person("Carl", "Sagan", new Date().getFullYear() - 1934);
 
 var personDto = mapper_tsk.default.MapObject(personOne, new PersonDto());
 var personsDto = mapper_tsk.default.MapArray([personOne, personTwo], function () {

@@ -26,3 +26,7 @@
 ## [1.1.0] — 2020-08-16
 ### Updated
 - Pure function concept was supported.
+
+## [1.1.2] — 2020-08-17
+### Updated
+- Change strategy to manage runkit example file.

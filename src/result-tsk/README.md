@@ -112,6 +112,10 @@ The result obtained from this function is something like this:
 
 Only properties that `are not NULL or UNDEFINED` will be considered when resolving the result.
 
+## RunKit demo
+
+Go to this <a href="https://runkit.com/harvic3/demo-result-tsk" target="_blank" >Link</a> or click in `Try on RunKit button` on the right side of the page.
+
 ## Warning 💀
 
 > Use this resource at your own risk.

@@ -127,6 +127,10 @@ if(!validator.IsValidEntry(result, {
 - resourceKey: resource message to search the local archive collection.
 - defaultErrorCode: code error for result, by default is 400 (BAD_REQUEST), `it's optional`.
 
+## RunKit demo
+
+Go to this <a href="https://runkit.com/harvic3/demo-validator-tsk" target="_blank" >Link</a> or click in `Try on RunKit button` on the right side of the page.
+
 ## Warning 💀
 
 > Use this resource at your own risk.

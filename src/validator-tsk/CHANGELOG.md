@@ -26,3 +26,8 @@
 ## [1.0.6] — 2020-08-13
 ### Updated
 - Runkit example file.
+
+## [1.1.2] — 2020-08-17
+### Updated
+- Change strategy to manage runkit example file.
+- Dependency packages.

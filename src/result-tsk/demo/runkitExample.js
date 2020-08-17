@@ -12,7 +12,7 @@ var Person = (function () {
   return Person;
 })();
 
-const person = new Person("Carl", "Sagan", 86);
+const person = new Person("Carl", "Sagan", new Date().getFullYear() - 1934);
 
 const resultSuccess = new result_tsk.Result();
 resultSuccess.SetMessage("Your success message", 200);

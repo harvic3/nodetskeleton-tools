@@ -123,6 +123,10 @@ const enrichedMessage = resources.GetWithParams(
 );
 ```
 
+## RunKit demo
+
+Go to this <a href="https://runkit.com/harvic3/demo-resources-tsk" target="_blank" >Link</a> or click in `Try on RunKit button` on the right side of the page.
+
 ## Warning 💀
 
 > Use this resource at your own risk.

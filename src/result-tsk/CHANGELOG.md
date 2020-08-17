@@ -18,3 +18,7 @@
 ## [1.0.4] — 2020-08-13
 ### Added
 - Runkit example file.
+
+## [1.0.5] — 2020-08-17
+### Updated
+- Change strategy to manage runkit example file.
