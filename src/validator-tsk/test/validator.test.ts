@@ -76,11 +76,27 @@ describe("when use validator", () => {
     );
     expect(result.statusCode).toBe(500);
   });
+  it("should be return false and error message when the entry valid", () => {
+    const validator = new Validator(resources, "SOME_PARAMETERS_ARE_MISSING");
+    const result = new Result();
+    const person = null;
+    const isValid = validator.IsValidEntry(result, {
+      Person: person,
+      Name: person?.name,
+      Last_Name: person?.lastName,
+      Age: person?.age,
+    });
+    expect(isValid).toBeFalsy();
+    expect(result.error).toBe(
+      "Some parameters are missing or not valid: Person, Name, Last_Name, Age.",
+    );
+  });
   it("should be return true if the entry valid", () => {
     const validator = new Validator(resources, "SOME_PARAMETERS_ARE_MISSING");
     const result = new Result();
     const person = new Person("Jhon", "Doe", 20);
     const isValid = validator.IsValidEntry(result, {
+      Person: person,
       Name: person.name,
       Last_Name: person.lastName,
       Age: person.age,

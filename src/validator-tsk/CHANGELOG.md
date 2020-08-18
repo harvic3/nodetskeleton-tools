@@ -27,7 +27,11 @@
 ### Updated
 - Runkit example file.
 
-## [1.1.2] — 2020-08-17
+## [1.0.7] — 2020-08-17
 ### Updated
 - Change strategy to manage runkit example file.
 - Dependency packages.
+
+## [1.1.0] — 2020-08-17
+### Updated
+- Definitions of types in IsValidEntry function was added.
