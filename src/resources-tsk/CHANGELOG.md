@@ -30,3 +30,7 @@
 ## [1.1.2] — 2020-08-17
 ### Updated
 - Change strategy to manage runkit example file.
+
+## [1.1.3] — 2020-08-23
+### Updated
+- Package json keywords.

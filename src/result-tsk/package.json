@@ -1,7 +1,7 @@
 {
   "name": "result-tsk",
-  "version": "1.0.5",
-  "description": "tool for use with or without NodeTskeleton template project",
+  "version": "1.0.6",
+  "description": "result tool for use with or without NodeTskeleton template project",
   "repository": {
     "type": "git",
     "url": "https://github.com/harvic3/nodetskeleton-tools"
@@ -9,6 +9,8 @@
   "keywords": [
     "result",
     "tskeleton",
+    "flow",
+    "control",
     "tool"
   ],
   "author": "vickodev",

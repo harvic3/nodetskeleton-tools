@@ -35,3 +35,7 @@
 ## [1.1.0] — 2020-08-17
 ### Updated
 - Definitions of types in IsValidEntry function was added.
+
+## [1.1.1] — 2020-08-23
+### Updated
+- Package json keywords.

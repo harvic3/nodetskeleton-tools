@@ -8,7 +8,7 @@ ResultJs tool y part of the `NodeTskeleton` template project.
  
 ## Using Result
 
-`Result` is a `tool` that helps us control the flow of our `use cases` and allows us to `manage the response`, be it an `object`, an `array` of objects, a `message` or an `error` as follows:
+`Result` is a `tool` that helps us `control the flow` of our `use cases` and allows us to `manage the response`, be it an `object`, an `array` of objects, a `message` or an `error` as follows:
 
 ```ts
 import { IResultT, ResultT } from "result-tsk";

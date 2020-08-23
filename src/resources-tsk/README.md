@@ -6,9 +6,9 @@ Resources tool (Locals) y part of the `NodeTskeleton` template project.
 
 <a href="https://github.com/harvic3/nodetskeleton" target="_blank" >Go to NodeTskeleton</a>
  
-## Resources
+## Using Resources
 
-It is a basic `internationalization` tool that will allow you to manage and administer the local messages of your application, even with enriched messages, for example:
+`Resources` is a basic `internationalization` tool that will allow you to manage and administer the local messages of your application, even with enriched messages, for example:
 
 ## Using Resources
 
@@ -19,15 +19,15 @@ The first thing to note is that your resource files must be in json or js format
 // Resource file for english.
 {
   "SOMETHING_WENT_WRONG": "Oh sorry, something went wrong with current action!",
-	"SOME_PARAMETERS_ARE_MISSING": "Some parameters are missing: {{missingParams}}.",
-	"YOUR_OWN_NEED": "You are the user {{name}}, your last name is {{lastName}} and you are {{age}} years old."
+  "SOME_PARAMETERS_ARE_MISSING": "Some parameters are missing: {{missingParams}}.",
+  "YOUR_OWN_NEED": "You are the user {{name}}, your last name is {{lastName}} and you are {{age}} years old."
 }
 // ./locals/resources/es.local.json
 // Resource file for spanish.
 {
   "SOMETHING_WENT_WRONG": "Oh lo sentimos, algo salió mal con esta acción!",
-	"SOME_PARAMETERS_ARE_MISSING": "Faltan algunos parámetros: {{missingParams}}.",
-	"YOUR_OWN_NEED": "Usted es {{name}}, su apellido es {{lastName}} y su edad es {{age}} años."
+  "SOME_PARAMETERS_ARE_MISSING": "Faltan algunos parámetros: {{missingParams}}.",
+  "YOUR_OWN_NEED": "Usted es {{name}}, su apellido es {{lastName}} y su edad es {{age}} años."
 }
 /* others as you needed */
 ```
@@ -42,8 +42,8 @@ As a second step you must have the file that corresponds to the mapping of the k
 // ./locals/resources/keys.json
 {
   "SOMETHING_WENT_WRONG": "SOMETHING_WENT_WRONG",
-	"SOME_PARAMETERS_ARE_MISSING": "SOME_PARAMETERS_ARE_MISSING",
-	"YOUR_OWN_NEED": "YOUR_OWN_NEED"
+  "SOME_PARAMETERS_ARE_MISSING": "SOME_PARAMETERS_ARE_MISSING",
+  "YOUR_OWN_NEED": "YOUR_OWN_NEED"
 }
 ```
 So now we can set up our index file which we will use to manage our internationalization resources:
@@ -58,7 +58,7 @@ import * as enLocal from "./resources/en.local.json";
 import * as localKeys from "./resources/keys.json";
 
 const locals = {
-  es: esLocal,
+	es: esLocal,
 	en: enLocal,
 	/* others as you needed */
 };
