@@ -34,3 +34,11 @@
 ## [1.1.3] — 2020-08-23
 ### Updated
 - Package json keywords.
+
+## [1.1.4] — 2020-08-29
+### Added
+- Function for initialize default language.
+
+## [1.1.5] — 2020-08-29
+### Updated
+- NPM package dependencies.

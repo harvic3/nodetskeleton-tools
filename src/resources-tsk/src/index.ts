@@ -6,31 +6,37 @@ export class Resources {
   constructor(
     locals: { [key: string]: { [key: string]: string } },
     localKeys: { [key: string]: string },
-    defaultLanguage: string,
+    defaultLanguage?: string,
   ) {
     this.locals = locals;
     this.resourceKeys = localKeys;
-    this.defaultLanguage = defaultLanguage;
-    if (!this.locals[defaultLanguage]) {
+    if (defaultLanguage && !this.locals[defaultLanguage]) {
       throw new Error("Default language not found in local resources.");
     }
+    this.defaultLanguage = defaultLanguage;
     const keysToCheck = Object.keys(this.resourceKeys);
     const langToCheck = Object.keys(locals);
-    const notFindedResources: string[] = [];
+    const resourcesNotFound: string[] = [];
     keysToCheck.forEach((key) => {
       langToCheck.forEach((lang) => {
         if (!this.locals[lang][key]) {
-          notFindedResources.push(`${lang}: ${key}`);
+          resourcesNotFound.push(`${lang}: ${key}`);
         }
       });
     });
-    if (notFindedResources.length > 0) {
+    if (resourcesNotFound.length > 0) {
       throw new Error(
-        `The messages for ${notFindedResources.join(
+        `The messages for ${resourcesNotFound.join(
           ", ",
         )} was not found in local resources.`,
       );
     }
+  }
+  SetDefaultLanguage(defaultLanguage: string): void {
+    if (!this.locals[defaultLanguage]) {
+      throw new Error("Default language not found in local resources.");
+    }
+    this.defaultLanguage = defaultLanguage;
   }
   Init(language: string): void {
     if (!this.locals[language]) {
