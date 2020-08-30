@@ -39,3 +39,7 @@
 ## [1.1.1] — 2020-08-23
 ### Updated
 - Package json keywords.
+
+## [1.1.2] — 2020-08-29
+### Updated
+- NPM package dependencies.
