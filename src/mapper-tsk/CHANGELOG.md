@@ -31,3 +31,7 @@
 ## [1.0.7] — 2020-08-29
 ### Updated
 - NPM package dependencies.
+
+## [1.1.0] — 2020-09-01
+### Added
+- Mapping profile support.

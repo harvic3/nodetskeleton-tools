@@ -1,28 +1,53 @@
 import { IMap } from "./IMap";
 
 class Mapper implements IMap {
-  MapObject<S, D>(source: S, destination: D): D {
+  MapObject<S, D>(
+    source: S,
+    destination: D,
+    profile: { [sourceKey: string]: string } = null,
+  ): D {
     if (!source) {
       return destination;
     }
-    const keys: string[] = Object.keys(destination);
-    keys.forEach((key) => {
-      if (typeof destination[key] === "boolean") {
-        destination[key] = source[key];
+    const keysToMap: string[] = profile ? Object.keys(profile) : Object.keys(destination);
+    if (!profile) {
+      keysToMap.forEach((destKey) => {
+        if (typeof destination[destKey] === "boolean") {
+          destination[destKey] = source[destKey];
+        } else {
+          destination[destKey] = source[destKey] || null;
+        }
+      });
+    } else {
+      keysToMap.forEach((originKey) => {
+        if (typeof source[originKey] === "boolean") {
+          destination[profile[originKey]] = source[originKey];
+        } else {
+          destination[profile[originKey]] = source[originKey] || null;
+        }
+      });
+    }
+    keysToMap.forEach((destKey) => {
+      if (typeof destination[destKey] === "boolean") {
+        destination[destKey] = source[destKey];
       } else {
-        destination[key] = source[key] || null;
+        destination[destKey] = source[destKey] || null;
       }
     });
     return destination;
   }
-  MapArray<S, D>(source: S[], activator: () => D): D[] {
+  MapArray<S, D>(
+    source: S[],
+    activator: () => D,
+    profile: { [sourceKey: string]: string } = null,
+  ): D[] {
     const destination: D[] = [];
     if (source?.length === 0) {
       return destination;
     }
     source.forEach((sElement) => {
       const dElement: D = activator();
-      destination.push(this.MapObject<S, D>(sElement, dElement));
+      destination.push(this.MapObject<S, D>(sElement, dElement, profile));
     });
     return destination;
   }
