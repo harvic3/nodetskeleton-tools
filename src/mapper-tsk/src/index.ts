@@ -20,20 +20,15 @@ class Mapper implements IMap {
       });
     } else {
       keysToMap.forEach((originKey) => {
-        if (typeof source[originKey] === "boolean") {
+        if (typeof source[originKey] === "object") {
+          destination[profile[originKey]] = { ...source[originKey] } || null;
+        } else if (typeof source[originKey] === "boolean") {
           destination[profile[originKey]] = source[originKey];
         } else {
           destination[profile[originKey]] = source[originKey] || null;
         }
       });
     }
-    keysToMap.forEach((destKey) => {
-      if (typeof destination[destKey] === "boolean") {
-        destination[destKey] = source[destKey];
-      } else {
-        destination[destKey] = source[destKey] || null;
-      }
-    });
     return destination;
   }
   MapArray<S, D>(

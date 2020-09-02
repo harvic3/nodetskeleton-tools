@@ -1,13 +1,19 @@
+import { City } from "./Person";
+
 export class OtherPerson {
-  constructor(nickName: string, fullName: string, age: number) {
-    this.nickName = nickName;
-    this.fullName = fullName;
-    this.age = age;
+  constructor(name: string, lastName: string, age: number) {
+    this.Name = name;
+    this.LastName = lastName;
+    this.Age = age;
   }
-  nickName: string;
-  fullName: string;
-  age: number;
+  Name: string;
+  LastName: string;
+  Age: number;
+  City: City;
+  SetCity(city: City): void {
+    this.City = city;
+  }
   IsAnAdult(): boolean {
-    return this.age >= 10 ? true : false;
+    return this.Age >= 10 ? true : false;
   }
 }
