@@ -27,8 +27,13 @@ export class Validator {
         const validations: CallableFunction[] = <CallableFunction[]>paramsToValidate[key];
         validations.forEach((validation) => {
           const resultMessage = validation();
-          if (resultMessage) {
+          if (resultMessage === null) {
+            return;
+          }
+          if (typeof resultMessage === "string") {
             keysNotFound.push(resultMessage);
+          } else if (!resultMessage) {
+            keysNotFound.push(key);
           }
         });
       }

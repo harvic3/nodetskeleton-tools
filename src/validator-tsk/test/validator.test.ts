@@ -45,6 +45,13 @@ function EvenNumber(numberName: string, evaluate: number): string {
   });
 }
 
+function IsEvenNumber(evaluate: number): boolean {
+  if (evaluate && evaluate % 2 === 0) {
+    return true;
+  }
+  return false;
+}
+
 describe("when use validator", () => {
   it("should be return false, error message and default BAD_REQUEST code error if the entry is not valid", () => {
     const validator = new Validator(resources, "SOME_PARAMETERS_ARE_MISSING");
@@ -174,5 +181,37 @@ describe("when use validator", () => {
     expect(result.error).toBe(
       "Some parameters are missing or not valid: The number Age must be greater than 25, The Age param should be even.",
     );
+  });
+  it("should be execute all validations and return an entry not valid by email and age validated by boolean function", () => {
+    const validator = new Validator(resources, "SOME_PARAMETERS_ARE_MISSING");
+    const result = new Result();
+    const person = new Person("Jhon", "Doe", 11);
+    const invalidEmail = "wrongEmail@email";
+    person.SetEmail(invalidEmail);
+    const isValid = validator.IsValidEntry(result, {
+      Name: person.name,
+      Last_Name: person.lastName,
+      Age: [() => IsEvenNumber(person.age)],
+      Email: [() => ValidateEmail(person.email)],
+    });
+    expect(isValid).toBeFalsy();
+    expect(result.error).toBe(
+      "Some parameters are missing or not valid: Age, Email wrongEmail@email is not valid.",
+    );
+  });
+  it("should be execute all validations and return valid and age validated by boolean function", () => {
+    const validator = new Validator(resources, "SOME_PARAMETERS_ARE_MISSING");
+    const result = new Result();
+    const person = new Person("Jhon", "Doe", 10);
+    const invalidEmail = "fineEmail@email.co";
+    person.SetEmail(invalidEmail);
+    const isValid = validator.IsValidEntry(result, {
+      Name: person.name,
+      Last_Name: person.lastName,
+      Age: [() => IsEvenNumber(person.age)],
+      Email: [() => ValidateEmail(person.email)],
+    });
+    expect(isValid).toBeTruthy();
+    expect(result.error).toBeUndefined();
   });
 });
