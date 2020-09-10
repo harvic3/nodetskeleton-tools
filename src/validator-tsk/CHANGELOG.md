@@ -47,3 +47,7 @@
 ## [1.1.3] — 2020-09-09
 ### Updated
 - Support for boolean type as result in validation functions.
+
+## [1.1.4] — 2020-09-09
+### Updated
+- Fix irregular behavior.
