@@ -1,6 +1,6 @@
 {
   "name": "resources-tsk",
-  "version": "1.1.5",
+  "version": "1.1.6",
   "description": "resource tool for use with or without NodeTskeleton template project",
   "repository": {
     "type": "git",

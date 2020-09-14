@@ -32,18 +32,29 @@ export class Resources {
       );
     }
   }
+  /* Setting the default language */
   SetDefaultLanguage(defaultLanguage: string): void {
     if (!this.locals[defaultLanguage]) {
       throw new Error("Default language not found in local resources.");
     }
     this.defaultLanguage = defaultLanguage;
   }
+  /* Set the current working language */
   Init(language: string): void {
+    if (!language) {
+      return;
+    }
     if (!this.locals[language]) {
       console.log(`Accept-Language "${language}" not found in locals resource.`);
       return;
     }
     this.globalLanguage = language;
+  }
+  /* Update the current locals */
+  UpdateLocals(locals: { [key: string]: { [key: string]: string } }): void {
+    if (locals) {
+      this.locals = locals;
+    }
   }
   Get(resourceName: string, language: string = null): string {
     if (language && this.locals[language] && this.locals[language][resourceName]) {

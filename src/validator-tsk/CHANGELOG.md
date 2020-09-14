@@ -51,3 +51,7 @@
 ## [1.1.4] — 2020-09-09
 ### Updated
 - Fix irregular behavior.
+
+## [1.1.5] — 2020-09-14
+### Updated
+- NPM package dependencies.

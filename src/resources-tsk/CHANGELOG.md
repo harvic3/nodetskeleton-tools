@@ -42,3 +42,9 @@
 ## [1.1.5] — 2020-08-29
 ### Updated
 - NPM package dependencies.
+
+## [1.1.6] — 2020-09-14
+### Updated
+- Language is validated in the init function.
+### Added
+- Function to update locals at any time.
