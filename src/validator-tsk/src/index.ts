@@ -16,6 +16,7 @@ export class Validator {
       // eslint-disable-next-line @typescript-eslint/ban-types
       [key: string]: string | number | undefined | null | object | CallableFunction[];
     },
+    errorCode?: number,
   ): boolean {
     let isValid = true;
     const keysToValidate = Object.keys(paramsToValidate);
@@ -27,7 +28,7 @@ export class Validator {
         const validations: CallableFunction[] = <CallableFunction[]>paramsToValidate[key];
         validations.forEach((validation) => {
           const resultMessage = validation();
-          if (resultMessage === null || resultMessage === "" || resultMessage === true) {
+          if (resultMessage === null || resultMessage === true || resultMessage === "") {
             return;
           }
           if (typeof resultMessage === "string") {
@@ -43,7 +44,7 @@ export class Validator {
         this.resources.GetWithParams(this.resourceKey, {
           missingParams: keysNotFound.join(joinSeparator),
         }),
-        this.defaultErrorCode,
+        errorCode || this.defaultErrorCode,
       );
       isValid = false;
     }

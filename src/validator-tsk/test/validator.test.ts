@@ -17,11 +17,18 @@ const defaultLanguage = "en";
 
 const resourceKeys = localKeys;
 
-const resources = new Resources(locals, resourceKeys, defaultLanguage);
+const resources = new Resources(locals, resourceKeys);
 
 function ValidateEmail(email: string): string {
   if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
     return null;
+  }
+  return resources.GetWithParams(resourceKeys.NOT_VALID_EMAIL, { email });
+}
+
+function ValidateEmailWithEmptyResponse(email: string): string {
+  if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
+    return "";
   }
   return resources.GetWithParams(resourceKeys.NOT_VALID_EMAIL, { email });
 }
@@ -53,6 +60,9 @@ function IsEvenNumber(evaluate: number): boolean {
 }
 
 describe("when use validator", () => {
+  beforeAll(() => {
+    resources.SetDefaultLanguage(defaultLanguage);
+  });
   it("should be return false, error message and default BAD_REQUEST code error if the entry is not valid", () => {
     const validator = new Validator(resources, "SOME_PARAMETERS_ARE_MISSING");
     const result = new Result();
@@ -213,5 +223,44 @@ describe("when use validator", () => {
     });
     expect(isValid).toBeTruthy();
     expect(result.error).toBeUndefined();
+  });
+  it("should be return true if the entry valid and validate email with empty response", () => {
+    const validator = new Validator(resources, "SOME_PARAMETERS_ARE_MISSING");
+    const result = new Result();
+    const person = new Person("Jhon", "Doe", 20);
+    const validEMail = "myemail@email.co";
+    person.SetEmail(validEMail);
+    const isValid = validator.IsValidEntry(result, {
+      Person: person,
+      Name: person.name,
+      Last_Name: person.lastName,
+      Age: person.age,
+      Email: [() => ValidateEmailWithEmptyResponse(person.email)],
+    });
+    expect(isValid).toBeTruthy();
+    expect(result.error).toBeUndefined();
+  });
+  it("should be return false, error message and 400 code error if the entry is not valid", () => {
+    const validator = new Validator(resources, "SOME_PARAMETERS_ARE_MISSING", 500);
+    const personalError = 400;
+    const result = new Result();
+    const person = new Person("Nikola", "Tesla", 78);
+    const invalidEMail = "myemail@emailco";
+    person.SetEmail(invalidEMail);
+    const isValid = validator.IsValidEntry(
+      result,
+      {
+        Name: person.name,
+        Last_Name: person.lastName,
+        Age: [() => IsEvenNumber(person.age)],
+        Email: [() => ValidateEmailWithEmptyResponse(person.email)],
+      },
+      personalError,
+    );
+    expect(isValid).toBeFalsy();
+    expect(result.error).toBe(
+      `Some parameters are missing or not valid: Email ${person.email} is not valid.`,
+    );
+    expect(result.statusCode).toBe(personalError);
   });
 });
