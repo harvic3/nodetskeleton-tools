@@ -1,6 +1,6 @@
 {
   "name": "result-tsk",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "result tool for use with or without NodeTskeleton template project",
   "repository": {
     "type": "git",
