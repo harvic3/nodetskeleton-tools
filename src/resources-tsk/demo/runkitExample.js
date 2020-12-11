@@ -1,4 +1,4 @@
-var res_tsk = require("resources-tsk");
+const res_tsk = require("resources-tsk");
 
 // local or remote resource
 const enLocal = {

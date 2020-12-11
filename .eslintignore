@@ -11,3 +11,6 @@ coverage/*
 README.md
 .env
 .env.EXAMPLE
+src/**/demo/*.js
+src/**/lib/*.js
+src/**/lib/**/*.js

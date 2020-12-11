@@ -2,20 +2,20 @@ import { IResult } from "./Result.interface";
 import { ResultDto } from "./ResultDto";
 
 export class Result implements IResult {
-  statusCode: number;
+  statusCode: number | string;
   success: boolean;
   message: string;
   error: string;
-  SetStatusCode(statusCode: number, success: boolean): void {
+  SetStatusCode(statusCode: number | string, success: boolean): void {
     this.statusCode = statusCode;
     this.success = success;
   }
-  SetMessage(message: string, statusCode: number): void {
+  SetMessage(message: string, statusCode: number | string): void {
     this.message = message;
     this.statusCode = statusCode;
     this.success = true;
   }
-  SetError(error: string, statusCode: number): void {
+  SetError(error: string, statusCode: number | string): void {
     this.error = error;
     this.statusCode = statusCode;
     this.success = false;

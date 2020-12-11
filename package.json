@@ -8,7 +8,7 @@
     "lint": "tsc --noEmit && eslint \"**/*.{js,ts}\" --quiet --fix",
     "pretty-quick": "pretty-quick",
     "pretty-check": "pretty-quick --check",
-    "precommit": "npm run lint && npm run pretty-quick --staged && npm run test"
+    "pre-commit": "npm run lint && npm run pretty-quick --staged && npm run test"
   },
   "repository": {
     "type": "git",
@@ -29,27 +29,27 @@
   },
   "homepage": "https://github.com/harvic3/nodetskeleton-tools#readme",
   "devDependencies": {
-    "@types/jest": "^26.0.10",
-    "@types/node": "^14.6.0",
+    "@types/jest": "^26.0.19",
+    "@types/node": "^14.14.12",
     "@types/node-fetch": "^2.5.7",
-    "@typescript-eslint/eslint-plugin": "^3.9.1",
-    "@typescript-eslint/parser": "^3.9.1",
-    "eslint": "^7.7.0",
-    "eslint-config-prettier": "^6.11.0",
-    "eslint-plugin-prettier": "^3.1.3",
-    "husky": "^4.2.5",
-    "jest": "^26.4.0",
+    "@typescript-eslint/eslint-plugin": "^3.10.1",
+    "@typescript-eslint/parser": "^3.10.1",
+    "eslint": "^7.15.0",
+    "eslint-config-prettier": "^6.15.0",
+    "eslint-plugin-prettier": "^3.2.0",
+    "husky": "^4.3.5",
+    "jest": "^26.6.3",
     "jest-fetch-mock": "^3.0.3",
-    "jest-mock-extended": "^1.0.9",
+    "jest-mock-extended": "^1.0.10",
     "lerna": "^3.22.1",
-    "prettier": "^2.0.5",
-    "pretty-quick": "^2.0.1",
-    "ts-jest": "^26.2.0",
+    "prettier": "^2.2.1",
+    "pretty-quick": "^2.0.2",
+    "ts-jest": "^26.4.4",
     "typescript": "^3.9.7"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run precommit"
+      "pre-commit": "npm run pre-commit"
     }
   }
 }

@@ -1,4 +1,4 @@
-var mapper_tsk = require("mapper-tsk");
+const mapper_tsk = require("mapper-tsk");
 
 var PersonDto = (function () {
   function PersonDto() {

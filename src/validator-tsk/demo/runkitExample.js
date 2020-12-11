@@ -1,5 +1,5 @@
 // You need a resources-tsk lib or build some like this.
-var res_tsk = require("resources-tsk");
+const res_tsk = require("resources-tsk");
 
 // local or remote resource
 const enLocal = {
@@ -62,9 +62,9 @@ module.exports = validator;
 
 // In some use case import validator from index
 // const validator = require("../validator/index");
-var result_tsk = require("result-tsk");
+const result_tsk = require("result-tsk");
 
-var Person = (function () {
+const Person = (function () {
   function Person(name, lastName, age) {
     this.name = name;
     this.lastName = lastName;

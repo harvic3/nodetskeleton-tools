@@ -3,25 +3,25 @@ import { ResultDto } from "../ResultDto";
 
 export class Result<T> implements IResult<T> {
   data: T | string;
-  statusCode: number;
+  statusCode: number | string;
   success: boolean;
   message: string;
   error: string;
-  SetStatusCode(statusCode: number, success: boolean): void {
+  SetStatusCode(statusCode: number | string, success: boolean): void {
     this.statusCode = statusCode;
     this.success = success;
   }
-  SetMessage(message: string, statusCode: number): void {
+  SetMessage(message: string, statusCode: number | string): void {
     this.message = message;
     this.statusCode = statusCode;
     this.success = true;
   }
-  SetError(error: string, statusCode: number): void {
+  SetError(error: string, statusCode: number | string): void {
     this.error = error;
     this.statusCode = statusCode;
     this.success = false;
   }
-  SetData(data: string | T, statusCode: number): void {
+  SetData(data: string | T, statusCode: number | string): void {
     this.data = data;
     this.statusCode = statusCode;
     this.success = true;

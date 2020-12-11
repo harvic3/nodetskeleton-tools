@@ -1,6 +1,6 @@
 {
   "name": "result-tsk",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "result tool for use with or without NodeTskeleton template project",
   "repository": {
     "type": "git",
@@ -30,7 +30,7 @@
     "upload": "npm run build && npm publish"
   },
   "devDependencies": {
-    "@types/node": "^14.6.2",
+    "@types/node": "^14.14.12",
     "typescript": "^3.9.7"
   },
   "dependencies": {}

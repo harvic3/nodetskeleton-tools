@@ -1,13 +1,13 @@
 import { ResultDto } from "./ResultDto";
 
 export interface IResult {
-  statusCode: number;
+  statusCode: number | string;
   success: boolean;
   message: string;
   error: string;
-  SetStatusCode(statusCode: number, success: boolean): void;
-  SetMessage(message: string, statusCode: number): void;
-  SetError(error: string, statusCode: number): void;
+  SetStatusCode(statusCode: number | string, success: boolean): void;
+  SetMessage(message: string, statusCode: number | string): void;
+  SetError(error: string, statusCode: number | string): void;
   ToResultDto(): ResultDto;
 }
 

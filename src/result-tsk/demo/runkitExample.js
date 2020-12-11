@@ -1,6 +1,6 @@
-var result_tsk = require("result-tsk");
+const result_tsk = require("result-tsk");
 
-var Person = (function () {
+const Person = (function () {
   function Person(name, lastName, age) {
     this.name = name;
     this.lastName = lastName;
