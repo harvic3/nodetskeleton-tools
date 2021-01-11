@@ -1,6 +1,6 @@
 {
   "name": "validator-tsk",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "validator tool for use with or without NodeTskeleton template project",
   "repository": {
     "type": "git",
@@ -10,11 +10,11 @@
     "validator",
     "validate",
     "tskeleton",
-    "flow",
-    "control",
+    "work flow",
+    "flow control",
     "tool"
   ],
-  "author": "harvic3@ingenieros.com",
+  "author": "Vickodev<harvic3@ingenieros.com>",
   "license": "MIT",
   "homepage": "https://github.com/harvic3/nodetskeleton-tools/blob/master/src/validator-tsk/README.md",
   "bugs": {
@@ -28,14 +28,15 @@
   "runkitExampleFilename": "demo/runkitExample.js",
   "scripts": {
     "build": "rm -rf lib/* && tsc --sourceMap false",
+    "build-map": "rm -rf lib/* && tsc",
     "upload": "npm run build && npm publish"
   },
   "devDependencies": {
-    "@types/node": "^14.14.12",
+    "@types/node": "^14.14.20",
     "typescript": "^3.9.7"
   },
   "dependencies": {
-    "resources-tsk": "^1.1.8",
-    "result-tsk": "^1.0.9"
+    "resources-tsk": "^1.1.9",
+    "result-tsk": "^1.1.0"
   }
 }

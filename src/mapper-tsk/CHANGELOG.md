@@ -64,3 +64,11 @@
 ### Updated
 
 - NPM package dependencies was updated.
+
+## [1.1.4] — 2021-01-10
+
+### Updated
+
+- Setting for tsconfig was changed, lib to ES2020 and target to es6.
+- Mapping profile strategy was changed, now it supports building functions.
+- Packages was updated.

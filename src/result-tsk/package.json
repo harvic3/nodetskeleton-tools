@@ -1,6 +1,6 @@
 {
   "name": "result-tsk",
-  "version": "1.0.9",
+  "version": "1.1.0",
   "description": "result tool for use with or without NodeTskeleton template project",
   "repository": {
     "type": "git",
@@ -9,11 +9,11 @@
   "keywords": [
     "result",
     "tskeleton",
-    "flow",
-    "control",
+    "work flow",
+    "flow control",
     "tool"
   ],
-  "author": "harvic3@ingenieros.com",
+  "author": "Vickodev<harvic3@ingenieros.com>",
   "license": "MIT",
   "homepage": "https://github.com/harvic3/nodetskeleton-tools/blob/master/src/result-tsk/README.md",
   "bugs": {
@@ -27,10 +27,11 @@
   "runkitExampleFilename": "demo/runkitExample.js",
   "scripts": {
     "build": "rm -rf lib/* && tsc --sourceMap false",
+    "build-map": "rm -rf lib/* && tsc",
     "upload": "npm run build && npm publish"
   },
   "devDependencies": {
-    "@types/node": "^14.14.12",
+    "@types/node": "^14.14.20",
     "typescript": "^3.9.7"
   },
   "dependencies": {}

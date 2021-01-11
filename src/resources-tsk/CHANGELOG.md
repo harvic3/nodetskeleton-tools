@@ -79,3 +79,10 @@
 ### Updated
 
 - NPM package dependencies was updated.
+
+## [1.1.9] — 2021-01-10
+
+### Updated
+
+- Setting for tsconfig was changed, lib to ES2020 and target to es6.
+- Packages was updated

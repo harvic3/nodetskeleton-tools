@@ -52,3 +52,10 @@
 
 - NPM package dependencies updated.
 - statusCode now support string type.
+
+## [1.1.0] — 2021-01-10
+
+### Updated
+
+- Setting for tsconfig was changed, lib to ES2020 and target to es6.
+- Packages was updated
