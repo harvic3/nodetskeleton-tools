@@ -14,7 +14,7 @@
     "alwaysStrict": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "declaration": true,
+    "declaration": true
   },
   "exclude": ["./src/**/test/", "./**/*.test.ts"],
   "include": ["./src/**/*"]

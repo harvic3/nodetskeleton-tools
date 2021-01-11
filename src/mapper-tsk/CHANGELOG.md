@@ -65,7 +65,7 @@
 
 - NPM package dependencies was updated.
 
-## [1.1.4] — 2021-01-10
+## [1.1.5] — 2021-01-10
 
 ### Updated
 
