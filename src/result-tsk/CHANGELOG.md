@@ -59,3 +59,9 @@
 
 - Setting for tsconfig was changed, lib to ES2020 and target to es6.
 - Packages was updated
+
+## [1.2.0] — 2021-01-24
+
+### Updated
+
+- SetData function now support optional message parameter

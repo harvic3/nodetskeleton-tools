@@ -21,10 +21,13 @@ export class Result<T> implements IResult<T> {
     this.statusCode = statusCode;
     this.success = false;
   }
-  SetData(data: string | T, statusCode: number | string): void {
+  SetData(data: string | T, statusCode: number | string, message?: string): void {
     this.data = data;
     this.statusCode = statusCode;
     this.success = true;
+    if (message) {
+      this.message = message;
+    }
   }
   ToResultDto(): ResultDto {
     const result = new ResultDto();
