@@ -106,4 +106,10 @@
 
 ### Updated
 
-- result-tsk dependency package was updated
+- result-tsk dependency package was updated.
+
+## [1.2.3] — 2021-01-29
+
+### Updated
+
+- errorCode now can be number o string.

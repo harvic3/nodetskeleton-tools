@@ -63,7 +63,27 @@ describe("when use validator", () => {
   beforeAll(() => {
     resources.SetDefaultLanguage(defaultLanguage);
   });
-  it("should be return false, error message and default BAD_REQUEST code error if the entry is not valid", () => {
+  it("should be return false, error message and default BAD_REQUEST number code error if the entry is not valid", () => {
+    const BAD_REQUEST = 400;
+    const validator = new Validator(
+      resources,
+      "SOME_PARAMETERS_ARE_MISSING",
+      BAD_REQUEST,
+    );
+    const result = new Result();
+    const person = new Person(null, undefined, 20);
+    const isValid = validator.IsValidEntry(result, {
+      Name: person.name,
+      Last_Name: person.lastName,
+      age: person.age,
+    });
+    expect(isValid).toBeFalsy();
+    expect(result.error).toBe(
+      "Some parameters are missing or not valid: Name, Last_Name.",
+    );
+    expect(result.statusCode).toBe(BAD_REQUEST);
+  });
+  it("should be return false, error message and default BAD_REQUEST string code error if the entry is not valid", () => {
     const validator = new Validator(resources, "SOME_PARAMETERS_ARE_MISSING");
     const result = new Result();
     const person = new Person(null, undefined, 20);
@@ -76,7 +96,7 @@ describe("when use validator", () => {
     expect(result.error).toBe(
       "Some parameters are missing or not valid: Name, Last_Name.",
     );
-    expect(result.statusCode).toBe(400);
+    expect(result.statusCode).toBe("400");
   });
   it("should be return false, error message and 500 code error if the entry is not valid", () => {
     const validator = new Validator(resources, "SOME_PARAMETERS_ARE_MISSING", 500);

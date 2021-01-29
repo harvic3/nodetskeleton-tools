@@ -1,14 +1,14 @@
 import { IResult } from "result-tsk";
 import { Resources } from "resources-tsk";
 
-const BAD_REQUEST = 400;
+const BAD_REQUEST = "400";
 const joinSeparator = ", ";
 
 export class Validator {
   constructor(
     private resources: Resources,
     private resourceKey: string,
-    private defaultErrorCode: number = BAD_REQUEST,
+    private defaultErrorCode: number | string = BAD_REQUEST,
   ) {}
   IsValidEntry(
     result: IResult,
@@ -16,7 +16,7 @@ export class Validator {
       // eslint-disable-next-line @typescript-eslint/ban-types
       [key: string]: string | number | undefined | null | object | CallableFunction[];
     },
-    errorCode?: number,
+    errorCode?: number | string,
   ): boolean {
     let isValid = true;
     const keysToValidate = Object.keys(paramsToValidate);

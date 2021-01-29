@@ -1,6 +1,6 @@
 {
   "name": "validator-tsk",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "validator tool for use with or without NodeTskeleton template project",
   "repository": {
     "type": "git",
