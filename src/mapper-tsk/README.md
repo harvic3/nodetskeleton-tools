@@ -21,15 +21,15 @@ This tool maps `objects` or `arrays objects`, for example:
 import mapper from "mapper-tsk";
 
 // For object
-	const textFeelingDto = mapper.MapObject<TextFeeling, TextFeelingDto>(
+	const textFeelingDto = mapper.mapObject<TextFeeling, TextFeelingDto>(
 		textFeeling,
 		new TextFeelingDto(),
 	);
 
 // For array objects
-	const productsDto: ProductDto[] = mapper.MapArray<Product, ProductDto>(
+	const productsDto: ProductDto[] = mapper.mapArray<Product, ProductDto>(
 		products,
-		() => mapper.Activator(ProductDto),
+		() => mapper.activator(ProductDto),
 	);
 ```
 
@@ -59,7 +59,7 @@ import { City } from "./domain/city";
 export class CityDto {
 	constructor(public Name: string, public Weather: string) {}
 
-	static MapToCityDomain(city: CityDto): City {
+	static mapToCityDomain(city: CityDto): City {
     return new City(city.Name, city.Weather);
   }
 }
@@ -70,8 +70,8 @@ import { Country } from "./domain/country";
 export class CountryDto {
 	constructor(public Name: string, public City: City) {}
 	
-	static MapToCountryDomain(country: CountryDto): Country {
-    const city = CityDto.MapToCityDomain(country.City);
+	static mapToCountryDomain(country: CountryDto): Country {
+    const city = CityDto.mapToCityDomain(country.City);
     return new Country(country.Name, city);
   }
 }
@@ -114,21 +114,21 @@ import mapper from "mapper-tsk";
 		"Country.Name": "country.name",
 		"Country.City": {
 			destinationKey: "country.city",
-			mappingFunction: CityDto.MapToCityDomain,
+			mappingFunction: CityDto.mapToCityDomain,
 		},
 	};
 
 // For object
-	const person: Person = mapper.MapObject<PersonDto, Person>(
+	const person: Person = mapper.mapObject<PersonDto, Person>(
 		personDto,
 		new Person(),
 		profile,
 	);
 
 // For array objects
-	const personsDto: PersonDto[] = mapper.MapArray<PersonDto, Person>(
+	const personsDto: PersonDto[] = mapper.mapArray<PersonDto, Person>(
 		[personDtoOne, personDtoTwo ...],
-		() => mapper.Activator(Person),
+		() => mapper.activator(Person),
 		profile,
 	);
 ```
@@ -177,16 +177,16 @@ export class PersonDto {
 // The previous mapping profiles will have the same result, but it is obvious that the second one will perform better.
 
 // For object
-	const person: Person = mapper.MapObject<PersonDto, Person>(
+	const person: Person = mapper.mapObject<PersonDto, Person>(
 		personDto,
 		new Person(),
 		profile,
 	);
 
 // For array objects
-	const personsDto: PersonDto[] = mapper.MapArray<PersonDto, Person>(
+	const personsDto: PersonDto[] = mapper.mapArray<PersonDto, Person>(
 		[personDtoOne, personDtoTwo ...],
-		() => mapper.Activator(Person),
+		() => mapper.activator(Person),
 		profile,
 	);
 ```

@@ -24,10 +24,10 @@ const resourceKey = "SOME_PARAMETERS_ARE_MISSING";
 const validator = new Validator(resources, resourceKey);
 
 /*...*/
-async Execute(userUid: string, itemDto: CarItemDto): Promise<IResult<CarItemDto>> {
+async execute(userUid: string, itemDto: CarItemDto): Promise<IResult<CarItemDto>> {
 	const result = new Result<CarItemDto>();
 	if (
-		!validator.IsValidEntry(result, {
+		!validator.isValidEntry(result, {
 			User_Identifier: userUid,
 			Car_Item: itemDto,
 			Order_Id: itemDto?.orderId,
@@ -74,28 +74,28 @@ The validation function should return `NULL` if the parameter for validate `is v
 
 ```ts
 // Validator functions created to meet your own needs
-function ValidateEmail(email: string): string {
+function validateEmail(email: string): string {
   if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
     return null;
   }
-  return resources.GetWithParams(resourceKeys.NOT_VALID_EMAIL, { email });
+  return resources.getWithParams(resourceKeys.NOT_VALID_EMAIL, { email });
 }
 
-function GreaterThan(numberName: string, base: number, evaluate: number): string {
+function greaterThan(numberName: string, base: number, evaluate: number): string {
   if (evaluate && evaluate > base) {
     return null;
   }
-  return resources.GetWithParams(resourceKeys.NUMBER_GREATER_THAN, {
+  return resources.getWithParams(resourceKeys.NUMBER_GREATER_THAN, {
     name: numberName,
     baseNumber: base.toString(),
   });
 }
 
-function EvenNumber(numberName: string, evaluate: number): string {
+function evenNumber(numberName: string, evaluate: number): string {
   if (evaluate && evaluate % 2 === 0) {
     return null;
   }
-  return resources.GetWithParams(resourceKeys.MUST_BE_EVEN_NUMBER, {
+  return resources.getWithParams(resourceKeys.MUST_BE_EVEN_NUMBER, {
     numberName,
   });
 }
@@ -104,14 +104,14 @@ function EvenNumber(numberName: string, evaluate: number): string {
 const person = new Person("Jhon", "Doe", 21, "myemail@orion.com");
 /*...*/
 const result = new Result();
-if(!validator.IsValidEntry(result, {
+if(!validator.isValidEntry(result, {
 	Name: person.name,
 	Last_Name: person.lastName,
 	Age: [
-		() => GreaterThan("Age", 25, person.age),
-		() => EvenNumber("Age", person.age),
+		() => greaterThan("Age", 25, person.age),
+		() => evenNumber("Age", person.age),
 	],
-	Email: [() => ValidateEmail(person.email)],
+	Email: [() => validateEmail(person.email)],
 })) {
 	return result;
 }
@@ -120,6 +120,31 @@ if(!validator.IsValidEntry(result, {
 	"Some parameters are missing or not valid: The number Age must be greater than 25, The Age param should be even."
 */
 ```
+
+## Object arrays validation (Basic way)
+
+The utility `only receives arrays of functions`, so you cannot send arrays of objects to validate because it does not make sense to do that since the utility will not have a clear context of what to validate in that condition.
+
+The most correct would be to perform basic validations such as the number of objects as shown in the following example or to build functions that validate more particular aspects according to the needs of each case and send these functions as validation arrays.
+
+```ts
+const people = [personOne, personTwo, ..., personN];
+const isValid = validator.isValidEntry(result, {
+  People: [() => people.length >= 1],
+});
+console.log(isValid);
+// true
+
+const people = [personOne, personTwo];
+const isValid = validator.isValidEntry(result, {
+  People: [() => people.length >= 3],
+});
+console.log(isValid);
+// false
+console.log(result.error);
+// Some parameters are missing or not valid: People.
+```
+If you send object arrays you will receive a `Throw Error as result`.
 
 ## Params for constructor
 

@@ -8,10 +8,12 @@ export class Person {
   lastName: string;
   age: number;
   email: string;
-  SetEmail(email: string): void {
+
+  setEmail(email: string): void {
     this.email = email;
   }
-  IsAnAdult(): boolean {
+
+  isAnAdult(): boolean {
     return this.age >= 10 ? true : false;
   }
 }

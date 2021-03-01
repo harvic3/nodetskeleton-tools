@@ -65,3 +65,11 @@
 ### Updated
 
 - SetData function now support optional message parameter
+
+## [2.0.0] — 2021-02-28
+
+### Updated
+
+- Methods was changed to camelCase.
+- Readme was updated.
+- Packages was updated.

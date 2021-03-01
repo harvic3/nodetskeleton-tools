@@ -22,7 +22,7 @@ var Person = (function () {
     this.lastName = lastName;
     this.age = age;
   }
-  Person.prototype.IsAnAdult = function () {
+  Person.prototype.isAnAdult = function () {
     return this.age >= 10 ? true : false;
   };
   return Person;
@@ -41,7 +41,7 @@ var OtherPerson = (function () {
       },
     };
   }
-  OtherPerson.prototype.IsAnAdult = function () {
+  OtherPerson.prototype.isAnAdult = function () {
     return this.Age >= 10 ? true : false;
   };
   return OtherPerson;
@@ -60,7 +60,7 @@ var OtherPersonTwo = (function () {
       },
     };
   }
-  OtherPersonTwo.prototype.IsAnAdult = function () {
+  OtherPersonTwo.prototype.isAnAdult = function () {
     return this.Age >= 10 ? true : false;
   };
   return OtherPersonTwo;
@@ -69,9 +69,9 @@ var OtherPersonTwo = (function () {
 var personOne = new Person("Jhon", "Doe", 30);
 var personTwo = new Person("Carl", "Sagan", new Date().getFullYear() - 1934);
 
-var personDto = mapper_tsk.default.MapObject(personOne, new PersonDto());
-var personsDto = mapper_tsk.default.MapArray([personOne, personTwo], function () {
-  return mapper_tsk.default.Activator(PersonDto);
+var personDto = mapper_tsk.default.mapObject(personOne, new PersonDto());
+var personsDto = mapper_tsk.default.mapArray([personOne, personTwo], function () {
+  return mapper_tsk.default.activator(PersonDto);
 });
 
 console.log("Object", personDto);
@@ -88,7 +88,7 @@ var profileOne = {
   "country.city.name": "country.city.name",
   "country.city.weather": "country.city.weather",
 };
-var otherPersonDtoOne = mapper_tsk.default.MapObject(
+var otherPersonDtoOne = mapper_tsk.default.mapObject(
   personThree,
   new PersonDto(),
   profileOne,
@@ -111,7 +111,7 @@ var profileTwo = {
   "Country.City.Name": "country.city.name",
   "Country.City.Weather": "country.city.weather",
 };
-var otherPersonDtoTwo = mapper_tsk.default.MapObject(
+var otherPersonDtoTwo = mapper_tsk.default.mapObject(
   personFour,
   new PersonDto(),
   profileTwo,

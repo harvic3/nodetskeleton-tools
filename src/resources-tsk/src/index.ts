@@ -3,6 +3,7 @@ export class Resources {
   private globalLanguage: string = null;
   private locals: { [key: string]: { [key: string]: string } } = null;
   resourceKeys: { [key: string]: string };
+
   constructor(
     locals: { [key: string]: { [key: string]: string } },
     localKeys: { [key: string]: string },
@@ -11,7 +12,9 @@ export class Resources {
     this.locals = locals;
     this.resourceKeys = localKeys;
     if (defaultLanguage && !this.locals[defaultLanguage]) {
-      throw new Error("Default language not found in local resources.");
+      throw new Error(
+        `Default language ${defaultLanguage} not found in local resources.`,
+      );
     }
     this.defaultLanguage = defaultLanguage;
     const keysToCheck = Object.keys(this.resourceKeys);
@@ -32,15 +35,19 @@ export class Resources {
       );
     }
   }
+
   /* Setting the default language */
-  SetDefaultLanguage(defaultLanguage: string): void {
+  setDefaultLanguage(defaultLanguage: string): void {
     if (!this.locals[defaultLanguage]) {
-      throw new Error("Default language not found in local resources.");
+      throw new Error(
+        `Default language ${defaultLanguage} not found in local resources.`,
+      );
     }
     this.defaultLanguage = defaultLanguage;
   }
+
   /* Set the current working language */
-  Init(language: string): void {
+  init(language: string): void {
     if (!language) {
       return;
     }
@@ -50,13 +57,15 @@ export class Resources {
     }
     this.globalLanguage = language;
   }
-  /* Update the current locals */
-  UpdateLocals(locals: { [key: string]: { [key: string]: string } }): void {
+
+  /* Update the current locals at any time at runtime */
+  updateLocals(locals: { [key: string]: { [key: string]: string } }): void {
     if (locals) {
       this.locals = locals;
     }
   }
-  Get(resourceName: string, language: string = null): string {
+
+  get(resourceName: string, language: string = null): string {
     if (language && this.locals[language] && this.locals[language][resourceName]) {
       return this.locals[language][resourceName];
     }
@@ -74,7 +83,8 @@ export class Resources {
     }
     throw new Error(`Resource ${resourceName} not found in any local resource.`);
   }
-  GetWithParams(
+
+  getWithParams(
     resourceName: string,
     params: { [key: string]: string },
     language: string = null,

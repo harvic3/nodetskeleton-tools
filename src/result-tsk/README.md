@@ -22,21 +22,21 @@ export class UseCaseProductGet extends BaseUseCase {
 		// We create the instance of our type of result at the beginning of the use case.
 		const result = new ResultT<ProductDto>();
 		// With the resulting object we can control validations within other functions.
-		if (!this.validator.IsValidEntry(result, { productMaskId: idMask })) {
+		if (!this.validator.isValidEntry(result, { productMaskId: idMask })) {
 			return result;
 		}
-		const product: Product = await this.productQueryService.GetByMaskId(idMask);
+		const product: Product = await this.productQueryService.getByMaskId(idMask);
 		if (!product) {
 			// The result object helps us with the error response and the code.
-			result.SetError(
-				this.resources.Get(this.resourceKeys.PRODUCT_DOES_NOT_EXIST),
+			result.setError(
+				this.resources.get(this.resourceKeys.PRODUCT_DOES_NOT_EXIST),
 				this.resultCodes.NOT_FOUND,
 			);
 			return result;
 		}
-		const productDto = this.mapper.MapObject<Product, ProductDto>(product, new ProductDto());
+		const productDto = this.mapper.mapObject<Product, ProductDto>(product, new ProductDto());
 		// The result object also helps you with the response data.
-		result.SetData(productDto, this.resultCodes.SUCCESS);
+		result.setData(productDto, this.resultCodes.SUCCESS);
 		// And finally you give it back.
 		return result;
 	}
@@ -56,10 +56,10 @@ The `result object` can help you in `unit tests` as shown below:
 ```ts
 it("should return a 400 error if quantity is null or zero", async () => {
 	itemDto.quantity = null;
-	const result = await addUseCase.Execute(userUid, itemDto);
+	const result = await addUseCase.execute(userUid, itemDto);
 	expect(result.success).toBeFalsy();
 	expect(result.error).toBe(
-		resources.GetWithParams(resourceKeys.SOME_PARAMETERS_ARE_MISSING, {
+		resources.getWithParams(resourceKeys.SOME_PARAMETERS_ARE_MISSING, {
 			missingParams: "quantity",
 		}),
 	);
@@ -76,13 +76,13 @@ export default class BaseController {
     this.router = Router();
   }
   router: RouterType;
-  HandleResult(res: Response, result: IResult): void {
+  handleResult(res: Response, result: IResult): void {
     if (result.success) {
       res
         .status(result.statusCode)
-        .json(result.message ? result.ToResultDto() : result.ToResultDto().data);
+        .json(result.message ? result.toResultDto() : result.toResultDto().data);
     } else {
-      res.status(result.statusCode).json(result.ToResultDto());
+      res.status(result.statusCode).json(result.toResultDto());
     }
   }
 }
@@ -90,7 +90,7 @@ export default class BaseController {
 // In some controller you will have lines like this:
 /*...*/
 	const textDto: TextDto = req.body;
-	this.HandleResult(res, await getLowestFeelingSentenceUseCase.Execute(textDto));
+	this.handleResult(res, await getLowestFeelingSentenceUseCase.execute(textDto));
 /*...*/
 ```
 The result obtained from this function is something like this:

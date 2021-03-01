@@ -2,7 +2,7 @@ import { IBuilderFunction } from "./IMappingProfile";
 import { IMap } from "./IMap";
 
 class Mapper implements IMap {
-  MapObject<S, D>(
+  mapObject<S, D>(
     source: S,
     destination: D,
     profile?: {
@@ -30,20 +30,20 @@ class Mapper implements IMap {
           const mappingProfile = profile[keyToMap];
 
           if (typeof mappingProfile === "string") {
-            this.CreateDeepChainingDestinationObject<D>(
+            this.createDeepChainingDestinationObject<D>(
               profile[keyToMap] as string,
               destination,
-              this.GetChainingDeepSourceObjectValue(keyToMap, source),
+              this.getChainingDeepSourceObjectValue(keyToMap, source),
               null,
             );
           } else {
-            this.CreateDeepChainingDestinationObject<D>(
+            this.createDeepChainingDestinationObject<D>(
               (mappingProfile as IBuilderFunction).destinationKey,
               destination,
               null,
               () =>
                 (mappingProfile as IBuilderFunction).mappingFunction(
-                  this.GetChainingDeepSourceObjectValue(keyToMap, source),
+                  this.getChainingDeepSourceObjectValue(keyToMap, source),
                 ),
             );
           }
@@ -56,7 +56,7 @@ class Mapper implements IMap {
     return destination;
   }
 
-  MapArray<S, D>(
+  mapArray<S, D>(
     source: S[],
     activator: () => D,
     profile?: {
@@ -69,17 +69,17 @@ class Mapper implements IMap {
     }
     source.forEach((sElement) => {
       const dElement: D = activator();
-      destination.push(this.MapObject<S, D>(sElement, dElement, profile));
+      destination.push(this.mapObject<S, D>(sElement, dElement, profile));
     });
 
     return destination;
   }
 
-  Activator<D>(type: new () => D): D {
+  activator<D>(type: new () => D): D {
     return new type();
   }
 
-  private GetChainingDeepSourceObjectValue(
+  private getChainingDeepSourceObjectValue(
     sourceChainingKeys: string,
     chainingSource: unknown,
   ): unknown {
@@ -99,13 +99,13 @@ class Mapper implements IMap {
     return value;
   }
 
-  private CreateDeepChainingDestinationObject<D>(
+  private createDeepChainingDestinationObject<D>(
     destinationChainingKeys: string,
     destination: D,
     value: unknown,
     functionValue: CallableFunction,
   ): void {
-    function DeepNavigation(
+    function deepNavigation(
       limit: number,
       index: number,
       destinationKeys: string[],
@@ -115,7 +115,7 @@ class Mapper implements IMap {
       if (!destination[key]) {
         if (index < limit) {
           destination[key] = {};
-          DeepNavigation(limit, index + 1, destinationKeys, destination[key]);
+          deepNavigation(limit, index + 1, destinationKeys, destination[key]);
         } else {
           if (!functionValue) {
             if (value && typeof value === "object") {
@@ -131,7 +131,7 @@ class Mapper implements IMap {
         }
       } else {
         if (index < limit) {
-          DeepNavigation(limit, index + 1, destinationKeys, destination[key]);
+          deepNavigation(limit, index + 1, destinationKeys, destination[key]);
         }
       }
     }
@@ -143,7 +143,7 @@ class Mapper implements IMap {
 
     const limit = destinationKeys.length - 1;
     const index = 0;
-    DeepNavigation(limit, index, destinationKeys, destination);
+    deepNavigation(limit, index, destinationKeys, destination);
   }
 }
 

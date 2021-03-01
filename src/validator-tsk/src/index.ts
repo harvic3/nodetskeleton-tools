@@ -2,7 +2,7 @@ import { IResult } from "result-tsk";
 import { Resources } from "resources-tsk";
 
 const BAD_REQUEST = "400";
-const joinSeparator = ", ";
+const JOIN_SEPARATOR = ", ";
 
 export class Validator {
   constructor(
@@ -10,7 +10,8 @@ export class Validator {
     private resourceKey: string,
     private defaultErrorCode: number | string = BAD_REQUEST,
   ) {}
-  IsValidEntry(
+
+  isValidEntry(
     result: IResult,
     paramsToValidate: {
       // eslint-disable-next-line @typescript-eslint/ban-types
@@ -27,6 +28,11 @@ export class Validator {
       } else if (Array.isArray(paramsToValidate[key])) {
         const validations: CallableFunction[] = <CallableFunction[]>paramsToValidate[key];
         validations.forEach((validation) => {
+          if (typeof validation !== "function") {
+            throw new Error(
+              "Validator-tsk only allows function arrays. It cannot pass object arrays.",
+            );
+          }
           const resultMessage = validation();
           if (resultMessage === null || resultMessage === true || resultMessage === "") {
             return;
@@ -40,9 +46,9 @@ export class Validator {
       }
     });
     if (keysNotFound.length > 0) {
-      result.SetError(
-        this.resources.GetWithParams(this.resourceKey, {
-          missingParams: keysNotFound.join(joinSeparator),
+      result.setError(
+        this.resources.getWithParams(this.resourceKey, {
+          missingParams: keysNotFound.join(JOIN_SEPARATOR),
         }),
         errorCode || this.defaultErrorCode,
       );

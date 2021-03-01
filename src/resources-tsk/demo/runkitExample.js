@@ -41,7 +41,7 @@ module.exports = resources;
 // Here finish your index file.
 
 // In localization middleware
-resources.Init("en");
+resources.init("en");
 
 // In any Use Case
 var Person = (function () {
@@ -56,9 +56,9 @@ var Person = (function () {
 
 var user = new Person("Carl", "Sagan", new Date().getFullYear() - 1934, "es");
 
-const simpleMessage = resources.Get(resourceKeys.SOMETHING_WENT_WRONG);
+const simpleMessage = resources.get(resourceKeys.SOMETHING_WENT_WRONG);
 
-const enrichedMessage = resources.GetWithParams(resourceKeys.YOUR_OWN_NEED, {
+const enrichedMessage = resources.getWithParams(resourceKeys.YOUR_OWN_NEED, {
   name: user.name,
   lastName: user.lastName,
   age: user.age,
@@ -69,9 +69,9 @@ console.log("Enriched with global language:", enrichedMessage);
 
 // Or with optional language param
 
-const simpleMessage2 = resources.Get(resourceKeys.SOMETHING_WENT_WRONG, user.language);
+const simpleMessage2 = resources.get(resourceKeys.SOMETHING_WENT_WRONG, user.language);
 
-const enrichedMessage2 = resources.GetWithParams(
+const enrichedMessage2 = resources.getWithParams(
   resourceKeys.YOUR_OWN_NEED,
   {
     name: user.name,

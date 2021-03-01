@@ -45,7 +45,7 @@ module.exports = resources;
 // Here finish your resources index file.
 
 // In localization middleware
-resources.Init("en");
+resources.init("en");
 // SET it to "es" to see the language CHANGE
 
 // Here init the index file for validator
@@ -70,7 +70,7 @@ const Person = (function () {
     this.lastName = lastName;
     this.age = age;
   }
-  Person.prototype.IsAnAdult = function () {
+  Person.prototype.isAnAdult = function () {
     return this.age >= 18 ? true : false;
   };
   return Person;
@@ -89,11 +89,11 @@ const resultFour = new result_tsk.ResultT();
 const resultFive = new result_tsk.ResultT();
 
 // Validator function - You can build your own according to your own needs
-function GreaterThan(numberName, base, evaluate) {
+function greaterThan(numberName, base, evaluate) {
   if (evaluate && evaluate > base) {
     return null;
   }
-  return resources.GetWithParams(resourceKeys.NUMBER_GREATER_THAN, {
+  return resources.getWithParams(resourceKeys.NUMBER_GREATER_THAN, {
     name: numberName,
     baseNumber: base.toString(),
   });
@@ -101,7 +101,7 @@ function GreaterThan(numberName, base, evaluate) {
 
 console.log(
   "Person One is Valid?",
-  validator.IsValidEntry(resultOne, {
+  validator.isValidEntry(resultOne, {
     Name: personOne.name,
     Last_Name: personOne.lastName,
     Age: personOne.age,
@@ -111,7 +111,7 @@ console.log(
 
 console.log(
   "Person Two is Valid?",
-  validator.IsValidEntry(resultTwo, {
+  validator.isValidEntry(resultTwo, {
     Name: personTwo.name,
     Last_Name: personTwo.lastName,
     Age: personTwo.age,
@@ -121,7 +121,7 @@ console.log(
 
 console.log(
   "Person Three is Valid?",
-  validator.IsValidEntry(resultThree, {
+  validator.isValidEntry(resultThree, {
     Name: personThree.name,
     Last_Name: personThree.lastName,
     Age: personThree.age,
@@ -131,20 +131,20 @@ console.log(
 
 console.log(
   "Person Four is Valid?",
-  validator.IsValidEntry(resultFour, {
+  validator.isValidEntry(resultFour, {
     Name: personFour.name,
     Last_Name: personFour.lastName,
-    Age: [() => GreaterThan("Age", 18, personFour.age)],
+    Age: [() => greaterThan("Age", 18, personFour.age)],
   }),
   resultFour,
 );
 
 console.log(
   "Person Five is Valid?",
-  validator.IsValidEntry(resultFive, {
+  validator.isValidEntry(resultFive, {
     Name: personFive.name,
     Last_Name: personFive.lastName,
-    Age: [() => GreaterThan("Age", 18, personFive.age)],
+    Age: [() => greaterThan("Age", 18, personFive.age)],
   }),
   resultFive,
 );

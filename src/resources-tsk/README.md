@@ -82,14 +82,14 @@ Okay, so now you can use your resources where you need them, an example would be
 ```ts
 import resources, { resourceKeys } from "../locals/index";
 
-const simpleMessage = resources.Get(resourceKeys.ITEM_PRODUCT_DOES_NOT_EXIST);
+const simpleMessage = resources.get(resourceKeys.ITEM_PRODUCT_DOES_NOT_EXIST);
 
-const enrichedMessage = resources.GetWithParams(resourceKeys.SOME_PARAMETERS_ARE_MISSING, {
+const enrichedMessage = resources.getWithParams(resourceKeys.SOME_PARAMETERS_ARE_MISSING, {
 	missingParams: keysNotFound.join(", "),
 });
 
 // You can add enriched messages according to your own needs, for example:
-const yourEnrichedMessage = resources.GetWithParams(resourceKeys.YOUR_OWN_NEED, {
+const yourEnrichedMessage = resources.getWithParams(resourceKeys.YOUR_OWN_NEED, {
 	name: firstName, lastName, age: userAge
 });
 /*
@@ -109,14 +109,14 @@ And you can add all the parameters you need with as many messages in your applic
 import resources from "../locals/index";
 
 // add this line into your localization function considering the web framework you're using
-resources.Init(req.headers["accept-language"] || defaultLang);
+resources.init(req.headers["accept-language"] || defaultLang);
 ```
 But if you prefer, applying the concept of `pure function`, you have the option to pass the `optional language parameter` in the functions to get the parameters as shown below:
 
 ```ts
-const message = resources.Get(localKeys.SOMETHING_WENT_WRONG, user.language);
+const message = resources.get(localKeys.SOMETHING_WENT_WRONG, user.language);
 // Or
-const enrichedMessage = resources.GetWithParams(
+const enrichedMessage = resources.getWithParams(
 	localKeys.NOT_VALID_EMAIL,
 	{ email: user.email },
 	user.language,

@@ -13,14 +13,14 @@ export class PersonFromService {
   Country: CountryFromService;
   IsActive: boolean;
 
-  SetCountry(country: CountryFromService): void {
+  setCountry(country: CountryFromService): void {
     this.Country = country;
   }
-  IsAnAdult(): boolean {
+  ssAnAdult(): boolean {
     return this.Age >= 10 ? true : false;
   }
 
-  static MapToPersonDomain(person: PersonFromService): Person {
+  static mapToPersonDomain(person: PersonFromService): Person {
     const newPerson = new Person(
       person.Name,
       person.LastName,
@@ -28,7 +28,7 @@ export class PersonFromService {
       person.IsActive,
     );
     const city = new City(person.Country.City.Name, person.Country.City.Weather);
-    newPerson.SetCountry(new Country(person.Country.Name, city));
+    newPerson.setCountry(new Country(person.Country.Name, city));
     return newPerson;
   }
 }
@@ -41,7 +41,7 @@ export class CityFromService {
   Name: string;
   Weather: string;
 
-  static MapToCityDomain(city: CityFromService): City {
+  static mapToCityDomain(city: CityFromService): City {
     return new City(city.Name, city.Weather);
   }
 }
@@ -54,8 +54,8 @@ export class CountryFromService {
   Name: string;
   City: CityFromService;
 
-  static MapToCountryDomain(country: CountryFromService): Country {
-    const city = CityFromService.MapToCityDomain(country.City);
+  static mapToCountryDomain(country: CountryFromService): Country {
+    const city = CityFromService.mapToCityDomain(country.City);
     return new Country(country.Name, city);
   }
 }

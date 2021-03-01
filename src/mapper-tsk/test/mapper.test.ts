@@ -14,9 +14,9 @@ const weather = "Temperate";
 const city = new City(cityName, weather);
 const country = new Country(countryName, city);
 const personOne = new Person("John", "Doe", 30, true);
-personOne.SetCountry(country);
+personOne.setCountry(country);
 const personTwo = new Person("Nikola", "Tesla", 76, false);
-personTwo.SetCountry(country);
+personTwo.setCountry(country);
 
 const cityFromService = new CityFromService(cityName, weather);
 const countryFromService = new CountryFromService(countryName, cityFromService);
@@ -26,18 +26,18 @@ const servicePersonOne = new PersonFromService(
   personOne.age,
   personOne.isActive,
 );
-servicePersonOne.SetCountry(countryFromService);
+servicePersonOne.setCountry(countryFromService);
 const servicePersonTwo = new PersonFromService(
   personTwo.name,
   personTwo.lastName,
   personOne.age,
   personTwo.isActive,
 );
-servicePersonTwo.SetCountry(countryFromService);
+servicePersonTwo.setCountry(countryFromService);
 
 describe("when use a mapper", () => {
   it("should be return a object when map a another object", () => {
-    const personDto: PersonDto = mapper.MapObject<Person, PersonDto>(
+    const personDto: PersonDto = mapper.mapObject<Person, PersonDto>(
       personOne,
       new PersonDto(),
     );
@@ -47,9 +47,9 @@ describe("when use a mapper", () => {
     expect(personDto.isActive).toBe(personOne.isActive);
   });
   it("should be return a array object when map a another array object", () => {
-    const personsDto: PersonDto[] = mapper.MapArray<Person, PersonDto>(
+    const personsDto: PersonDto[] = mapper.mapArray<Person, PersonDto>(
       [personOne, personTwo],
-      () => mapper.Activator(PersonDto),
+      () => mapper.activator(PersonDto),
     );
     expect(personsDto[0].name).toBe(personOne.name);
     expect(personsDto[0].lastName).toBe(personOne.lastName);
@@ -72,10 +72,10 @@ describe("when use a mapper", () => {
       "Country.Name": "country.name",
       "Country.City": {
         destinationKey: "country.city",
-        mappingFunction: CityFromService.MapToCityDomain,
+        mappingFunction: CityFromService.mapToCityDomain,
       },
     };
-    const personDto: PersonDto = mapper.MapObject<PersonFromService, PersonDto>(
+    const personDto: PersonDto = mapper.mapObject<PersonFromService, PersonDto>(
       servicePersonOne,
       new PersonDto(),
       profile,
@@ -96,16 +96,16 @@ describe("when use a mapper", () => {
       IsActive: "isActive",
       Country: {
         destinationKey: "country",
-        mappingFunction: CountryFromService.MapToCountryDomain,
+        mappingFunction: CountryFromService.mapToCountryDomain,
       },
       "Country.City": {
         destinationKey: "country.city",
-        mappingFunction: CityFromService.MapToCityDomain,
+        mappingFunction: CityFromService.mapToCityDomain,
       },
     };
-    const personsDto: PersonDto[] = mapper.MapArray<PersonFromService, PersonDto>(
+    const personsDto: PersonDto[] = mapper.mapArray<PersonFromService, PersonDto>(
       [servicePersonOne, servicePersonTwo],
-      () => mapper.Activator(PersonDto),
+      () => mapper.activator(PersonDto),
       profile,
     );
 

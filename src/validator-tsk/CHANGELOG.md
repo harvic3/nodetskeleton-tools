@@ -113,3 +113,12 @@
 ### Updated
 
 - errorCode now can be number o string.
+
+## [2.0.0] — 2021-02-28
+
+### Updated
+
+- Throw error when send object arrays for validation.
+- Methods was changed to camelCase.
+- Readme was updated.
+- Packages was updated.

@@ -7,7 +7,7 @@ export class Person {
   name: string;
   lastName: string;
   age: number;
-  IsAnAdult(): boolean {
+  isAnAdult(): boolean {
     return this.age >= 10 ? true : false;
   }
 }

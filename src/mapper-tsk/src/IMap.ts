@@ -1,19 +1,19 @@
 import { IBuilderFunction } from "./IMappingProfile";
 
 export interface IMap {
-  MapObject<S, D>(
+  mapObject<S, D>(
     source: S,
     destination: D,
     profile?: {
       [sourceKey: string]: string | IBuilderFunction;
     },
   ): D;
-  MapArray<S, D>(
+  mapArray<S, D>(
     source: S[],
     activator: () => D,
     profile?: {
       [sourceKey: string]: string | IBuilderFunction;
     },
   ): D[];
-  Activator<D>(type: new () => D): D;
+  activator<D>(type: new () => D): D;
 }

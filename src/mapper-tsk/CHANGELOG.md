@@ -72,3 +72,11 @@
 - Setting for tsconfig was changed, lib to ES2020 and target to es6.
 - Mapping profile strategy was changed, now it supports building functions.
 - Packages was updated.
+
+## [2.0.0] — 2021-02-28
+
+### Updated
+
+- Methods was changed to camelCase.
+- Readme was updated.
+- Packages was updated.

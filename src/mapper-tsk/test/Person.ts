@@ -11,10 +11,10 @@ export class Person {
   country: Country;
   isActive: boolean;
 
-  SetCountry(country: Country): void {
+  setCountry(country: Country): void {
     this.country = country;
   }
-  IsAnAdult(): boolean {
+  isAnAdult(): boolean {
     return this.age >= 10 ? true : false;
   }
 }

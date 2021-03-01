@@ -25,42 +25,49 @@ const user = {
   email: "carlsagan@milkyway.",
 };
 
-describe("when using resources", () => {
-  it("It must throw an error if the resources for default language does not exist", () => {
+describe("When using resources", () => {
+  it("Must throw an error if the resources for default language does not exist", () => {
     const resources = () => new Resources(locals, resourceKeys, "it");
-    expect(resources).toThrowError("Default language not found in local resources.");
+    expect(resources).toThrowError("Default language it not found in local resources.");
   });
-  it("It should throw an error if any key or exists in any language resource.", () => {
+  it("Must throw an error if the resources for default language does not exist when call setDefaultLanguage function", () => {
+    const resources = new Resources(locals, resourceKeys, defaultLanguage);
+    const setDefaultLanguage = () => resources.setDefaultLanguage("it");
+    expect(setDefaultLanguage).toThrowError(
+      "Default language it not found in local resources.",
+    );
+  });
+  it("Should throw an error if any key or exists in any language resource.", () => {
     const resources = () => new Resources(locals, fakeResourcesKeys, defaultLanguage);
     expect(resources).toThrowError(
       "The messages for es: FAKE_ONE, en: FAKE_ONE, es: FAKE_TWO, en: FAKE_TWO was not found in local resources.",
     );
   });
-  it("it must show an error if the resource does not exist", () => {
+  it("Must show an error if the resource does not exist", () => {
     const resources = new Resources(locals, resourceKeys, defaultLanguage);
-    resources.Init("es");
-    const resource = () => resources.Get("NOT_EXISTING_MESSAGE");
+    resources.init("es");
+    const resource = () => resources.get("NOT_EXISTING_MESSAGE");
     expect(resource).toThrowError(
       "Resource NOT_EXISTING_MESSAGE not found in any local resource.",
     );
   });
-  it("it should return a valid resource message with global language with get function called", () => {
+  it("Should return a valid resource message with global language with get function called", () => {
     const resources = new Resources(locals, resourceKeys, defaultLanguage);
-    resources.Init("es");
-    const resource = resources.Get(localKeys.SOMETHING_WENT_WRONG);
+    resources.init("es");
+    const resource = resources.get(localKeys.SOMETHING_WENT_WRONG);
     expect(resource).toBe(locals.es.SOMETHING_WENT_WRONG);
   });
-  it("it should return a valid resource message with language param in get function", () => {
+  it("Should return a valid resource message with language param in get function", () => {
     const resources = new Resources(locals, resourceKeys, defaultLanguage);
-    resources.Init("en");
-    const resource = resources.Get(localKeys.SOMETHING_WENT_WRONG, user.language);
+    resources.init("en");
+    const resource = resources.get(localKeys.SOMETHING_WENT_WRONG, user.language);
     expect(resource).toBe(locals.es.SOMETHING_WENT_WRONG);
   });
-  it("it should return a valid resource message with language param in getWithParams function", () => {
+  it("Should return a valid resource message with language param in getWithParams function", () => {
     const resources = new Resources(locals, resourceKeys, defaultLanguage);
-    resources.Init("es");
+    resources.init("es");
     user.language = "en";
-    const resource = resources.GetWithParams(
+    const resource = resources.getWithParams(
       localKeys.NOT_VALID_EMAIL,
       { email: user.email },
       user.language,

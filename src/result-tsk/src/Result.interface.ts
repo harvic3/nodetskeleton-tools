@@ -5,10 +5,11 @@ export interface IResult {
   success: boolean;
   message: string;
   error: string;
-  SetStatusCode(statusCode: number | string, success: boolean): void;
-  SetMessage(message: string, statusCode: number | string): void;
-  SetError(error: string, statusCode: number | string): void;
-  ToResultDto(): ResultDto;
+
+  setStatusCode(statusCode: number | string, success: boolean): void;
+  setMessage(message: string, statusCode: number | string): void;
+  setError(error: string, statusCode: number | string): void;
+  toResultDto(): ResultDto;
 }
 
-export type IBaseResult = Omit<IResult, "ToResultDto">;
+export type IBaseResult = Omit<IResult, "toResultDto">;
