@@ -2,10 +2,10 @@ import { Validator } from "../src/index";
 import { Resources } from "resources-tsk";
 import { Result } from "result-tsk";
 
-import * as esLocal from "../../resources-tsk/test/locals/resources/es.local.json";
-import * as enLocal from "../../resources-tsk/test/locals/resources/en.local.json";
+import esLocal from "../../resources-tsk/test/locals/resources/es.local";
+import enLocal from "../../resources-tsk/test/locals/resources/en.local";
 
-import * as localKeys from "../../resources-tsk/test/locals/resources/keys.json";
+import localKeys from "../../resources-tsk/test/locals/resources/keys";
 import { Person } from "./Person";
 
 const locals = {

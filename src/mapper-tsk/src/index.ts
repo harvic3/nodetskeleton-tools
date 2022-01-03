@@ -5,9 +5,7 @@ class Mapper implements IMap {
   mapObject<S, D>(
     source: S,
     destination: D,
-    profile?: {
-      [sourceKey: string]: string | IBuilderFunction;
-    },
+    profile?: Record<string, string | IBuilderFunction>,
   ): D {
     if (!source) {
       return destination;
@@ -59,9 +57,7 @@ class Mapper implements IMap {
   mapArray<S, D>(
     source: S[],
     activator: () => D,
-    profile?: {
-      [sourceKey: string]: string | IBuilderFunction;
-    },
+    profile?: Record<string, string | IBuilderFunction>,
   ): D[] {
     const destination: D[] = [];
     if (source?.length === 0) {

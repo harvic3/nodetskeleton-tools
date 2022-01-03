@@ -2,20 +2,21 @@
   "version": "4.2.2",
   "compilerOptions": {
     "lib": ["ES2020"],
-    "outDir": "dist",
+    "outDir": "lib",
     "sourceMap": true,
     "target": "es6",
     "module": "commonjs",
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "resolveJsonModule": false,
+    "resolveJsonModule": true,
     "allowJs": true,
     "allowSyntheticDefaultImports": false,
     "alwaysStrict": true,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "declaration": true
   },
-  "exclude": ["./src/**/test", "./**/*.test.ts", "./src/**/demo"],
+  "exclude": ["./src/**/test/", "./**/*.test.ts"],
   "include": ["./src/**/*"]
 }

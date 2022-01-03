@@ -95,3 +95,9 @@
 - Readme was updated.
 - Packages was updated.
 - More test was added.
+
+## [2.0.1] — 2022-01-02
+
+### Updated
+
+- Types was refactoring

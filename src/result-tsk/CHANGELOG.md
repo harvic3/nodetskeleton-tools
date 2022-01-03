@@ -73,3 +73,9 @@
 - Methods was changed to camelCase.
 - Readme was updated.
 - Packages was updated.
+
+## [2.0.1] — 2022-01-02
+
+### Updated
+
+- Types was refactoring

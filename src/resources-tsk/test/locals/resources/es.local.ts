@@ -1,0 +1,11 @@
+export default {
+  SOMETHING_WENT_WRONG: "Oh, lo sentimos, algo no salió bien con esta acción!",
+  SOME_PARAMETERS_ARE_MISSING:
+    "Faltan algunos parámetros o no son válidos: {{missingParams}}.",
+  PROCESSING_DATA_CLIENT_ERROR: "Error procesando la data en el cliente http.",
+  TEXT_FEELING_SERVICE_ERROR: "Error inesperado con el servicio de sentimiento.",
+  AUTHORIZATION_REQUIRED: "La autorización es requerida.",
+  NOT_VALID_EMAIL: "El email {{email}} no es válido",
+  NUMBER_GREATER_THAN: "El número {{name}} debe ser mayor a {{baseNumber}}",
+  MUST_BE_EVEN_NUMBER: "El parámetro {{numberName}} debe ser par",
+};

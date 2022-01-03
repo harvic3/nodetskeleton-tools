@@ -1,14 +1,13 @@
 {
-  "name": "resources-tsk",
-  "version": "2.0.1",
-  "description": "resource tool for use with or without NodeTskeleton template project",
+  "name": "result-tsk",
+  "version": "1.2.2",
+  "description": "result tool for use with or without NodeTskeleton template project",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/harvic3/nodetskeleton-tools.git"
+    "url": "https://github.com/harvic3/nodetskeleton-tools"
   },
   "keywords": [
-    "resources",
-    "locals",
+    "result",
     "tskeleton",
     "work flow",
     "flow control",
@@ -16,7 +15,7 @@
   ],
   "author": "Vickodev<harvic3@ingenieros.com>",
   "license": "MIT",
-  "homepage": "https://github.com/harvic3/nodetskeleton-tools/blob/master/src/resources-tsk/README.md",
+  "homepage": "https://github.com/harvic3/nodetskeleton-tools/blob/master/src/result-tsk/README.md",
   "bugs": {
     "url": "https://github.com/harvic3/nodetskeleton-tools/issues"
   },

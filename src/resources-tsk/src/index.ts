@@ -1,12 +1,12 @@
 export class Resources {
   private defaultLanguage: string = null;
   private globalLanguage: string = null;
-  private locals: { [key: string]: { [key: string]: string } } = null;
-  resourceKeys: { [key: string]: string };
+  private locals: Record<string, Record<string, string>> = null;
+  resourceKeys: Record<string, string>;
 
   constructor(
-    locals: { [key: string]: { [key: string]: string } },
-    localKeys: { [key: string]: string },
+    locals: Record<string, Record<string, string>>,
+    localKeys: Record<string, string>,
     defaultLanguage?: string,
   ) {
     this.locals = locals;
@@ -59,7 +59,7 @@ export class Resources {
   }
 
   /* Update the current locals at any time at runtime */
-  updateLocals(locals: { [key: string]: { [key: string]: string } }): void {
+  updateLocals(locals: Record<string, Record<string, string>>): void {
     if (locals) {
       this.locals = locals;
     }
@@ -86,7 +86,7 @@ export class Resources {
 
   getWithParams(
     resourceName: string,
-    params: { [key: string]: string },
+    params: Record<string, string>,
     language: string = null,
   ): string {
     let resource: string = null;

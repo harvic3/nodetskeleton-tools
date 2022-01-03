@@ -58,11 +58,11 @@ In the `validation process` the result of messages obtained will be inserted in 
 
 ### Validations functions (New Feature 🤩)
 
-The `validation functions` extend the `IsValidEntry` method to inject `small functions` created for `your own needs`.
+The `validation functions` extend the `isValidEntry` method to inject `small functions` created for `your own needs`.
 
 The philosophy of this tool is that `it adapts to your own needs` and not that you adapt to it.
 
-To do this the `IsValidEntry function` input value key pair also accepts `array of small functions` that must perform a specific task with the parameter to be validated.
+To do this the `isValidEntry function` input value key pair also accepts `array of small functions` that must perform a specific task with the parameter to be validated.
 
 ### Observation
 

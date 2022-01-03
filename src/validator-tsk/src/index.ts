@@ -4,20 +4,24 @@ import { Resources } from "resources-tsk";
 const BAD_REQUEST = "400";
 const JOIN_SEPARATOR = ", ";
 
+type ValidationType = Record<
+  string,
+  string | number | undefined | null | unknown | CallableFunction[]
+>;
+
+type ErrorType = number | string;
+
 export class Validator {
   constructor(
     private resources: Resources,
     private resourceKey: string,
-    private defaultErrorCode: number | string = BAD_REQUEST,
+    private defaultErrorCode: ErrorType = BAD_REQUEST,
   ) {}
 
   isValidEntry(
     result: IResult,
-    paramsToValidate: {
-      // eslint-disable-next-line @typescript-eslint/ban-types
-      [key: string]: string | number | undefined | null | object | CallableFunction[];
-    },
-    errorCode?: number | string,
+    paramsToValidate: ValidationType,
+    errorCode?: ErrorType,
   ): boolean {
     let isValid = true;
     const keysToValidate = Object.keys(paramsToValidate);
