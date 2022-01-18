@@ -106,14 +106,26 @@ export class Resources {
     if (!resource) {
       throw new Error(`Resource ${resourceName} not found in any local resource.`);
     }
+
+    return Resources.applyPattern(resource, params);
+  }
+
+  static replaceParams(text: string, params: Record<string, string>): string {
+    if (!text || !params) return null;
+
+    return Resources.applyPattern(text, params);
+  }
+
+  private static applyPattern(text: string, params: Record<string, string>): string {
     const keys = Object.keys(params);
     keys.forEach((key) => {
       const pattern = `({{)${key}(}})`;
       const regex = RegExp(pattern);
-      while (regex.test(resource)) {
-        resource = resource.replace(`{{${key}}}`, params[key]);
+      while (regex.test(text)) {
+        text = text.replace(`{{${key}}}`, params[key]);
       }
     });
-    return resource;
+
+    return text;
   }
 }

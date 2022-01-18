@@ -74,4 +74,12 @@ describe("When using resources", () => {
     );
     expect(resource).toBe(locals.en.NOT_VALID_EMAIL.replace("{{email}}", user.email));
   });
+  it("Should return a valid text with replaces values with replaceParams function", () => {
+    const text = "This is a text with {{name}} and {{lastName}}";
+    const params = { name: user.name, lastName: user.lastName };
+    const resource = Resources.replaceParams(text, params);
+    expect(resource).toBe(
+      text.replace("{{name}}", user.name).replace("{{lastName}}", user.lastName),
+    );
+  });
 });

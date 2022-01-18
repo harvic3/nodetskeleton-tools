@@ -123,6 +123,24 @@ const enrichedMessage = resources.getWithParams(
 );
 ```
 
+## Replace function
+
+> The library provides a static function to replace keys into text like this:
+
+```ts
+import { Resources } from "resources-tsk";
+
+const text = "This is a text with {{name}} and {{lastName}}.";
+const params = { 
+	name: "Carl",
+	lastName: "Sagan",
+};
+
+const textReady = Resources.replaceParams(text, params);
+console.log(textReady);
+// This is a text with Carl and Sagan.
+```
+
 ## RunKit demo
 
 Go to this <a href="https://runkit.com/harvic3/demo-resources-tsk" target="_blank" >Link</a> or click in `Try on RunKit button` on the right side of the page.

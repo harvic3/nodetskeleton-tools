@@ -101,3 +101,9 @@
 ### Updated
 
 - Types was refactoring
+
+## [2.1.0] — 2022-01-18
+
+### Added
+
+- Function for replace key params into text was added.
