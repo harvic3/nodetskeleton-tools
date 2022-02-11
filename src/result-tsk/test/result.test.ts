@@ -122,7 +122,7 @@ describe("when use a result", () => {
     expect(resultDto.error).toBeUndefined();
     expect(resultDto.message).toBe("Entity was created.");
   });
-   it("it must allow the use of the generic type class with object data, message and add metadata", () => {
+  it("it must allow the use of the generic type class with object data, message and add metadata", () => {
     const result = new ResultT<Person>();
     const person = new Person("Jhon", "Doe", 17);
     result.setData(person, 200);

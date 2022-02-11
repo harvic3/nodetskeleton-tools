@@ -12,7 +12,7 @@ export interface IResult {
   setMessage(message: string, statusCode: number | string): void;
   setError(error: string, statusCode: number | string): void;
   toResultDto(): ResultDto;
-  setMetadata(headers: Metadata): void
+  setMetadata(headers: Metadata): void;
   addMetadata(key: string, value: string | number): void;
   getMetadata(): Metadata;
   hasMetaData(): boolean;
