@@ -85,3 +85,9 @@
 ### Updated
 
 - Feature to add metadata to result response was added
+
+## [2.1.1] — 2022-02-10
+
+### Updated
+
+- Fix function name

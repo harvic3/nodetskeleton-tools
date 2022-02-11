@@ -21,7 +21,7 @@ export class Result implements IResult {
     return this.#metadata;
   }
 
-  hasMetaData(): boolean {
+  hasMetadata(): boolean {
     return !!this.#metadata && Object.keys(this.#metadata).length > 0;
   }
 

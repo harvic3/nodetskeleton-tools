@@ -125,7 +125,7 @@ addMetadata(key: string, value: string | number): void;
 // Get object metadata
 getMetadata(): Metadata;
 // Verify if has metadata
-hasMetaData(): boolean;
+hasMetadata(): boolean;
 ```
 
 It is important to note that the metadata will not be resolved as part of the response when executing the `toResultDto` method.

@@ -15,7 +15,7 @@ export interface IResult {
   setMetadata(headers: Metadata): void;
   addMetadata(key: string, value: string | number): void;
   getMetadata(): Metadata;
-  hasMetaData(): boolean;
+  hasMetadata(): boolean;
 }
 
 export type IBaseResult = Omit<IResult, "toResultDto">;
