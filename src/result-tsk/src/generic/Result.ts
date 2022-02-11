@@ -1,12 +1,31 @@
+import { Metadata } from "../Result.interface";
 import { IResult } from "./Result.interface";
 import { ResultDto } from "../ResultDto";
 
 export class Result<T> implements IResult<T> {
+  #metadata: Metadata;
   data: T | string;
   statusCode: number | string;
   success: boolean;
   message: string;
   error: string;
+
+  setMetadata(metadata: Metadata): void {
+    this.#metadata = metadata;
+  }
+
+  addMetadata(key: string, value: string | number): void {
+    if (!this.#metadata) this.#metadata = {};
+    this.#metadata[key] = value;
+  }
+
+  getMetadata(): Metadata {
+    return this.#metadata;
+  }
+
+  hasMetaData(): boolean {
+    return !!this.#metadata && Object.keys(this.#metadata).length > 0;
+  }
 
   setStatusCode(statusCode: number | string, success: boolean): void {
     this.statusCode = statusCode;

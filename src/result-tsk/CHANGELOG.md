@@ -79,3 +79,9 @@
 ### Updated
 
 - Types was refactoring
+
+## [2.1.0] — 2022-02-10
+
+### Updated
+
+- Feature to add metadata to result response was added

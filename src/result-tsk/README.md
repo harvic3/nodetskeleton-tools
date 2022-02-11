@@ -112,6 +112,33 @@ The result obtained from this function is something like this:
 
 Only properties that `are not NULL or UNDEFINED` will be considered when resolving the result.
 
+## Metadata
+
+In some cases you may need to add metadata as part of the result to use in the adapter layer as part of the response or for special purposes, so you have the following functions.
+
+```ts
+// Metadata is a Record<string, any> type like { [key: string]: any }
+// Method for add object metadata 
+setMetadata(headers: Metadata): void
+// Method for add a key value pair metadata
+addMetadata(key: string, value: string | number): void;
+// Get object metadata
+getMetadata(): Metadata;
+// Verify if has metadata
+hasMetaData(): boolean;
+```
+
+It is important to note that the metadata will not be resolved as part of the response when executing the `toResultDto` method.
+
+```ts
+// The result object also helps you with the metadata for use in adapter layer.
+result.setData(productDto, this.resultCodes.SUCCESS);
+result.addMetadata("keyOne", "valueOne");
+result.addMetadata("keyTwo", 100);
+// Or set an object
+result.setMetadata({ keyOne: "valueOne", keyTwo: 100, keyN: "valueN" });
+```
+
 ## RunKit demo
 
 Go to this <a href="https://runkit.com/harvic3/demo-result-tsk" target="_blank" >Link</a> or click in `Try on RunKit button` on the right side of the page.
