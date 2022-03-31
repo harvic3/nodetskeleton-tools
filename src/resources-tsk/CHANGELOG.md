@@ -107,3 +107,9 @@
 ### Added
 
 - Function for replace key params into text was added.
+
+## [2.0.1] — 2022-01-02
+
+### Updated
+
+- Access control for resource was changed and some params was renamed
