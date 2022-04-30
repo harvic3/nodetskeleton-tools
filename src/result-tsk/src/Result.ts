@@ -42,6 +42,10 @@ export class Result implements IResult {
     this.success = false;
   }
 
+  hasError(): boolean {
+    return !!this.error;
+  }
+
   toResultDto(): ResultDto {
     const result = new ResultDto();
     result.error = this.error;

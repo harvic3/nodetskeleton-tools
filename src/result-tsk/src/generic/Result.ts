@@ -44,6 +44,10 @@ export class Result<T> implements IResult<T> {
     this.success = false;
   }
 
+  hasError(): boolean {
+    return !!this.error;
+  }
+
   setData(data: string | T, statusCode: number | string, message?: string): void {
     this.data = data;
     this.statusCode = statusCode;

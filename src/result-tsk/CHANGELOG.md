@@ -91,3 +91,9 @@
 ### Updated
 
 - Fix function name
+
+## [2.1.2] — 2022-04-29
+
+### Feature
+
+- Function to validate if error was added

@@ -34,6 +34,9 @@ export class UseCaseProductGet extends BaseUseCase {
 			);
 			return result;
 		}
+		// Or
+		if (result.hasError()) return result;
+
 		const productDto = this.mapper.mapObject<Product, ProductDto>(product, new ProductDto());
 		// The result object also helps you with the response data.
 		result.setData(productDto, this.resultCodes.SUCCESS);
@@ -64,6 +67,8 @@ it("should return a 400 error if quantity is null or zero", async () => {
 		}),
 	);
 	expect(result.statusCode).toBe(resultCodes.BAD_REQUEST);
+	// Or you can create a ResultMock builder to do the following
+	expect(result).toEqual(resultBuilder);
 });
 ```
 The `result object` has a method named `ToResultDto`, you must `call this method to reconstruct the result` that will be returned to the client, normally this must be done in the `request handler` (controller).
