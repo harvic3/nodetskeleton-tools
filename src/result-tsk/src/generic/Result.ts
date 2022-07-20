@@ -48,6 +48,14 @@ export class Result<T> implements IResult<T> {
     return !!this.error;
   }
 
+  hasMessage(): boolean {
+    return !!this.message;
+  }
+
+  hasData(): boolean {
+    return !!this.data;
+  }
+
   setData(data: string | T, statusCode: number | string, message?: string): void {
     this.data = data;
     this.statusCode = statusCode;

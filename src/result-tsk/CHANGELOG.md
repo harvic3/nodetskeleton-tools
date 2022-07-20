@@ -97,3 +97,9 @@
 ### Feature
 
 - Function to validate if error was added
+
+## [2.1.3] — 2022-07-20
+
+### Feature
+
+- Packages was updated
