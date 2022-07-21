@@ -1,7 +1,7 @@
 {
   "name": "validator-tsk",
-  "version": "2.0.1",
-  "description": "validator tool for use with or without NodeTskeleton template project",
+  "version": "2.0.2",
+  "description": "validator tool to use with or without NodeTskeleton template project",
   "repository": {
     "type": "git",
     "url": "https://github.com/harvic3/nodetskeleton-tools"
@@ -32,11 +32,11 @@
     "upload": "npm run build && npm publish"
   },
   "devDependencies": {
-    "@types/node": "^14.14.31",
-    "typescript": "^4.2.2"
+    "@types/node": "^18.0.6",
+    "typescript": "^4.7.4"
   },
   "dependencies": {
-    "resources-tsk": "^2.0.1",
-    "result-tsk": "^2.0.1"
+    "resources-tsk": "^2.1.2",
+    "result-tsk": "^2.1.3"
   }
 }

@@ -128,3 +128,9 @@
 ### Updated
 
 - Types was refactoring
+
+## [2.0.2] — 2022-07-20
+
+### Feature
+
+- Packages was updated and some improvements were done

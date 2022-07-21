@@ -113,3 +113,9 @@
 ### Updated
 
 - Access control for resource was changed and some params was renamed
+
+## [2.1.2] — 2022-07-20
+
+### Feature
+
+- Packages was updated

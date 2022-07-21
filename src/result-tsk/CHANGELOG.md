@@ -102,4 +102,4 @@
 
 ### Feature
 
-- Packages was updated
+- Packages was updated and some methods was added

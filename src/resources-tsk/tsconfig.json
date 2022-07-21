@@ -1,5 +1,5 @@
 {
-  "version": "4.6.3",
+  "version": "4.7.4",
   "compilerOptions": {
     "lib": ["ES2020"],
     "outDir": "lib",

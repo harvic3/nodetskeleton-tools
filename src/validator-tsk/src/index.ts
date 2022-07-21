@@ -1,5 +1,5 @@
-import { IResult } from "result-tsk";
 import { Resources } from "resources-tsk";
+import { IResult } from "result-tsk";
 
 const BAD_REQUEST = "400";
 const JOIN_SEPARATOR = ", ";
@@ -27,7 +27,7 @@ export class Validator {
     const keysToValidate = Object.keys(paramsToValidate);
     const keysNotFound: string[] = [];
     keysToValidate.forEach((key) => {
-      if (!paramsToValidate[key]) {
+      if (!Reflect.has(paramsToValidate, key) || !Reflect.get(paramsToValidate, key)) {
         keysNotFound.push(key);
       } else if (Array.isArray(paramsToValidate[key])) {
         const validations: CallableFunction[] = <CallableFunction[]>paramsToValidate[key];
@@ -49,7 +49,7 @@ export class Validator {
         });
       }
     });
-    if (keysNotFound.length > 0) {
+    if (!!keysNotFound.length) {
       result.setError(
         this.resources.getWithParams(this.resourceKey, {
           missingParams: keysNotFound.join(JOIN_SEPARATOR),
