@@ -1,0 +1,42 @@
+{
+  "name": "dic-tsk",
+  "version": "1.0.0",
+  "description": "Simple and powerful dependency invertion container to use with or without NodeTskeleton template project",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/harvic3/nodetskeleton-tools"
+  },
+  "keywords": [
+    "dic",
+    "di",
+    "tskeleton",
+    "container",
+    "dependency",
+    "injection",
+    "tool"
+  ],
+  "author": "Vickodev<harvic3@ingenieros.com>",
+  "license": "MIT",
+  "homepage": "https://github.com/harvic3/nodetskeleton-tools/blob/master/src/mapper-tsk/README.md",
+  "bugs": {
+    "url": "https://github.com/harvic3/nodetskeleton-tools/issues"
+  },
+  "directories": {
+    "lib": "lib"
+  },
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "runkitExampleFilename": "demo/runkitExample.js",
+  "scripts": {
+    "build": "rm -rf lib/* && tsc --sourceMap false",
+    "build-map": "rm -rf lib/* && tsc",
+    "upload": "npm run build && npm publish"
+  },
+  "devDependencies": {
+    "@types/node": "^18.0.6",
+    "typescript": "^4.7.4"
+  },
+  "dependencies": {
+    "resources-tsk": "^2.1.2"
+  }
+}
