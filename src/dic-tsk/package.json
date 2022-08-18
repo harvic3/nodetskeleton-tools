@@ -1,7 +1,7 @@
 {
   "name": "dic-tsk",
   "version": "1.0.0",
-  "description": "Simple and powerful dependency invertion container to use with or without NodeTskeleton template project",
+  "description": "Simple and powerful dependency injection container to use with or without NodeTskeleton template project",
   "repository": {
     "type": "git",
     "url": "https://github.com/harvic3/nodetskeleton-tools"
@@ -13,6 +13,7 @@
     "container",
     "dependency",
     "injection",
+    "ioc",
     "tool"
   ],
   "author": "Vickodev<harvic3@ingenieros.com>",

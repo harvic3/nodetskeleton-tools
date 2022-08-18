@@ -1,18 +1,18 @@
 import { ApplicationError } from "../errors/ApplicationError";
-import { IServiceContainer } from "../dic/IServiceContainer";
+import { IServiceContainer } from "./IServiceContainer";
 import { Resources } from "resources-tsk";
 
 export class TSKernel implements IServiceContainer {
   #serviceCollection: Record<string, Function> = {};
-  #INTERNAL_ERROR: string;
-  #classNameBase: string;
-  #interfaceBaseName: string;
+  #INTERNAL_ERROR_CODE = "FF";
+  #classNameBase = "KeyClassName";
+  #interfaceBaseName = "IKeyClassName";
   #appMessages: Resources;
-  #appErrorMessageKey: string;
+  #appErrorMessageKey = "DEPENDENCY_NOT_FOUNT";
   #applicationStatus: Record<string, string>;
-  #applicationStatusCodeKey: string;
+  #applicationStatusCodeKey = "INTERNAL_ERROR";
 
-  /*
+  /**
    * @param internalErrorCode - Use applicationStatus INTERNAL_ERROR key for this. Default is 'FF'.
    * @param interfaceBaseName - You could use something like 'ClassName.interface'. Default is 'IKeyClassName'.
    * @param classNameBase - This value will be replace for className value. Default value is 'KeyClassName'.
@@ -21,22 +21,25 @@ export class TSKernel implements IServiceContainer {
    * @param applicationStatus - Dictionary for application status than contain the error code like 'FF'.
    * @param applicationStatusCodeKey - This is a key to find in application status dictionary as application error code.
    */
-  init(settings: {
-    internalErrorCode: "FF";
-    interfaceBaseName: "IKeyClassName";
-    classNameBase: "KeyClassName";
-    appMessages?: Resources;
-    appErrorMessageKey: "INTERNAL_ERROR";
-    applicationStatus?: Record<string, string>;
-    applicationStatusCodeKey: "DEPENDENCY_NOT_FOUNT";
+  init(settings?: {
+    internalErrorCode?: string;
+    interfaceBaseName?: string;
+    classNameBase?: string;
+    appMessages: Resources;
+    appErrorMessageKey: string;
+    applicationStatus: Record<string, string>;
+    applicationStatusCodeKey: string;
   }): void {
-    this.#INTERNAL_ERROR = settings.internalErrorCode;
-    this.#classNameBase = settings.classNameBase;
-    this.#interfaceBaseName = settings.interfaceBaseName;
-    this.#appMessages = settings.appMessages;
-    this.#appErrorMessageKey = settings.appErrorMessageKey;
-    this.#applicationStatus = settings.applicationStatus;
-    this.#applicationStatusCodeKey = settings.applicationStatusCodeKey;
+    if (settings?.internalErrorCode)
+      this.#INTERNAL_ERROR_CODE = settings.internalErrorCode;
+    if (settings?.classNameBase) this.#classNameBase = settings.classNameBase;
+    if (settings?.interfaceBaseName) this.#interfaceBaseName = settings.interfaceBaseName;
+    if (settings?.appMessages) this.#appMessages = settings.appMessages;
+    if (settings?.appErrorMessageKey)
+      this.#appErrorMessageKey = settings.appErrorMessageKey;
+    if (settings?.applicationStatus) this.#applicationStatus = settings.applicationStatus;
+    if (settings?.applicationStatusCodeKey)
+      this.#applicationStatusCodeKey = settings.applicationStatusCodeKey;
   }
 
   addScoped(className: string, activator: Function): void {
@@ -59,7 +62,7 @@ export class TSKernel implements IServiceContainer {
           : `${className} not found in dependencies container.`,
         this.#applicationStatus
           ? this.#applicationStatus[this.#applicationStatusCodeKey]
-          : this.#INTERNAL_ERROR,
+          : this.#INTERNAL_ERROR_CODE,
       );
     }
 
