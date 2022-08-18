@@ -6,20 +6,20 @@ dic tool y part of the `NodeTskeleton` template project.
 
 <a href="https://github.com/harvic3/nodetskeleton" target="_blank" >Go to NodeTskeleton</a>
  
-## Using dic
+## What is dic-tsk?
 
-The `dic` is a tool that will allow us to manage the class instance for your software solution in scoped or singleton way.
+The **dependency injection container** `dic` is a tool that will allow us to manage the class instances for your software solution in **scoped or singleton** way.
 
-### Initializing
+### Using dic
 
-If you are using **Clean Architecture** you should create a directory in adapter layer path `adapters/shared/kernel" and into this directory create a index file with the next content: 
+If you are using **Clean Architecture** you should create a directory in adapter layer path like `adapters/shared/kernel` and inside this directory we need to create a index file with the next content: 
 
 ```ts
 import applicationStatus from "../../../application/shared/status/applicationStatus";
 import appMessages, { localKeys } from "../../../application/shared/locals/messages";
 import tsKernel, { IServiceContainer } from "dic-tsk";
 
-// This method for
+// This method is for customization but is optional
 tsKernel.init({
   internalErrorCode: applicationStatus.INTERNAL_ERROR,
   classNameBase: "",
@@ -45,16 +45,15 @@ interfaceBaseName = "IKeyClassName";
 appErrorMessageKey = "DEPENDENCY_NOT_FOUNT";
 applicationStatusCodeKey = "INTERNAL_ERROR";
 ```
-Probably the only configuration you need to do in your software solution is to have mapped the internal value for **internalErrorCode = "FF"** in your error code dictionary.
-
+Probably the only configuration you need to do in your software solution is to map the internal value of the **internalErrorCode = "FF"** into your application code dictionary.
 
 ## In action
 
-dic kernel has two ways to manage our class instances, scoped and singleton
+**dic kernel** has two ways to manage our class instances, **scoped** and **singleton**
 
 ### Scoped way
 
-Scoped way return a new instance for each call to get method like following:
+**Scoped** way return a new instance for each call to **get<T>** method like following:
 
 ```ts
 import { LoginUseCase } from "../../../../application/modules/auth/useCases/login";
@@ -84,7 +83,7 @@ useCase.execute(params);
 
 ### Singleton way
 
-Singleton way return the same instance for each call to get method like following:
+**Singleton** way return the same instance always for each call to **get<T>** method like following:
 
 ```ts
 import { AuthProvider } from "../../../providers/container";
@@ -111,6 +110,20 @@ const logProvider = this.servicesContainer.get<LogProvider>(this.CONTEXT, LogPro
 #### Important note
 
 Note that the **singleton pattern** can become very useful, but mishandling this pattern can end up in **mutation problems**, a very common mistake in JavaScript that can cause you a lot of headaches. 
+
+
+## Errors
+
+When you try to get a not existing class so, the **dic kernel** throw an error as following:
+
+```ts
+const auditProvider = this.servicesContainer.get<AuditProvider>(this.CONTEXT, AuditProvider.name);
+/* 
+The artifact will throw an error like the following:
+- Without init method: ApplicationError: 'NotExistsClass' not found in dependencies container.
+- With previous call of init method: ApplicationError: WITH YOUR CUSTOM MESSAGE if it was customized.
+*/
+```
 
 
 ## RunKit demo

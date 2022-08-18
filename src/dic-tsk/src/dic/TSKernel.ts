@@ -59,7 +59,7 @@ export class TSKernel implements IServiceContainer {
               this.#appMessages.keys[this.#appErrorMessageKey],
               { className },
             )
-          : `${className} not found in dependencies container.`,
+          : `'${className}' not found in dependencies container.`,
         this.#applicationStatus
           ? this.#applicationStatus[this.#applicationStatusCodeKey]
           : this.#INTERNAL_ERROR_CODE,

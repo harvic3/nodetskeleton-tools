@@ -10,3 +10,7 @@
 
 - README file was added
 - LICENSE file was added
+
+## [1.0.1] — 2022-08-18
+
+- Improvements in README file and some minor adjustments

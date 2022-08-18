@@ -30,11 +30,11 @@ const INTERNAL_ERROR_CODE = "FF";
 
 const locales = {
   [LocaleTypeEnum.ES]: {
-    DEPENDENCY_NOT_FOUNT: "El contenedor de dependencias no contiene {{className}}.",
+    DEPENDENCY_NOT_FOUNT: "El contenedor de dependencias no contiene '{{className}}'.",
     INTERNAL_ERROR: "Error interno.",
   },
   [LocaleTypeEnum.EN]: {
-    DEPENDENCY_NOT_FOUNT: "di container don't has {{className}} dependency.",
+    DEPENDENCY_NOT_FOUNT: "di container don't has '{{className}}' dependency.",
     INTERNAL_ERROR: "Internal error.",
   },
 };
@@ -74,7 +74,7 @@ describe("when use dic", () => {
     expect(() => tsKernel.get<IMessageClass>(CONTEXT, "MessageClassWrong")).toThrowError(
       new ApplicationError(
         CONTEXT,
-        "MessageClassWrong not found in dependencies container.",
+        "'MessageClassWrong' not found in dependencies container.",
         INTERNAL_ERROR_CODE,
       ),
     );
@@ -84,7 +84,7 @@ describe("when use dic", () => {
     expect(() => tsKernel.get<IMessageClass>(CONTEXT, "MessageClassWrong")).toThrowError(
       new ApplicationError(
         CONTEXT,
-        "di container don't has MessageClassWrong dependency.",
+        "di container don't has 'MessageClassWrong' dependency.",
         INTERNAL_ERROR_CODE,
       ),
     );

@@ -1,5 +1,6 @@
-// You need a resources-tsk lib or build some like this.
+// You need a resources-tsk lib or build some like this
 const res_tsk = require("resources-tsk");
+const dic_tsk = require("dic-tsk");
 
 // local or remote resource
 const localKeys = {
@@ -9,11 +10,11 @@ const localKeys = {
 
 const locals = {
   es: {
-    DEPENDENCY_NOT_FOUNT: "El contenedor de dependencias no contiene {{className}}.",
+    DEPENDENCY_NOT_FOUNT: "El contenedor de dependencias no contiene '{{className}}'.",
     INTERNAL_ERROR: "Error interno.",
   },
   en: {
-    DEPENDENCY_NOT_FOUNT: "di container don't has {{className}} dependency.",
+    DEPENDENCY_NOT_FOUNT: "di container don't has '{{className}}' dependency.",
     INTERNAL_ERROR: "Internal error.",
   },
 };
@@ -36,7 +37,6 @@ appMessages.init(defaultLanguage);
 
 // Here init the index file for diContainer
 const dicSettings = {
-  internalErrorCode: INTERNAL_ERROR_CODE,
   interfaceBaseName: "KeyClassName.interface",
   classNameBase: "KeyClassName",
   appMessages,
@@ -44,9 +44,6 @@ const dicSettings = {
   applicationStatus,
   applicationStatusCodeKey: "INTERNAL_ERROR",
 };
-
-const dic_tsk = require("dic-tsk");
-
 
 const Message = (function () {
   function Message(message) {
@@ -61,8 +58,18 @@ const Message = (function () {
   return Message;
 })();
 
-const message = new Message("Hello Alien");
+// This method is optional, is for customization
+dic_tsk.default.init(dicSettings);
 
+// Getting existing class
 dic_tsk.default.addScoped("MessageClass", () => new Message("Hello Alien"));
 const classInstance = dic_tsk.default.get("YourAdapterContext", "MessageClass");
 console.log(classInstance.getMessage());
+
+// Try to get a class that not exists
+const classInstance2 = dic_tsk.default.get("YourAdapterContext", "NotExistsClass");
+/*
+So you will get an error like: 
+- Without init method: ApplicationError: 'NotExistsClass' not found in dependencies container.
+- With previous call of init method: ApplicationError: di container don't has 'AuditProvider' dependency.
+*/
