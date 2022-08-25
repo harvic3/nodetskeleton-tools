@@ -14,3 +14,7 @@
 ## [1.0.1] — 2022-08-18
 
 - Improvements in README file and some minor adjustments
+
+## [1.0.2] — 2022-08-24
+
+- Improvements in README file and main lib

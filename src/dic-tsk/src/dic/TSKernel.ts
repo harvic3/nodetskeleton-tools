@@ -46,8 +46,8 @@ export class TSKernel implements IServiceContainer {
     this.#serviceCollection[className] = activator;
   }
 
-  addSingleton(className: string, object: object): void {
-    this.#serviceCollection[className] = () => object;
+  addSingleton(className: string, instance: object): void {
+    this.#serviceCollection[className] = () => instance;
   }
 
   get<T>(context: string, className: string): T {
