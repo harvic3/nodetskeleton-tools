@@ -18,3 +18,7 @@
 ## [1.0.2] — 2022-08-24
 
 - Improvements in README file and main lib
+
+## [1.0.3] — 2022-08-24
+
+- Improvements in ApplicationError class to create custom error object

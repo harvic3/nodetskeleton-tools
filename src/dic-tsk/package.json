@@ -1,6 +1,6 @@
 {
   "name": "dic-tsk",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Simple and powerful dependency injection container to use with or without NodeTskeleton template project",
   "repository": {
     "type": "git",
