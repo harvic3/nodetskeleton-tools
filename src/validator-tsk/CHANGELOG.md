@@ -134,3 +134,9 @@
 ### Feature
 
 - Packages was updated and some improvements were done
+
+## [2.0.3] — 2023-12-09
+
+### Update
+
+- Packages was updated

@@ -1,3 +1,4 @@
+import { ResultExecution } from "./Types";
 import { ResultDto } from "./ResultDto";
 
 type Metadata = Record<string, any>;
@@ -18,6 +19,7 @@ export interface IResult {
   addMetadata(key: string, value: string | number): void;
   getMetadata(): Metadata;
   hasMetadata(): boolean;
+  execute<RO>(promise: Promise<ResultExecution<RO>>): Promise<IResult & { value: RO }> ;
 }
 
 export type IBaseResult = Omit<IResult, "toResultDto">;

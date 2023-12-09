@@ -103,3 +103,10 @@
 ### Feature
 
 - Packages was updated and some methods was added
+
+## [2.1.4] — 2023-12-09
+
+### Update
+
+- Packages was updated
+- Feature to execute promise and control the error was added to able the perform to use of pure functions

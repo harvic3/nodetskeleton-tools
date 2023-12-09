@@ -11,7 +11,7 @@ ResultJs tool y part of the `NodeTskeleton` template project.
 `Result` is a `tool` that helps us `control the flow` of our `use cases` and allows us to `manage the response`, be it an `object`, an `array` of objects, a `message` or an `error` as follows:
 
 ```ts
-import { IResultT, ResultT } from "result-tsk";
+import { IResultT, ResultT,  } from "result-tsk";
 
 export class UseCaseProductGet extends BaseUseCase {
 	constructor(private productQueryService: IProductQueryService) {
@@ -21,10 +21,12 @@ export class UseCaseProductGet extends BaseUseCase {
 	async Execute(idMask: string): Promise<IResultT<ProductDto>> {
 		// We create the instance of our type of result at the beginning of the use case.
 		const result = new ResultT<ProductDto>();
+
 		// With the resulting object we can control validations within other functions.
 		if (!this.validator.isValidEntry(result, { productMaskId: idMask })) {
 			return result;
 		}
+
 		const product: Product = await this.productQueryService.getByMaskId(idMask);
 		if (!product) {
 			// The result object helps us with the error response and the code.
@@ -34,7 +36,13 @@ export class UseCaseProductGet extends BaseUseCase {
 			);
 			return result;
 		}
+
 		// Or
+		if (result.hasError()) return result;
+
+		// Or
+		// The result object helps us with manage the executing flow.
+		const { value: product } = await result.execute(this.getProduct());
 		if (result.hasError()) return result;
 
 		const productDto = this.mapper.mapObject<Product, ProductDto>(product, new ProductDto());
@@ -42,6 +50,19 @@ export class UseCaseProductGet extends BaseUseCase {
 		result.setData(productDto, this.resultCodes.SUCCESS);
 		// And finally you give it back.
 		return result;
+	}
+
+	private async getProduct(): ResultExecutionPromise<Product> {
+		const product: Product = await this.productQueryService.getByMaskId(idMask);
+		if (!product) {
+			return {
+				error: this.resources.get(this.resourceKeys.PRODUCT_DOES_NOT_EXIST),
+				statusCode: this.resultCodes.NOT_FOUND,
+				value: null,
+			}
+		}
+
+		return { value: product };
 	}
 }
 ```

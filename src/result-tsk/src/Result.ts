@@ -1,3 +1,4 @@
+import { ResultExecution, ResultExecutionPromise } from "./Types";
 import { Metadata, IResult } from "./Result.interface";
 import { ResultDto } from "./ResultDto";
 
@@ -50,10 +51,27 @@ export class Result implements IResult {
     return !!this.message;
   }
 
+  async execute<RO>(promise: Promise<ResultExecution<RO>>): Promise<IResult & { value: RO }> {
+    let value: RO = undefined;
+
+    const execution = await promise;
+    if (execution.error) {
+      this.setError(execution.error, execution.statusCode);
+    } else {
+      value = execution.value;
+    }
+
+    return {
+      ...this,
+      value,
+    };
+  }
+
   toResultDto(): ResultDto {
     const result = new ResultDto();
     result.error = this.error;
     result.message = this.message;
+
     return result;
   }
 }

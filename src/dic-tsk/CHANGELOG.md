@@ -22,3 +22,9 @@
 ## [1.0.3] — 2022-08-24
 
 - Improvements in ApplicationError class to create custom error object
+
+## [1.0.4] — 2023-12-09
+
+### Update
+
+- Packages was updated

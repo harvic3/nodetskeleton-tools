@@ -1,6 +1,7 @@
 import { Metadata } from "../Result.interface";
 import { IResult } from "./Result.interface";
 import { ResultDto } from "../ResultDto";
+import { ResultExecution } from "../Types";
 
 export class Result<T> implements IResult<T> {
   #metadata: Metadata;
@@ -65,11 +66,29 @@ export class Result<T> implements IResult<T> {
     }
   }
 
+  async execute<RO>(promise: Promise<ResultExecution<RO>>): Promise<IResult<T> & { value: RO }> {
+    let value: RO = undefined;
+
+    const execution = await promise;
+    if (execution.error) {
+      this.setError(execution.error, execution.statusCode);
+    } else {
+      value = execution.value;
+    }
+
+    return {
+      ...this,
+      value,
+    };
+  }
+
+
   toResultDto(): ResultDto {
     const result = new ResultDto();
     result.error = this.error;
     result.message = this.message;
     result.data = this.data;
+
     return result;
   }
 }
