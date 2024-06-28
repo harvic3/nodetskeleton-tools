@@ -8,7 +8,29 @@ run-tsk tool y part of the `NodeTskeleton` template project to install it
  
 ## Using Run TSK
 
-### First install it
+We can use it installing and without install it.
+
+### Without install it
+
+- Run it using NPX and replace `my-awesome-project` for your own project name
+```console
+npx run-tsk setup --project-name my-awesome-project
+```
+Or
+```console
+pnpx run-tsk setup --project-name my-awesome-project
+```
+
+You'll see something like: 
+```console
+Your project awesome is ready
+Now go to the project directory typing 'cd awesome'
+ And type 'npm run dev' to start the server
+ And then try typing 'npm run tsk help' to see the available commands to support your development
+Happy coding!
+```
+
+### Using installing it
 
 We have to install it globally
 - Install using PNPM
@@ -20,12 +42,12 @@ pnpm i -g run-tsk
 npm i -g run-tsk
 ```
 
-### Second, use it
+### Then, use it
 
 Is simple to use it, and you only need to go to some root directory when you would want to create your project and type the following in your console:
-- Replace my-awesome-project for your own project name
+- Replace `my-awesome-project` for your own project name
 ```console
-run-tsk --project-name my-awesome-project
+run-tsk setup --project-name my-awesome-project
 ```
 
 ### Setup the project
@@ -34,7 +56,7 @@ cd my-awesome-project
 ```
 
 And follow the instructions in the official documentation about NodeTSKeleton installation
-<a href="https://github.com/harvic3/nodetskeleton?tab=readme-ov-file#installation" target="_blank" >Go to NodeTskeleton</a>
+<a href="https://github.com/harvic3/nodetskeleton?tab=readme-ov-file#create-your-first-use-case" target="_blank" >Go to NodeTskeleton</a>
 
 ## Warning 💀
 
