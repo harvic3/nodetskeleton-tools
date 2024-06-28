@@ -140,3 +140,9 @@
 ### Update
 
 - Packages was updated
+
+## [2.0.4] — 2024-06-27
+
+### Update
+
+- Packages was updated

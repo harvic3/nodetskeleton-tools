@@ -9,14 +9,14 @@ export interface IResult {
   message: string;
   error: string;
 
-  setStatusCode(statusCode: number | string, success: boolean): void;
-  setMessage(message: string, statusCode: number | string): void;
-  setError(error: string, statusCode: number | string): void;
+  setStatusCode(statusCode: number | string, success: boolean): IResult;
+  setMessage(message: string, statusCode: number | string): IResult;
+  setError(error: string, statusCode: number | string): IResult;
   hasError(): boolean;
   hasMessage(): boolean;
   toResultDto(): ResultDto;
-  setMetadata(headers: Metadata): void;
-  addMetadata(key: string, value: string | number): void;
+  setMetadata(headers: Metadata): IResult;
+  addMetadata(key: string, value: string | number): IResult;
   getMetadata(): Metadata;
   hasMetadata(): boolean;
   execute<RO>(promise: Promise<ResultExecution<RO>>): Promise<IResult & { value: RO }> ;

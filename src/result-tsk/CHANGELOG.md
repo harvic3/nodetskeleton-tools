@@ -104,9 +104,15 @@
 
 - Packages was updated and some methods was added
 
-## [2.1.4] — 2023-12-09
+## [2.1.5] — 2023-12-10
 
 ### Update
 
 - Packages was updated
 - Feature to execute promise and control the error was added to able the perform to use of pure functions
+
+## [2.1.6] — 2024-06-27
+
+### Update
+
+- Packages was updated and the functions now can be call in a chained way

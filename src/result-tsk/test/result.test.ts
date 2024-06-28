@@ -1,6 +1,6 @@
 import { Result, ResultT } from "../src/index";
-import { Person } from "./Person";
 import { ResultDto } from "../src/ResultDto";
+import { Person } from "./Person";
 
 describe("when use a result", () => {
   it("it must allow the use of the not generic type class", () => {

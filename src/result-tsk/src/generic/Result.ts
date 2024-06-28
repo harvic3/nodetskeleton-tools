@@ -1,7 +1,7 @@
 import { Metadata } from "../Result.interface";
 import { IResult } from "./Result.interface";
-import { ResultDto } from "../ResultDto";
 import { ResultExecution } from "../Types";
+import { ResultDto } from "../ResultDto";
 
 export class Result<T> implements IResult<T> {
   #metadata: Metadata;
@@ -11,13 +11,15 @@ export class Result<T> implements IResult<T> {
   message: string;
   error: string;
 
-  setMetadata(metadata: Metadata): void {
+  setMetadata(metadata: Metadata): IResult<T> {
     this.#metadata = metadata;
+    return this;
   }
 
-  addMetadata(key: string, value: string | number): void {
+  addMetadata(key: string, value: string | number): IResult<T> {
     if (!this.#metadata) this.#metadata = {};
     this.#metadata[key] = value;
+    return this;
   }
 
   getMetadata(): Metadata {
@@ -28,21 +30,24 @@ export class Result<T> implements IResult<T> {
     return !!this.#metadata && Object.keys(this.#metadata).length > 0;
   }
 
-  setStatusCode(statusCode: number | string, success: boolean): void {
+  setStatusCode(statusCode: number | string, success: boolean): IResult<T> {
     this.statusCode = statusCode;
     this.success = success;
+    return this;
   }
 
-  setMessage(message: string, statusCode: number | string): void {
+  setMessage(message: string, statusCode: number | string): IResult<T> {
     this.message = message;
     this.statusCode = statusCode;
     this.success = true;
+    return this;
   }
 
-  setError(error: string, statusCode: number | string): void {
+  setError(error: string, statusCode: number | string): IResult<T> {
     this.error = error;
     this.statusCode = statusCode;
     this.success = false;
+    return this;
   }
 
   hasError(): boolean {
@@ -57,13 +62,14 @@ export class Result<T> implements IResult<T> {
     return !!this.data;
   }
 
-  setData(data: string | T, statusCode: number | string, message?: string): void {
+  setData(data: string | T, statusCode: number | string, message?: string): IResult<T> {
     this.data = data;
     this.statusCode = statusCode;
     this.success = true;
     if (message) {
       this.message = message;
     }
+    return this;
   }
 
   async execute<RO>(promise: Promise<ResultExecution<RO>>): Promise<IResult<T> & { value: RO }> {

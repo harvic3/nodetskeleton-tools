@@ -28,3 +28,9 @@
 ### Update
 
 - Packages was updated
+
+## [1.0.5] — 2024-06-27
+
+### Update
+
+- Packages was updated
