@@ -1,22 +1,23 @@
 {
-  "name": "resources-tsk",
-  "version": "2.1.5",
-  "description": "resource tool to use with or without NodeTskeleton template project",
+  "name": "run-tsk",
+  "version": "1.0.0",
+  "description": "Tool to install and initialize NodeTSKeleton project",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/harvic3/nodetskeleton-tools.git"
+    "url": "https://github.com/harvic3/nodetskeleton-tools"
   },
   "keywords": [
-    "resources",
-    "locals",
+    "cli",
+    "run",
     "tskeleton",
     "work flow",
-    "flow control",
+    "clean architecture",
+    "design patterns",
     "tool"
   ],
   "author": "Vickodev<harvic3@proton.me>",
   "license": "MIT",
-  "homepage": "https://github.com/harvic3/nodetskeleton-tools/blob/master/src/resources-tsk/README.md",
+  "homepage": "https://github.com/harvic3/nodetskeleton-tools/blob/master/src/run-tsk/README.md",
   "bugs": {
     "url": "https://github.com/harvic3/nodetskeleton-tools/issues"
   },
@@ -25,15 +26,17 @@
   },
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
-  "runkitExampleFilename": "demo/runkitExample.js",
   "scripts": {
-    "build": "rm -rf lib/* && tsc --sourceMap false",
+    "build": "rm -rf lib/* && tsc --sourceMap false && shx cp src/**/*.sh lib/",
     "build-map": "rm -rf lib/* && tsc",
     "upload": "npm run build && npm publish"
   },
   "devDependencies": {
     "@types/node": "^20.14.9",
+    "shx": "^0.3.4",
     "typescript": "^5.5.2"
   },
-  "dependencies": {}
+  "bin": {
+    "run-tsk": "lib/index.js"
+  }
 }
