@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "lib": ["ES2020"],
+    "lib": ["ES2021"],
     "outDir": "lib",
     "sourceMap": true,
     "target": "es6",
@@ -17,5 +17,5 @@
     "declaration": true,
   },
   "exclude": ["./src/**/test/", "./**/*.test.ts"],
-  "include": ["./src/**/*", "./src/install.sh"]
+  "include": ["./src/**/*"]
 }

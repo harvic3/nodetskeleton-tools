@@ -1,19 +1,23 @@
 #!/usr/bin/env node
+import { EMPTY_CHAR, EQUAL_CHAR, SPACE_CHAR } from "./tsk-tools/StringUtils";
+import { executeCommand } from "./tsk-tools/CommandHandler";
+import { helpDescription } from "./tsk-tools/Templates";
+import { exec } from "child_process";
 import {
   HELP_COMMAND,
-  helpDescription,
   SETUP_COMMAND,
   SEPARATOR,
   scriptPath,
+  IS_TSK_VALID_DIRECTORY,
 } from "./Constants";
-import { exec } from "child_process";
+import { isTSKProject } from "./tsk-tools/FileUtils";
 
 let spinnerInterval;
 const startSpinner = () => {
   const spinnerChars = ["|", "/", "-", "\\"];
   let i = 0;
   spinnerInterval = setInterval(() => {
-    process.stdout.write(`\r${spinnerChars[i++]} TSK working...`);
+    process.stdout.write(`\r${spinnerChars[i++]} TSK is working...`);
     i &= 3;
   }, 250);
 };
@@ -24,35 +28,49 @@ const stopSpinner = () => {
 };
 
 const convertArrayArgumentsToObjectArguments = (argsV: string[], separator: string) => {
-  const commandStr = argsV.join(" ");
+  const commandStr = argsV.join(SPACE_CHAR);
   const commandOptions = commandStr.split(separator);
-  const options = {
-    action: commandOptions[0].split(" ").filter((param: string) => param !== "")[0],
+  const options: {
+    action: string;
+    [key: string]: string[] | string;
+  } = {
+    action: commandOptions[0].split(SPACE_CHAR).filter((param: string) => param !== EMPTY_CHAR)[0],
   };
   commandOptions.shift();
 
   for (const option of commandOptions) {
-    const params = option.split(" ");
-    const fixParams = params.filter((param: string) => param !== "");
-    options[fixParams[0]] = fixParams.length > 2 ? fixParams.slice(1) : fixParams[1];    
+    const params = option.split(EQUAL_CHAR);
+    const fixParams = params.filter((param: string) => param !== EMPTY_CHAR);
+    options[fixParams[0]] = fixParams.length > 2 ? fixParams.slice(1) : fixParams[1];
   }
+
   return options;
 };
 
-const processCommands = async (options: {
-  action: "help" | "setup";
-  "project-name": string;
-}) => {
+const processCommands = async (processArgv: string[]) => {
+  const arrayArgs = processArgv.splice(2);
+  const options = convertArrayArgumentsToObjectArguments(
+    arrayArgs,
+    SEPARATOR,
+  );
   const action = options.action.toLowerCase();
   delete options.action;
 
   switch (action) {
+    case IS_TSK_VALID_DIRECTORY:
+      const processPath = process.cwd();
+      if (!isTSKProject(processPath)) {
+        console.error("run-tsk CLI doesn't seem to be in a TSK project root. Please run it in a TSK project.");
+      } else {
+        console.log("run-tsk CLI is in a TSK project root.");
+      }
+      break;
     case HELP_COMMAND:
       console.log(helpDescription);
       break;
     case SETUP_COMMAND:
       if (!options["project-name"]) {
-        console.error("project-name is required");
+        console.error("project-name value is required");
         process.exit(1);
       }
       startSpinner();
@@ -61,7 +79,7 @@ const processCommands = async (options: {
         async (error, stdout, stderr) => {
           stopSpinner();
           if (error) {
-            console.error(`exec error: ${error}`);
+            console.error(`exec error: ${error.name} - ${error.message}`);
             return;
           }
           console.error(`stderr: ${stderr}`);
@@ -70,21 +88,23 @@ const processCommands = async (options: {
       );
       break;
     default:
-      console.warn("Command not found, try with help command > run-tsk help");
+      try {
+        const args = arrayArgs.join(SPACE_CHAR);
+        executeCommand(args);
+      } catch (error) {
+        console.error(`Error executing command ${action}: ${error.name} - ${error.message}`);
+      }
+      break;
   }
 };
 
 const main = async () => {
-  const processArgv = process.argv;
+  const processArgv: string[] = process.argv;
   if (!processArgv[2]) {
     console.error("No valid entry, so try with help command > run-tsk help");
     process.exit(1);
   }
-  const options = convertArrayArgumentsToObjectArguments(
-    processArgv.splice(2),
-    SEPARATOR,
-  );
-  await processCommands(options as any);
+  await processCommands(processArgv);
 };
 
 main();

@@ -1,0 +1,14 @@
+export default {
+  httpMethodsAllowed: [
+    "get",
+    "post",
+    "put",
+    "delete",
+    "patch"
+  ],
+  controllerImportLineToFind: "import container, { ",
+  controllerFunctionLineToFind: "initializeRoutes(router: IRouter)",
+  controllerRouterLineToFind: "this.setRouter(router());",
+  containerExportLineToFind: "export { ",
+  serviceContextLineToFind: "}"
+}

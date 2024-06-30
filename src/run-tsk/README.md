@@ -1,6 +1,6 @@
 # Run-TSK 🚀
 
-run-tsk tool y part of the `NodeTskeleton` template project to install it
+run-tsk tool y part of the `NodeTskeleton` template project to install, initialize and interact with it.
 
 `NodeTskeleton` is a `Clean Architecture` based `template project` for `NodeJs` using `TypeScript` to implement with any `web server framework` or even any user interface.
 
@@ -15,11 +15,11 @@ We can use it installing and without install it.
 
 - Run it using NPX and replace `my-awesome-project` for your own project name
 ```console
-> npx run-tsk setup --project-name my-awesome-project
+> npx run-tsk setup project-name=my-awesome-project
 ```
 Or
 ```console
-> pnpx run-tsk setup --project-name my-awesome-project
+> pnpx run-tsk setup project-name=my-awesome-project
 ```
 
 You'll see something like: 
@@ -50,7 +50,7 @@ Is simple to use it, and you only need to go to some root directory when you wou
 - Replace `my-awesome-project` for your own project name
 ```console
 > run-tsk help
-> run-tsk setup --project-name my-awesome-project
+> run-tsk setup project-name=my-awesome-project
 ```
 
 ### Run the project
@@ -59,7 +59,24 @@ Is simple to use it, and you only need to go to some root directory when you wou
 > npm run dev
 ```
 
-And follow the instructions in the official documentation about NodeTSKeleton
+## Available commands
+
+- help
+  - Command to see all commands available and their explanation.
+- setup
+  - Command to setup and initialize the TSK project
+- alias
+  - Command to see aliases for argument names
+- validate
+  - Command to validate if you are in a root TSK project.
+- add-use-case
+  - Command to add a new use case to the project.
+
+Is important keep in mind that some commands only work in a root directory of TSK project. 
+A root directory is where there is a package.json file.
+
+
+You can explore and follow the instructions in the official documentation about NodeTSKeleton
 <a href="https://github.com/harvic3/nodetskeleton?tab=readme-ov-file#create-your-first-use-case" target="_blank" >Go to NodeTskeleton</a>
 
 ## Warning 💀
