@@ -122,3 +122,9 @@
 ### Update
 
 - Packages was updated.
+
+## [2.1.8] — 2024-05-07
+
+### Update
+
+- keeping value content in Result<T>.
