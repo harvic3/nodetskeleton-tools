@@ -1,4 +1,4 @@
-import { Result, ResultT } from "../src/index";
+import { Result, ResultExecution, ResultExecutionPromise, ResultT } from "../src/index";
 import { ResultDto } from "../src/ResultDto";
 import { Person } from "./Person";
 
@@ -142,4 +142,29 @@ describe("when use a result", () => {
     expect(resultDto.error).toBeUndefined();
     expect(resultDto.message).toBe("Entity was created.");
   });
+
+  it("it maintain the content of the value field", async () => {
+    const result = new Result();
+    const validation: ResultExecution<boolean> = {
+      error: "Erro Mock",
+      statusCode: "FF",
+      value: true
+    }
+
+    const sessionLogoff = async (): ResultExecutionPromise<boolean> => {
+      return {
+        error: "Erro Mock",
+        statusCode: "FF",
+        value: true
+      };
+    }
+
+    const resultExecution = await result.execute(sessionLogoff());
+
+    expect(resultExecution.error).toBe(validation.error);
+    expect(resultExecution.statusCode).toBe(validation.statusCode);
+    expect(resultExecution.value).toBe(validation.value);
+
+  });
+
 });
