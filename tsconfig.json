@@ -1,7 +1,7 @@
 {
   "version": "4.2.2",
   "compilerOptions": {
-    "lib": ["ES2020"],
+    "lib": ["ES2021"],
     "outDir": "dist",
     "sourceMap": true,
     "target": "es6",
