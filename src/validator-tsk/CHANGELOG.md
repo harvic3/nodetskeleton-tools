@@ -146,3 +146,9 @@
 ### Update
 
 - Packages was updated
+
+## [2.0.5] — 2024-05-07
+
+### Update
+
+- Packages was updated.

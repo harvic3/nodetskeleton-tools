@@ -116,3 +116,9 @@
 ### Update
 
 - Packages was updated and the functions now can be call in a chained way
+
+## [2.1.7] — 2024-05-07
+
+### Update
+
+- Packages was updated.

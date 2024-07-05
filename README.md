@@ -20,6 +20,19 @@ The Contributor Covenant Code of Conduct for this project is based on Covenant C
 
 - <a href="https://www.contributor-covenant.org/version/2/0/code_of_conduct/code_of_conduct.md" target="_blank" >Go to Code of Conduct</a>
 
+## Update order
+
+### Independent
+- Result 
+- Resources
+- Mapper
+- Run
+
+### Dependent
+- Dic -> Resources
+- Validator -> Resources -> Result
+
+
 ## Warning 💀
 
 > Use this resource at your own risk.
