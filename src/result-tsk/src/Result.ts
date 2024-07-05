@@ -58,14 +58,11 @@ export class Result implements IResult {
   }
 
   async execute<RO>(promise: Promise<ResultExecution<RO>>): Promise<IResult & { value: RO }> {
-    
     const execution = await promise;
-    let value: RO = execution === null || execution === undefined ? undefined : execution.value;
     if (execution.error) {
       this.setError(execution.error, execution.statusCode);
-    } else {
-      value = execution.value;
     }
+    const value = execution.value;
 
     return {
       ...this,
