@@ -117,13 +117,13 @@
 
 - Packages was updated and the functions now can be call in a chained way
 
-## [2.1.7] — 2024-05-07
+## [2.1.7] — 2024-06-07
 
 ### Update
 
 - Packages was updated.
 
-## [2.1.8] — 2024-05-07
+## [2.1.8] — 2024-06-07
 
 ### Update
 

@@ -153,7 +153,13 @@
 
 - Packages was updated.
 
-## [2.0.6] — 2024-05-07
+## [2.0.6] — 2024-06-06
+
+### Update
+
+- Packages was updated.
+
+## [2.0.7] — 2024-06-07
 
 ### Update
 
