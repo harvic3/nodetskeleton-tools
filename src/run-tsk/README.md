@@ -1,6 +1,6 @@
 # Run-TSK 🚀
 
-run-tsk tool y part of the `NodeTskeleton` template project to install, initialize and interact with it.
+run-tsk tool is one part of the `NodeTskeleton` template project to install, to initialize and to interact with it.
 
 `NodeTskeleton` is a `Clean Architecture` based `template project` for `NodeJs` using `TypeScript` to implement with any `web server framework` or even any user interface.
 
@@ -9,7 +9,7 @@ run-tsk tool y part of the `NodeTskeleton` template project to install, initiali
 
 ## Using Run-TSK
 
-We can use it installing and without install it.
+We can use it with installation and without install it.
 
 ### Without install it
 
@@ -32,7 +32,7 @@ Now go to the project directory typing 'cd wonderful'
 Happy coding!
 ```
 
-### Use installing it
+### Using installing it
 
 We have to install it globally
 - Install using PNPM
