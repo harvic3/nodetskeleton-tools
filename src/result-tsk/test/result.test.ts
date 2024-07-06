@@ -146,14 +146,14 @@ describe("when use a result", () => {
   it("it maintain the content of the value field", async () => {
     const result = new Result();
     const validation: ResultExecution<boolean> = {
-      error: "Erro Mock",
+      error: "Error Mock",
       statusCode: "FF",
       value: true
     }
 
     const sessionLogoff = async (): ResultExecutionPromise<boolean> => {
       return {
-        error: "Erro Mock",
+        error: "Error Mock",
         statusCode: "FF",
         value: true
       };
@@ -164,7 +164,5 @@ describe("when use a result", () => {
     expect(resultExecution.error).toBe(validation.error);
     expect(resultExecution.statusCode).toBe(validation.statusCode);
     expect(resultExecution.value).toBe(validation.value);
-
   });
-
 });

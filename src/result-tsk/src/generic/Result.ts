@@ -73,7 +73,6 @@ export class Result<T> implements IResult<T> {
   }
 
   async execute<RO>(promise: Promise<ResultExecution<RO>>): Promise<IResult<T> & { value: RO }> {
-    
     const execution = await promise;
     if (execution.error) {
       this.setError(execution.error, execution.statusCode);
