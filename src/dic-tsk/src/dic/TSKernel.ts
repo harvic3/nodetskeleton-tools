@@ -8,7 +8,7 @@ export class TSKernel implements IServiceContainer {
   #classNameBase = "KeyClassName";
   #interfaceBaseName = "IKeyClassName";
   #appMessages: Resources;
-  #appErrorMessageKey = "DEPENDENCY_NOT_FOUNT";
+  #appErrorMessageKey = "DEPENDENCY_NOT_FOUND";
   #applicationStatus: Record<string, string>;
   #applicationStatusCodeKey = "INTERNAL_ERROR";
 
@@ -54,7 +54,7 @@ export class TSKernel implements IServiceContainer {
     if (!this.#serviceCollection[className]) {
       throw new ApplicationError(
         context || TSKernel.name,
-        !!this.#appMessages
+        this.#appMessages
           ? this.#appMessages.getWithParams(
               this.#appMessages.keys[this.#appErrorMessageKey],
               { className },

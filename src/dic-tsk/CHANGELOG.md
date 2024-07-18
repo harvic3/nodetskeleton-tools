@@ -27,10 +27,16 @@
 
 ### Update
 
-- Packages was updated
+- Packages were updated
 
 ## [1.0.5] — 2024-06-27
 
 ### Update
 
-- Packages was updated
+- Packages were updated
+
+## [1.0.6] — 2024-07-18
+
+### Update
+
+- Packages were updated and typo was fixed

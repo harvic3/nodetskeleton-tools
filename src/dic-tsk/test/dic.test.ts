@@ -30,16 +30,16 @@ const INTERNAL_ERROR_CODE = "FF";
 
 const locales = {
   [LocaleTypeEnum.ES]: {
-    DEPENDENCY_NOT_FOUNT: "El contenedor de dependencias no contiene '{{className}}'.",
+    DEPENDENCY_NOT_FOUND: "El contenedor de dependencias no contiene '{{className}}'.",
     INTERNAL_ERROR: "Error interno.",
   },
   [LocaleTypeEnum.EN]: {
-    DEPENDENCY_NOT_FOUNT: "di container don't has '{{className}}' dependency.",
+    DEPENDENCY_NOT_FOUND: "di container don't has '{{className}}' dependency.",
     INTERNAL_ERROR: "Internal error.",
   },
 };
 const localKeys = {
-  DEPENDENCY_NOT_FOUNT: "DEPENDENCY_NOT_FOUNT",
+  DEPENDENCY_NOT_FOUND: "DEPENDENCY_NOT_FOUND",
   INTERNAL_ERROR: "INTERNAL_ERROR",
 };
 const appMessages = new Resources(locales, localKeys, LocaleTypeEnum.EN);
@@ -54,7 +54,7 @@ const dicSettings = {
   interfaceBaseName: "KeyClassName.interface",
   classNameBase: "KeyClassName",
   appMessages,
-  appErrorMessageKey: "DEPENDENCY_NOT_FOUNT",
+  appErrorMessageKey: "DEPENDENCY_NOT_FOUND",
   applicationStatus,
   applicationStatusCodeKey: "INTERNAL_ERROR",
 };
