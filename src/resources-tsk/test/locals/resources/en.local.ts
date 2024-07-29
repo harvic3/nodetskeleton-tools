@@ -1,4 +1,6 @@
-export default {
+import { LocalMessageDictionary } from "./keys";
+
+const enMessages: LocalMessageDictionary = {
   SOMETHING_WENT_WRONG: "Oh sorry, something went wrong with current action!",
   SOME_PARAMETERS_ARE_MISSING:
     "Some parameters are missing or not valid: {{missingParams}}.",
@@ -9,3 +11,5 @@ export default {
   NUMBER_GREATER_THAN: "The number {{name}} must be greater than {{baseNumber}}",
   MUST_BE_EVEN_NUMBER: "The {{numberName}} param should be even",
 };
+
+export default enMessages;

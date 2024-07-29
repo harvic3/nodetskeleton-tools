@@ -1,13 +1,13 @@
-export class Resources {
-  private defaultLanguage: string = null;
-  private globalLanguage: string = null;
-  values: Record<string, Record<string, string>> = null;
-  keys: Record<string, string>;
+export class Resources<LTE extends string, LKD extends string, LMD extends { [K in LKD]: string }, LT extends { [K in LTE]: LMD }> {
+  private defaultLanguage: LTE = null;
+  private globalLanguage: LTE = null;
+  keys: { [K in LKD]: LKD };
+  values: LT = null;
 
   constructor(
-    locals: Record<string, Record<string, string>>,
-    localKeys: Record<string, string>,
-    defaultLanguage?: string,
+    locals: LT,
+    localKeys: { [K in LKD]: LKD },
+    defaultLanguage?: LTE,
   ) {
     this.values = locals;
     this.keys = localKeys;
@@ -37,7 +37,7 @@ export class Resources {
   }
 
   /* Setting the default language */
-  setDefaultLanguage(defaultLanguage: string): void {
+  setDefaultLanguage(defaultLanguage: LTE): void {
     if (!this.values[defaultLanguage]) {
       throw new Error(
         `Default language ${defaultLanguage} not found in local resources.`,
@@ -47,7 +47,7 @@ export class Resources {
   }
 
   /* Set the current working language */
-  init(language: string): void {
+  init(language: LTE): void {
     if (!language) {
       return;
     }
@@ -60,8 +60,8 @@ export class Resources {
 
   /* Update the current locals at any time at runtime */
   updateLocals(
-    locals: Record<string, Record<string, string>>,
-    localKeys: Record<string, string>,
+    locals: LT,
+    localKeys: { [K in LKD]: LKD },
   ): void {
     if (locals) {
       this.values = locals;
@@ -69,8 +69,8 @@ export class Resources {
     }
   }
 
-  get(resourceName: string, language: string = null): string {
-    if (language && this.values[language] && this.values[language][resourceName]) {
+  get(resourceName: LKD, language: LTE = null): string {
+    if (language && this.values?.[language]?.[resourceName]) {
       return this.values[language][resourceName];
     }
     if (
@@ -89,12 +89,12 @@ export class Resources {
   }
 
   getWithParams(
-    resourceName: string,
+    resourceName: LKD,
     params: Record<string, string>,
-    language: string = null,
+    language: LTE = null,
   ): string {
     let resource: string = null;
-    if (language && this.values[language] && this.values[language][resourceName]) {
+    if (language && this.values?.[language]?.[resourceName]) {
       resource = this.values[language][resourceName];
     } else if (
       this.values[this.globalLanguage] &&

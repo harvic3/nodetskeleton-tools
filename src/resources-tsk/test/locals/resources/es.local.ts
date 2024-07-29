@@ -1,4 +1,6 @@
-export default {
+import { LocalMessageDictionary } from "./keys";
+
+const esMessages: LocalMessageDictionary = {
   SOMETHING_WENT_WRONG: "Oh, lo sentimos, algo no salió bien con esta acción!",
   SOME_PARAMETERS_ARE_MISSING:
     "Faltan algunos parámetros o no son válidos: {{missingParams}}.",
@@ -9,3 +11,5 @@ export default {
   NUMBER_GREATER_THAN: "El número {{name}} debe ser mayor a {{baseNumber}}",
   MUST_BE_EVEN_NUMBER: "El parámetro {{numberName}} debe ser par",
 };
+
+export default esMessages;

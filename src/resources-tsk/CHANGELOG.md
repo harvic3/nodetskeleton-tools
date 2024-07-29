@@ -122,7 +122,7 @@
 
 ## [2.1.3] — 2022-07-20
 
-### Updated
+### Update
 
 - Packages was updated
 
@@ -137,3 +137,9 @@
 ### Update
 
 - Packages was updated
+
+## [2.5.0]
+
+### Update
+
+- Added strong type for better inference
