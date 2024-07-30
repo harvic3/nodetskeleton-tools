@@ -164,3 +164,9 @@
 ### Update
 
 - Packages was updated.
+
+## [2.0.8] — 2024-07-30
+
+### Update
+
+- Dependencies were removed.

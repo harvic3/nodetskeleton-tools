@@ -1,13 +1,18 @@
-import { ApplicationError } from "../errors/ApplicationError";
 import { IServiceContainer } from "./IServiceContainer";
-import { Resources } from "resources-tsk";
+import { ApplicationError } from "../errors/ApplicationError";
+
+interface IResources {
+  get(resourceName: string, language?: string): string;
+  getWithParams(resourceName: string, params: Record<string, string>, language?: string): string;
+  keys: Record<string, string>;
+}
 
 export class TSKernel implements IServiceContainer {
   #serviceCollection: Record<string, Function> = {};
   #INTERNAL_ERROR_CODE = "FF";
   #classNameBase = "KeyClassName";
   #interfaceBaseName = "IKeyClassName";
-  #appMessages: Resources;
+  #appMessages: IResources;
   #appErrorMessageKey = "DEPENDENCY_NOT_FOUND";
   #applicationStatus: Record<string, string>;
   #applicationStatusCodeKey = "INTERNAL_ERROR";
@@ -25,7 +30,7 @@ export class TSKernel implements IServiceContainer {
     internalErrorCode?: string;
     interfaceBaseName?: string;
     classNameBase?: string;
-    appMessages: Resources;
+    appMessages: IResources;
     appErrorMessageKey: string;
     applicationStatus: Record<string, string>;
     applicationStatusCodeKey: string;

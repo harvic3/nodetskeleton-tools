@@ -1,6 +1,6 @@
 {
   "name": "validator-tsk",
-  "version": "2.0.7",
+  "version": "2.0.8",
   "description": "validator tool to use with or without NodeTskeleton template project",
   "repository": {
     "type": "git",
@@ -32,11 +32,10 @@
     "upload": "npm run build && npm publish"
   },
   "devDependencies": {
-    "@types/node": "^20.14.9",
-    "typescript": "^5.5.2"
+    "@types/node": "^20.14.13",
+    "resources-tsk": "^2.5.1",
+    "result-tsk": "^2.1.9",
+    "typescript": "^5.5.4"
   },
-  "dependencies": {
-    "resources-tsk": "^2.1.4",
-    "result-tsk": "^2.1.8"
-  }
+  "dependencies": {}
 }

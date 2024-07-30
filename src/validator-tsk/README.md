@@ -78,14 +78,14 @@ function validateEmail(email: string): string {
   if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
     return null;
   }
-  return resources.getWithParams(resourceKeys.NOT_VALID_EMAIL, { email });
+  return resources.getWithParams(resources.keys.NOT_VALID_EMAIL, { email });
 }
 
 function greaterThan(numberName: string, base: number, evaluate: number): string {
   if (evaluate && evaluate > base) {
     return null;
   }
-  return resources.getWithParams(resourceKeys.NUMBER_GREATER_THAN, {
+  return resources.getWithParams(resources.keys.NUMBER_GREATER_THAN, {
     name: numberName,
     baseNumber: base.toString(),
   });
@@ -95,13 +95,13 @@ function evenNumber(numberName: string, evaluate: number): string {
   if (evaluate && evaluate % 2 === 0) {
     return null;
   }
-  return resources.getWithParams(resourceKeys.MUST_BE_EVEN_NUMBER, {
+  return resources.getWithParams(resources.keys.MUST_BE_EVEN_NUMBER, {
     numberName,
   });
 }
 
 // Input in any use case
-const person = new Person("Jhon", "Doe", 21, "myemail@orion.com");
+const person = new Person("John", "Doe", 21, "myemail@orion.com");
 /*...*/
 const result = new Result();
 if(!validator.isValidEntry(result, {
@@ -123,7 +123,7 @@ if(!validator.isValidEntry(result, {
 
 ## Object arrays validation (Basic way)
 
-The utility `only receives arrays of functions`, so you cannot send arrays of objects to validate because it does not make sense to do that since the utility will not have a clear context of what to validate in that condition.
+The utility `only receives array of functions`, so you cannot send object arrays to validate because it does not make sense to do that since the utility will not have a clear context of what to validate in that condition.
 
 The most correct would be to perform basic validations such as the number of objects as shown in the following example or to build functions that validate more particular aspects according to the needs of each case and send these functions as validation arrays.
 
@@ -144,11 +144,11 @@ console.log(isValid);
 console.log(result.error);
 // Some parameters are missing or not valid: People.
 ```
-If you send object arrays you will receive a `Throw Error as result`.
+If you send array objects you will receive a `Throw Error as result`.
 
 ## Params for constructor
 
-- resources: you need install and initialize `npm i resources-tsk`.
+- resources: you need to install and initialize `npm i resources-tsk`.
 - resourceKey: resource message to search the local archive collection.
 - defaultErrorCode: code error for result, by default is 400 (BAD_REQUEST), `it's optional`.
 

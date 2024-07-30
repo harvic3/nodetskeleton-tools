@@ -31,7 +31,7 @@ export class UseCaseProductGet extends BaseUseCase {
 		if (!product) {
 			// The result object helps us with the error response and the code.
 			result.setError(
-				this.resources.get(this.resourceKeys.PRODUCT_DOES_NOT_EXIST),
+				this.resources.get(this.resources.keys.PRODUCT_DOES_NOT_EXIST),
 				this.resultCodes.NOT_FOUND,
 			);
 			return result;
@@ -56,7 +56,7 @@ export class UseCaseProductGet extends BaseUseCase {
 		const product: Product = await this.productQueryService.getByMaskId(idMask);
 		if (!product) {
 			return {
-				error: this.resources.get(this.resourceKeys.PRODUCT_DOES_NOT_EXIST),
+				error: this.resources.get(this.resources.keys.PRODUCT_DOES_NOT_EXIST),
 				statusCode: this.resultCodes.NOT_FOUND,
 				value: null,
 			}
@@ -83,7 +83,7 @@ it("should return a 400 error if quantity is null or zero", async () => {
 	const result = await addUseCase.execute(userUid, itemDto);
 	expect(result.success).toBeFalsy();
 	expect(result.error).toBe(
-		resources.getWithParams(resourceKeys.SOME_PARAMETERS_ARE_MISSING, {
+		resources.getWithParams(resources.keys.SOME_PARAMETERS_ARE_MISSING, {
 			missingParams: "quantity",
 		}),
 	);

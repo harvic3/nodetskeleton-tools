@@ -5,7 +5,7 @@ import { Result } from "result-tsk";
 import esLocal from "../../resources-tsk/test/locals/resources/es.local";
 import enLocal from "../../resources-tsk/test/locals/resources/en.local";
 
-import localKeys from "../../resources-tsk/test/locals/resources/keys";
+import { KeysDictionaryEnum } from "../../resources-tsk/test/locals/resources/keys";
 import { Person } from "./Person";
 
 const locals = {
@@ -15,25 +15,25 @@ const locals = {
 
 const defaultLanguage = "en";
 
-const resourceKeys = localKeys;
+const resourceKeys = KeysDictionaryEnum;
 
 const resources = new Resources(locals, resourceKeys);
 
-function validateEmail(email: string): string {
-  if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
+function validateEmail(email: string): string | null {
+  if (/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
     return null;
   }
   return resources.getWithParams(resourceKeys.NOT_VALID_EMAIL, { email });
 }
 
 function ValidateEmailWithEmptyResponse(email: string): string {
-  if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
+  if (/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
     return "";
   }
   return resources.getWithParams(resourceKeys.NOT_VALID_EMAIL, { email });
 }
 
-function greaterThan(numberName: string, base: number, evaluate: number): string {
+function greaterThan(numberName: string, base: number, evaluate: number): string | null {
   if (evaluate && evaluate > base) {
     return null;
   }
@@ -43,7 +43,7 @@ function greaterThan(numberName: string, base: number, evaluate: number): string
   });
 }
 
-function evenNumber(numberName: string, evaluate: number): string {
+function evenNumber(numberName: string, evaluate: number): string | null {
   if (evaluate && evaluate % 2 === 0) {
     return null;
   }
@@ -71,7 +71,9 @@ describe("when use validator", () => {
       BAD_REQUEST,
     );
     const result = new Result();
-    const person = new Person(null, undefined, 20);
+    const nullName = null;
+    const nullLastName = undefined;
+    const person = new Person(nullName as unknown as string, nullLastName as unknown as string, 20);
     const isValid = validator.isValidEntry(result, {
       Name: person.name,
       Last_Name: person.lastName,
@@ -86,7 +88,9 @@ describe("when use validator", () => {
   it("should be return false, error message and default BAD_REQUEST string code error if the entry is not valid", () => {
     const validator = new Validator(resources, "SOME_PARAMETERS_ARE_MISSING");
     const result = new Result();
-    const person = new Person(null, undefined, 20);
+    const nullName = null;
+    const nullLastName = undefined;
+    const person = new Person(nullName as unknown as string, nullLastName as unknown as string, 20);
     const isValid = validator.isValidEntry(result, {
       Name: person.name,
       Last_Name: person.lastName,
@@ -101,7 +105,9 @@ describe("when use validator", () => {
   it("should be return false, error message and 500 code error if the entry is not valid", () => {
     const validator = new Validator(resources, "SOME_PARAMETERS_ARE_MISSING", 500);
     const result = new Result();
-    const person = new Person(null, undefined, 20);
+    const nullName = null;
+    const nullLastName = undefined;
+    const person = new Person(nullName as unknown as string, nullLastName as unknown as string, 20);
     const isValid = validator.isValidEntry(result, {
       Name: person.name,
       Last_Name: person.lastName,
@@ -116,7 +122,7 @@ describe("when use validator", () => {
   it("should be return false and error message when the entry valid", () => {
     const validator = new Validator(resources, "SOME_PARAMETERS_ARE_MISSING");
     const result = new Result();
-    const person = null;
+    const person = null as any;
     const isValid = validator.isValidEntry(result, {
       Person: person,
       Name: person?.name,
@@ -131,7 +137,7 @@ describe("when use validator", () => {
   it("should be return true if the entry valid", () => {
     const validator = new Validator(resources, "SOME_PARAMETERS_ARE_MISSING");
     const result = new Result();
-    const person = new Person("Jhon", "Doe", 20);
+    const person = new Person("John", "Doe", 20);
     const isValid = validator.isValidEntry(result, {
       Person: person,
       Name: person.name,
@@ -144,7 +150,7 @@ describe("when use validator", () => {
   it("should be execute all validations and return an entry not valid by email", () => {
     const validator = new Validator(resources, "SOME_PARAMETERS_ARE_MISSING");
     const result = new Result();
-    const person = new Person("Jhon", "Doe", 20);
+    const person = new Person("John", "Doe", 20);
     const invalidEmail = "wrongEmail@email";
     person.setEmail(invalidEmail);
     const isValid = validator.isValidEntry(result, {
@@ -161,7 +167,7 @@ describe("when use validator", () => {
   it("should be execute all validations and return an entry not valid by age", () => {
     const validator = new Validator(resources, "SOME_PARAMETERS_ARE_MISSING");
     const result = new Result();
-    const person = new Person("Jhon", "Doe", 20);
+    const person = new Person("John", "Doe", 20);
     const validEmail = "myemail@orion.com";
     person.setEmail(validEmail);
     const isValid = validator.isValidEntry(result, {
@@ -178,7 +184,7 @@ describe("when use validator", () => {
   it("should be execute all validations and return an entry not valid by email and age", () => {
     const validator = new Validator(resources, "SOME_PARAMETERS_ARE_MISSING");
     const result = new Result();
-    const person = new Person("Jhon", "Doe", 10);
+    const person = new Person("John", "Doe", 10);
     const invalidEmail = "wrongEmail@email";
     person.setEmail(invalidEmail);
     const isValid = validator.isValidEntry(result, {
@@ -195,7 +201,7 @@ describe("when use validator", () => {
   it("should be execute all validations and return an entry not valid by age for not pair and not greater than a number", () => {
     const validator = new Validator(resources, "SOME_PARAMETERS_ARE_MISSING");
     const result = new Result();
-    const person = new Person("Jhon", "Doe", 21);
+    const person = new Person("John", "Doe", 21);
     const validEmail = "myemail@orion.com";
     person.setEmail(validEmail);
     const isValid = validator.isValidEntry(result, {
@@ -215,7 +221,7 @@ describe("when use validator", () => {
   it("should be execute all validations and return an entry not valid by email and age validated by boolean function", () => {
     const validator = new Validator(resources, "SOME_PARAMETERS_ARE_MISSING");
     const result = new Result();
-    const person = new Person("Jhon", "Doe", 11);
+    const person = new Person("John", "Doe", 11);
     const invalidEmail = "wrongEmail@email";
     person.setEmail(invalidEmail);
     const isValid = validator.isValidEntry(result, {
@@ -232,7 +238,7 @@ describe("when use validator", () => {
   it("should be execute all validations and return valid and age validated by boolean function", () => {
     const validator = new Validator(resources, "SOME_PARAMETERS_ARE_MISSING");
     const result = new Result();
-    const person = new Person("Jhon", "Doe", 10);
+    const person = new Person("John", "Doe", 10);
     const invalidEmail = "fineEmail@email.co";
     person.setEmail(invalidEmail);
     const isValid = validator.isValidEntry(result, {
@@ -247,7 +253,7 @@ describe("when use validator", () => {
   it("should be return true if the entry valid and validate email with empty response", () => {
     const validator = new Validator(resources, "SOME_PARAMETERS_ARE_MISSING");
     const result = new Result();
-    const person = new Person("Jhon", "Doe", 20);
+    const person = new Person("John", "Doe", 20);
     const validEMail = "myemail@email.co";
     person.setEmail(validEMail);
     const isValid = validator.isValidEntry(result, {
@@ -263,7 +269,7 @@ describe("when use validator", () => {
   it("should be return true if the array function validation is correct", () => {
     const validator = new Validator(resources, "SOME_PARAMETERS_ARE_MISSING");
     const result = new Result();
-    const person = new Person("Jhon", "Doe", 20);
+    const person = new Person("John", "Doe", 20);
     const validEMail = "myemail@email.co";
     person.setEmail(validEMail);
     const isValid = validator.isValidEntry(result, {
@@ -298,7 +304,7 @@ describe("when use validator", () => {
   it("should return a throw error when passing an array of objects", () => {
     const validator = new Validator(resources, "SOME_PARAMETERS_ARE_MISSING");
     const result = new Result();
-    const person = new Person("Jhon", "Doe", 11);
+    const person = new Person("John", "Doe", 11);
     const isValid = () =>
       validator.isValidEntry(result, {
         Name: person.name,

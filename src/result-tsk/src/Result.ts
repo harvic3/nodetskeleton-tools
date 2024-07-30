@@ -1,5 +1,5 @@
-import { ResultExecution, ResultExecutionPromise } from "./Types";
 import { Metadata, IResult } from "./Result.interface";
+import { ResultExecutionPromise } from "./Types";
 import { ResultDto } from "./ResultDto";
 
 export class Result implements IResult {
@@ -22,7 +22,6 @@ export class Result implements IResult {
 
   getMetadata(): Metadata {
     return this.#metadata;
-    return this;
   }
 
   hasMetadata(): boolean {
@@ -57,12 +56,19 @@ export class Result implements IResult {
     return !!this.message;
   }
 
-  async execute<RO>(promise: Promise<ResultExecution<RO>>): Promise<IResult & { value: RO }> {
-    const execution = await promise;
-    if (execution.error) {
-      this.setError(execution.error, execution.statusCode);
-    }
-    const value = execution.value;
+  async execute<RO>(promise: ResultExecutionPromise<RO>): Promise<IResult & { value: RO }> {
+    const value = await promise.then((execution) => {
+      if (execution.error) {
+        this.setError(execution.error, execution.statusCode);
+      }
+      return execution.value;
+    }).catch((error) => {
+      console.error(`Error on result execute ${new Date().toISOString()}: ${JSON.stringify({ message: error.message, stack: error.stack })}`);
+      const errorMessage = error?.statusCode ? `${error.message}` : `Unexpected application error on execute: ${error.message}`;
+      const statusCode = error?.statusCode || 500;
+      this.setError(errorMessage, statusCode);
+      return null;
+    });
 
     return {
       ...this,

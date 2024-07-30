@@ -1,6 +1,6 @@
 {
   "name": "dic-tsk",
-  "version": "1.0.6",
+  "version": "1.0.8",
   "description": "Simple and powerful dependency injection container to use with or without NodeTskeleton template project",
   "repository": {
     "type": "git",
@@ -34,10 +34,9 @@
     "upload": "npm run build && npm publish"
   },
   "devDependencies": {
-    "@types/node": "^20.14.11",
-    "typescript": "^5.5.3"
+    "@types/node": "^20.14.13",
+    "typescript": "^5.5.4",
+    "resources-tsk": "^2.5.1"
   },
-  "dependencies": {
-    "resources-tsk": "^2.1.5"
-  }
+  "dependencies": {}
 }

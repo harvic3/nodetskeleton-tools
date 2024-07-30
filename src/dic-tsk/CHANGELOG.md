@@ -40,3 +40,9 @@
 ### Update
 
 - Packages were updated and typo was fixed
+
+## [1.0.8] — 2024-07-30
+
+### Update
+
+- Dependencies were removed

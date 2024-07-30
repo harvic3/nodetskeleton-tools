@@ -1,19 +1,11 @@
-import { Resources } from "resources-tsk";
-import { IResult } from "result-tsk";
+import { IResources, ErrorType, IResult, ValidationType } from "./types";
 
 const BAD_REQUEST = "400";
 const JOIN_SEPARATOR = ", ";
 
-type ValidationType = Record<
-  string,
-  string | number | undefined | null | unknown | CallableFunction[]
->;
-
-type ErrorType = number | string;
-
 export class Validator {
   constructor(
-    private resources: Resources,
+    private resources: IResources,
     private resourceKey: string,
     private defaultErrorCode: ErrorType = BAD_REQUEST,
   ) {}
@@ -49,7 +41,7 @@ export class Validator {
         });
       }
     });
-    if (!!keysNotFound.length) {
+    if (keysNotFound?.length) {
       result.setError(
         this.resources.getWithParams(this.resourceKey, {
           missingParams: keysNotFound.join(JOIN_SEPARATOR),

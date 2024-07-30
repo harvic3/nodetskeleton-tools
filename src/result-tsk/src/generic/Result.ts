@@ -1,6 +1,6 @@
+import { ResultExecutionPromise } from "../Types";
 import { Metadata } from "../Result.interface";
 import { IResult } from "./Result.interface";
-import { ResultExecution } from "../Types";
 import { ResultDto } from "../ResultDto";
 
 export class Result<T> implements IResult<T> {
@@ -72,18 +72,25 @@ export class Result<T> implements IResult<T> {
     return this;
   }
 
-  async execute<RO>(promise: Promise<ResultExecution<RO>>): Promise<IResult<T> & { value: RO }> {
-    const execution = await promise;
-    if (execution.error) {
-      this.setError(execution.error, execution.statusCode);
-    }
-    const value = execution.value;
+  async execute<RO>(promise: ResultExecutionPromise<RO>): Promise<IResult<T> & { value: RO }> {
+      const value = await promise.then((execution) => {
+        if (execution.error) {
+          this.setError(execution.error, execution.statusCode);
+        }
+        return execution.value;
+      }).catch((error) => {
+        console.error(`Error on result execute ${new Date().toISOString()}: ${JSON.stringify({ message: error.message, stack: error.stack })}`);
+        const errorMessage = error?.statusCode ? `${error.message}` : `Unexpected application error on execute: ${error.message}`;
+        const statusCode = error?.statusCode || 500;
+        this.setError(errorMessage, statusCode);
+        return null;
+      });
 
-    return {
-      ...this,
-      value,
-    };
-  }
+      return {
+        ...this,
+        value,
+      };
+    }
 
 
   toResultDto(): ResultDto {

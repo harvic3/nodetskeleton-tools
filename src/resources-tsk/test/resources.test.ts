@@ -24,7 +24,7 @@ const user = {
   name: "Carl",
   lastName: "Sagan",
   language: LocaleTypeEnum.ES,
-  email: "carlsagan@milkyway.",
+  email: "carlsagan@milkyway.ml",
 };
 
 describe("When using resources", () => {

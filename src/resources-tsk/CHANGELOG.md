@@ -134,12 +134,12 @@
 
 ## [2.1.5] — 2024-06-27
 
-### Update
+### Update 
 
 - Packages was updated
 
-## [2.5.0]
+## [2.5.1] — 2024-07-30
 
 ### Update
 
-- Added strong type for better inference
+- Added strong type for better inference and avoid errors and also added and interface

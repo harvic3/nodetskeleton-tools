@@ -76,7 +76,7 @@ describe("when use a result", () => {
   });
   it("it must allow the use of the generic type class with object data", () => {
     const result = new ResultT<Person>();
-    const person = new Person("Jhon", "Doe", 17);
+    const person = new Person("John", "Doe", 17);
     result.setData(person, 200);
     expect(result.success).toBeTruthy();
     expect(result.data).toBeInstanceOf(Person);
@@ -90,7 +90,7 @@ describe("when use a result", () => {
   });
   it("it must allow the use of the generic type class with object data and message", () => {
     const result = new ResultT<Person>();
-    const person = new Person("Jhon", "Doe", 17);
+    const person = new Person("John", "Doe", 17);
     result.setData(person, 200);
     result.setMessage("Entity was created.", 200);
     expect(result.success).toBeTruthy();
@@ -105,7 +105,7 @@ describe("when use a result", () => {
   });
   it("it must allow the use of the generic type class with object data, message and set metadata", () => {
     const result = new ResultT<Person>();
-    const person = new Person("Jhon", "Doe", 17);
+    const person = new Person("John", "Doe", 17);
     result.setData(person, 200);
     result.setMessage("Entity was created.", 200);
     result.setMetadata({ metaKey1: "meta-value1", metaKey2: "meta-value2" });
@@ -124,7 +124,7 @@ describe("when use a result", () => {
   });
   it("it must allow the use of the generic type class with object data, message and add metadata", () => {
     const result = new ResultT<Person>();
-    const person = new Person("Jhon", "Doe", 17);
+    const person = new Person("John", "Doe", 17);
     result.setData(person, 200);
     result.setMessage("Entity was created.", 200);
     result.addMetadata("metaKey1", "meta-value1");
@@ -142,25 +142,25 @@ describe("when use a result", () => {
     expect(resultDto.error).toBeUndefined();
     expect(resultDto.message).toBe("Entity was created.");
   });
-
   it("it maintain the content of the value field", async () => {
+    const errorMessage = "Error Mock";
+    const errorStatusCode = "FF";
     const result = new Result();
     const validation: ResultExecution<boolean> = {
-      error: "Error Mock",
-      statusCode: "FF",
+      error: errorMessage,
+      statusCode: errorStatusCode,
       value: true
     }
 
     const sessionLogoff = async (): ResultExecutionPromise<boolean> => {
       return {
-        error: "Error Mock",
-        statusCode: "FF",
+        error: errorMessage,
+        statusCode: errorStatusCode,
         value: true
       };
     }
 
     const resultExecution = await result.execute(sessionLogoff());
-
     expect(resultExecution.error).toBe(validation.error);
     expect(resultExecution.statusCode).toBe(validation.statusCode);
     expect(resultExecution.value).toBe(validation.value);

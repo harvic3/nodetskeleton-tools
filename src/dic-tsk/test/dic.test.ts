@@ -28,6 +28,13 @@ class MessageClass {
 const CONTEXT = "TsKernelTest";
 const INTERNAL_ERROR_CODE = "FF";
 
+enum KeysDictionaryEnum {
+  DEPENDENCY_NOT_FOUND = "DEPENDENCY_NOT_FOUND",
+  INTERNAL_ERROR = "INTERNAL_ERROR",
+};
+
+type LocalMessageDictionary = { [key in keyof typeof KeysDictionaryEnum]: string };
+
 const locales = {
   [LocaleTypeEnum.ES]: {
     DEPENDENCY_NOT_FOUND: "El contenedor de dependencias no contiene '{{className}}'.",
@@ -38,11 +45,8 @@ const locales = {
     INTERNAL_ERROR: "Internal error.",
   },
 };
-const localKeys = {
-  DEPENDENCY_NOT_FOUND: "DEPENDENCY_NOT_FOUND",
-  INTERNAL_ERROR: "INTERNAL_ERROR",
-};
-const appMessages = new Resources(locales, localKeys, LocaleTypeEnum.EN);
+
+const appMessages = new Resources<LocaleTypeEnum, KeysDictionaryEnum, LocalMessageDictionary, typeof locales>(locales, KeysDictionaryEnum, LocaleTypeEnum.EN);
 
 const applicationStatus: Record<string, string> = {
   INTERNAL_ERROR: "FF",

@@ -128,3 +128,9 @@
 ### Update
 
 - keeping value content in Result<T>.
+
+## [2.1.9] — 2024-07-30
+
+### Update
+
+- Improvement result execution

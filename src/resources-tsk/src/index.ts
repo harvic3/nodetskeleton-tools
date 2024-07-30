@@ -1,8 +1,11 @@
-export class Resources<LTE extends string, LKD extends string, LMD extends { [K in LKD]: string }, LT extends { [K in LTE]: LMD }> {
+import { IResources } from "./types";
+export { IResources } from "./types";
+
+export class Resources<LTE extends string, LKD extends string, LMD extends { [K in LKD]: string }, LT extends { [K in LTE]: LMD }> implements IResources {
   private defaultLanguage: LTE = null;
   private globalLanguage: LTE = null;
-  keys: { [K in LKD]: LKD };
-  values: LT = null;
+  private values: LT = {} as LT;
+  keys: { [K in LKD]: LKD } = {} as { [K in LKD]: LKD };
 
   constructor(
     locals: LT,
