@@ -19,3 +19,7 @@
 ## [1.0.5] 2024-07-06
 
 - Documentation was updated
+
+## [1.0.7] 2024-08-01
+
+- Updated templates due to changes in node tsk and its internal behavior was improved.

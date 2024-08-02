@@ -19,7 +19,13 @@ fi
 echo "Cloning the nodetskeleton from origin"
 git clone https://github.com/harvic3/nodetskeleton.git
 
-# Rename the current directory name nodetskeleton to the project-name provided
+# Check if the repository was cloned in folder nodetskeleton
+if [ ! -d "nodetskeleton" ]; then
+  echo "Error: Failed to clone the repository"
+  exit 1
+fi
+
+# Rename the current directory name nodetskeleton to project-name provided
 echo "Preparing your project $1"
 mv nodetskeleton $1
 rm -rf nodetskeleton
@@ -52,5 +58,5 @@ JWT_EXPIRE_IN_SECONDS=3600" > .env
 echo "Your project $1 is ready"
 echo "Now go to the project directory typing 'cd $1'"
 echo " And type 'npm run dev' to start the server"
-echo " And then try typing 'npm run tsk help' to see the available commands to support your development"
+echo " And then try typing 'run-tsk help' to see the available commands to support your development"
 echo "Happy coding!"

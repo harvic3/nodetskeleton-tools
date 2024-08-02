@@ -58,8 +58,7 @@ const processCommands = async (processArgv: string[]) => {
 
   switch (action) {
     case IS_TSK_VALID_DIRECTORY:
-      const processPath = process.cwd();
-      if (!isTSKProject(processPath)) {
+      if (!isTSKProject(process.cwd())) {
         console.error("run-tsk CLI doesn't seem to be in a TSK project root. Please run it in a TSK project.");
       } else {
         console.log("run-tsk CLI is in a TSK project root.");

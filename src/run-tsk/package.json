@@ -1,6 +1,6 @@
 {
   "name": "run-tsk",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Tool to install, initialize and interact with NodeTSKeleton project",
   "repository": {
     "type": "git",
@@ -25,16 +25,15 @@
     "lib": "lib"
   },
   "main": "lib/index.js",
-  "types": "lib/index.d.ts",
   "scripts": {
     "build": "rm -rf lib/* && tsc --sourceMap false && shx cp src/**/*.sh lib/",
     "build-map": "rm -rf lib/* && tsc",
     "upload": "npm run build && npm publish"
   },
   "devDependencies": {
-    "@types/node": "^20.14.9",
+    "@types/node": "^20.14.13",
     "shx": "^0.3.4",
-    "typescript": "^5.5.2"
+    "typescript": "^5.5.4"
   },
   "bin": {
     "run-tsk": "lib/index.js"

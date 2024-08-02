@@ -6,7 +6,7 @@ export default {
     "delete",
     "patch"
   ],
-  controllerImportLineToFind: "import container, { ",
+  controllerImportLineToFind: "import container, {",
   controllerFunctionLineToFind: "initializeRoutes(router: IRouter)",
   controllerRouterLineToFind: "this.setRouter(router());",
   containerExportLineToFind: "export { ",

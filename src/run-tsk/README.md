@@ -9,7 +9,7 @@ run-tsk tool is one part of the `NodeTskeleton` template project to install, to 
 
 ## Using Run-TSK
 
-We can use it with installation and without install it.
+We can use it by installation and without install it.
 
 ### Without install it
 
@@ -24,11 +24,11 @@ Or
 
 You'll see something like: 
 ```console
-Done in 7.3s
+Done in 5.0s
 Your project wonderful is ready
 Now go to the project directory typing 'cd wonderful'
  And type 'npm run dev' to start the server
- And then try typing 'npm run tsk help' to see the available commands to support your development
+ And then try typing 'run-tsk help' to see the available commands to support your development
 Happy coding!
 ```
 

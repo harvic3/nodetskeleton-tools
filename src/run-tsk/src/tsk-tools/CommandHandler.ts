@@ -71,7 +71,13 @@ function addUseCase(args: string[], settingsFile: SettingsFileType): void {
   }
 
   const useCaseNameCamel = toCamelCase(useCaseName);
-  const actionName = useCaseNameCamel.split(/(?=[A-Z])/)[0];
+  const useCaseNameParts = useCaseNameCamel.split(/(?=[A-Z])/);
+  let actionName;
+  if (useCaseNameParts.length === 1 || useCaseNameParts.length === 2) {
+    actionName = useCaseNameParts[0];
+  } else {
+    actionName = useCaseNameParts.slice(0, -1).join(EMPTY_CHAR);
+  }
   const useCasePath = resolve(
     `./src/application/modules/${apiName}/useCases/${actionName}/index.ts`,
   );

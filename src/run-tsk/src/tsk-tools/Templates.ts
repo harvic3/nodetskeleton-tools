@@ -18,7 +18,7 @@ export const helpDescription = `run-tsk CLI available commands:
 
 const importControllerTemplate = "import container, { {{UseCaseName}}UseCase, ";
 const functionControllerTemplate = `
-  {{UseCaseNameCamel}}: EntryPointHandler = async (
+  {{UseCaseNameCamel}}: RequestHandler = async (
     req: IRequest,
     res: IResponse,
     next: INextFunction,
@@ -38,16 +38,16 @@ const routeControllerTemplate = `    this.addRoute({
       handlers: [this.{{UseCaseNameCamel}}],
       produces: [
         {
-          applicationStatus: applicationStatus.SUCCESS,
+          applicationStatus: ApplicationStatus.SUCCESS,
           httpStatus: HttpStatusEnum.SUCCESS,
         },
         {
-          applicationStatus: applicationStatus.UNAUTHORIZED,
+          applicationStatus: ApplicationStatus.UNAUTHORIZED,
           httpStatus: HttpStatusEnum.UNAUTHORIZED,
         },
       ],
     });`;
-const controllerTemplate = `${importControllerTemplate} } from "./container/index";
+const controllerTemplate = `${importControllerTemplate}} from "./container/index";
 import { IServiceContainer } from "../../shared/kernel";
 import BaseController, {
   IRouter,
@@ -55,11 +55,11 @@ import BaseController, {
   IResponse,
   INextFunction,
   ServiceContext,
-  EntryPointHandler,
+  RequestHandler,
   HttpContentTypeEnum,
   HttpMethodEnum,
   HttpHeaderEnum,
-  applicationStatus,
+  ApplicationStatus,
   HttpStatusEnum,
 } from "../base/Base.controller";
 
@@ -67,7 +67,7 @@ export class {{ApiNameCapitalized}}Controller extends BaseController {
   constructor(serviceContainer: IServiceContainer) {
     super({{ApiNameCapitalized}}Controller.name, serviceContainer, ServiceContext.{{ApiNameUpper}});
   }
-  ${functionControllerTemplate}
+${functionControllerTemplate}
   initializeRoutes(router: IRouter): void {
     this.setRouter(router());
 ${routeControllerTemplate}
@@ -93,7 +93,7 @@ import kernel from "../../../shared/kernel";
 
 const CONTEXT = "{{ApiNameCapitalized}}ControllerContainer";
 ${addUseCaseContainerTemplate}
-${exportContainerTemplate} };
+${exportContainerTemplate}};
 export default kernel;
 `;
 const useCaseTemplate = `import { BaseUseCase, IResult, Result } from "../../../../shared/useCase/BaseUseCase";
@@ -101,7 +101,7 @@ import { ILogProvider } from "../../../../shared/log/providerContracts/ILogProvi
 import { LocaleTypeEnum } from "../../../../shared/locals/LocaleType.enum";
 import { UseCaseTrace } from "../../../../shared/log/UseCaseTrace";
 
-//TODO: Change this input generic type BaseUseCase<unknown> according input of your use case
+//TODO: Change this generic input type BaseUseCase<unknown> according to the input of your use case
 export class {{UseCaseName}}UseCase extends BaseUseCase<unknown> {
   constructor(
     readonly logProvider: ILogProvider,
@@ -121,7 +121,7 @@ export class {{UseCaseName}}UseCase extends BaseUseCase<unknown> {
 `;
 const testUseCaseTemplate = `import { ILogProvider } from "../../../../shared/log/providerContracts/ILogProvider";
 import { ApplicationErrorMock } from "../../../../mocks/ApplicationError.mock";
-import applicationStatus from "../../../../shared/status/applicationStatus";
+import { ApplicationStatus } from "../../../../shared/status/applicationStatus";
 import { LocaleTypeEnum } from "../../../../shared/locals/LocaleType.enum";
 import { UseCaseTraceMock } from "../../../../mocks/UseCaseTrace.mock";
 import { SessionMock } from "../../../../mocks/Session.mock";
@@ -162,7 +162,7 @@ describe("Here your description test", () => {
 
     // Assert
     expect(result.success).toBeFalsy();
-    expect(result.statusCode).toBe(applicationStatus.INVALID_INPUT);
+    expect(result.statusCode).toBe(ApplicationStatus.NOT_IMPLEMENTED);
   });
 });
 `;
