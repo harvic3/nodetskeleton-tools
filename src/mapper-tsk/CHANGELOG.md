@@ -104,3 +104,8 @@
 ### Update
 
 - Packages was updated
+## [2.0.5] — 2024-08-02
+
+### Update
+
+- Dependencies were updated and docs were improved

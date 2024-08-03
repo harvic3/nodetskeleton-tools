@@ -1,6 +1,6 @@
 # Mapper tool 🧰
 
-Mapper tool y part of the `NodeTskeleton` template project.
+Mapper tool is a part of the `NodeTskeleton` template project.
 
 `NodeTskeleton` is a `Clean Architecture` based `template project` for `NodeJs` using `TypeScript` to implement with any `web server framework` or even any user interface.
 
@@ -21,16 +21,16 @@ This tool maps `objects` or `arrays objects`, for example:
 import mapper from "mapper-tsk";
 
 // For object
-	const textFeelingDto = mapper.mapObject<TextFeeling, TextFeelingDto>(
-		textFeeling,
-		new TextFeelingDto(),
-	);
+const textFeelingDto = mapper.mapObject<TextFeeling, TextFeelingDto>(
+  textFeeling,
+  new TextFeelingDto(),
+);
 
 // For array objects
-	const productsDto: ProductDto[] = mapper.mapArray<Product, ProductDto>(
-		products,
-		() => mapper.activator(ProductDto),
-	);
+const productsDto: ProductDto[] = mapper.mapArray<Product, ProductDto>(
+  products,
+  () => mapper.activator(ProductDto),
+);
 ```
 
 ### Advanced mode
@@ -57,9 +57,9 @@ export class PersonDto {
 import { City } from "./domain/city";
 
 export class CityDto {
-	constructor(public Name: string, public Weather: string) {}
+  constructor(public Name: string, public Weather: string) {}
 
-	static mapToCityDomain(city: CityDto): City {
+  static mapToCityDomain(city: CityDto): City {
     return new City(city.Name, city.Weather);
   }
 }
@@ -68,9 +68,9 @@ export class CityDto {
 import { Country } from "./domain/country";
 
 export class CountryDto {
-	constructor(public Name: string, public City: City) {}
-	
-	static mapToCountryDomain(country: CountryDto): Country {
+  constructor(public Name: string, public City: City) {}
+  
+  static mapToCountryDomain(country: CountryDto): Country {
     const city = CityDto.mapToCityDomain(country.City);
     return new Country(country.Name, city);
   }
@@ -106,31 +106,31 @@ export class Person {
 import mapper from "mapper-tsk";
 
 // Mapping profile
-	const profile = {
-		Name: "name",
-		LastName: "lastName",
-		Age: "age",
-		IsActive: "isActive",
-		"Country.Name": "country.name",
-		"Country.City": {
-			destinationKey: "country.city",
-			mappingFunction: CityDto.mapToCityDomain,
-		},
-	};
+const profile = {
+  Name: "name",
+  LastName: "lastName",
+  Age: "age",
+  IsActive: "isActive",
+  "Country.Name": "country.name",
+  "Country.City": {
+    destinationKey: "country.city",
+    mappingFunction: CityDto.mapToCityDomain,
+  },
+};
 
 // For object
-	const person: Person = mapper.mapObject<PersonDto, Person>(
-		personDto,
-		new Person(),
-		profile,
-	);
+const person: Person = mapper.mapObject<PersonDto, Person>(
+  personDto,
+  new Person(),
+  profile,
+);
 
 // For array objects
-	const personsDto: PersonDto[] = mapper.mapArray<PersonDto, Person>(
-		[personDtoOne, personDtoTwo ...],
-		() => mapper.activator(Person),
-		profile,
-	);
+const personsDto: PersonDto[] = mapper.mapArray<PersonDto, Person>(
+  [personDtoOne, personDtoTwo ...],
+  () => mapper.activator(Person),
+  profile,
+);
 ```
 
 `Activator` is the function responsible for returning a new instance for each call, otherwise you would have an array with the same object repeated N times. 
@@ -156,39 +156,39 @@ export class PersonDto {
 // OBSERVATION: for this case the objects have no difference in the names of their properties.
 
 // Only direct mapping profile
-	const profile = {
-		name: "name",
-		lastName: "lastName",
-		age: "age",
-		isActive: "isActive",
-		"country.name": "country.name",
-		"country.city": "country.city",
-	};
+const profile = {
+  name: "name",
+  lastName: "lastName",
+  age: "age",
+  isActive: "isActive",
+  "country.name": "country.name",
+  "country.city": "country.city",
+};
 
-	// or
-	const profile = {
-		name: "name",
-		lastName: "lastName",
-		age: "age",
-		isActive: "isActive",
-		country: "country",
-	};
+// or
+const profile = {
+  name: "name",
+  lastName: "lastName",
+  age: "age",
+  isActive: "isActive",
+  country: "country",
+};
 
 // The previous mapping profiles will have the same result, but it is obvious that the second one will perform better.
 
 // For object
-	const person: Person = mapper.mapObject<PersonDto, Person>(
-		personDto,
-		new Person(),
-		profile,
-	);
+const person: Person = mapper.mapObject<PersonDto, Person>(
+  personDto,
+  new Person(),
+  profile,
+);
 
 // For array objects
-	const personsDto: PersonDto[] = mapper.mapArray<PersonDto, Person>(
-		[personDtoOne, personDtoTwo ...],
-		() => mapper.activator(Person),
-		profile,
-	);
+const personsDto: PersonDto[] = mapper.mapArray<PersonDto, Person>(
+  [personDtoOne, personDtoTwo ...],
+  () => mapper.activator(Person),
+  profile,
+);
 ```
 
 ## RunKit demo
