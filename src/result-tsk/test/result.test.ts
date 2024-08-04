@@ -142,7 +142,24 @@ describe("when use a result", () => {
     expect(resultDto.error).toBeUndefined();
     expect(resultDto.message).toBe("Entity was created.");
   });
-  it("it maintain the content of the value field", async () => {
+  it("it must manage the result execution flow if it's success", async () => {
+    const person = new Person("John", "Doe", 17);
+    const result = new Result();
+    const validation: ResultExecution<Person> = {
+      value: person,
+    };
+    const getUser = async (): ResultExecutionPromise<Person> => {
+      return {
+        value: person,
+      };
+    }
+
+    const resultExecution = await result.execute(getUser());
+
+    expect(resultExecution.error).toBeUndefined();
+    expect(resultExecution.value).toBe(validation.value);
+  });
+  it("it must manage the result execution flow if it's error", async () => {
     const errorMessage = "Error Mock";
     const errorStatusCode = "FF";
     const result = new Result();
@@ -161,8 +178,45 @@ describe("when use a result", () => {
     }
 
     const resultExecution = await result.execute(sessionLogoff());
+
     expect(resultExecution.error).toBe(validation.error);
     expect(resultExecution.statusCode).toBe(validation.statusCode);
     expect(resultExecution.value).toBe(validation.value);
+  });
+  it("It must to allow to use a result error created by the static method to set it in an UseCase result", () => {
+    const result = new Result();
+    result.setError("Something went wrong.", "001");
+
+    const otherContextResult = Result.fromError("Something went wrong.", "001");
+
+    if (otherContextResult.hasError()) {
+      result.fromResult(otherContextResult);
+    }
+
+    expect(result.message).toBeUndefined();
+    expect(result.error).toBe("Something went wrong.");
+    expect(result.success).toBeFalsy();
+    expect(result.statusCode).toBe("001");
+    const resultDto: ResultDto = result.toResultDto();
+    expect(resultDto.message).toBeUndefined();
+    expect(resultDto.error).toBe("Something went wrong.");
+  });
+  it("It must to allow to use a generic result error created by the static method to set it in an UseCase result", () => {
+    const result = new ResultT<Person>();
+    result.setError("Something went wrong.", "001");
+
+    const otherContextResult = Result.fromError("Something went wrong.", "001");
+
+    if (otherContextResult.hasError()) {
+      result.fromResult(otherContextResult);
+    }
+
+    expect(result.message).toBeUndefined();
+    expect(result.error).toBe("Something went wrong.");
+    expect(result.success).toBeFalsy();
+    expect(result.statusCode).toBe("001");
+    const resultDto: ResultDto = result.toResultDto();
+    expect(resultDto.message).toBeUndefined();
+    expect(resultDto.error).toBe("Something went wrong.");
   });
 });

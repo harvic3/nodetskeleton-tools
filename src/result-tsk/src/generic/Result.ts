@@ -1,5 +1,5 @@
+import { IBaseResult, Metadata } from "../Result.interface";
 import { ResultExecutionPromise } from "../Types";
-import { Metadata } from "../Result.interface";
 import { IResult } from "./Result.interface";
 import { ResultDto } from "../ResultDto";
 
@@ -47,6 +47,14 @@ export class Result<T> implements IResult<T> {
     this.error = error;
     this.statusCode = statusCode;
     this.success = false;
+    return this;
+  }
+
+  fromResult(result: IBaseResult): IResult<T> {
+    this.error = result.error;
+    this.message = result.message;
+    this.statusCode = result.statusCode;
+    this.success = result.success;
     return this;
   }
 

@@ -134,3 +134,15 @@
 ### Update
 
 - Improvement result execution
+
+## [2.2.0] — 2024-08-04
+
+### Update
+
+- Added static method to create a result object and also an instance method to set error from other result object.
+
+## [2.2.1] — 2024-08-06
+
+### Update
+
+- Documentation was improved

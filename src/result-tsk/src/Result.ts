@@ -48,6 +48,14 @@ export class Result implements IResult {
     return this;
   }
 
+  fromResult(result: IResult): IResult {
+    this.error = result.error;
+    this.message = result.message;
+    this.statusCode = result.statusCode;
+    this.success = result.success;
+    return this;
+  }
+
   hasError(): boolean {
     return !!this.error;
   }
@@ -82,5 +90,9 @@ export class Result implements IResult {
     result.message = this.message;
 
     return result;
+  }
+
+  static fromError(error: string, statusCode: number | string): IResult {
+    return new Result().setError(error, statusCode);
   }
 }
