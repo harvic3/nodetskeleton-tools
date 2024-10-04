@@ -23,3 +23,9 @@
 ## [1.0.7] 2024-08-01
 
 - Updated templates due to changes in node tsk and its internal behavior was improved.
+
+## [1.0.8] — 2024-10-04
+
+### Update
+
+- Packages were updated.

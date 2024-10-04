@@ -36,11 +36,11 @@ class Mapper implements IMap {
             );
           } else {
             this.createDeepChainingDestinationObject<D>(
-              (mappingProfile as IBuilderFunction).destinationKey,
+              mappingProfile.destinationKey,
               destination,
               null,
               () =>
-                (mappingProfile as IBuilderFunction).mappingFunction(
+                mappingProfile.mappingFunction(
                   this.getChainingDeepSourceObjectValue(keyToMap, source),
                 ),
             );
@@ -98,7 +98,7 @@ class Mapper implements IMap {
   private createDeepChainingDestinationObject<D>(
     destinationChainingKeys: string,
     destination: D,
-    value: unknown,
+    value: any,
     functionValue: CallableFunction,
   ): void {
     function deepNavigation(
@@ -115,7 +115,7 @@ class Mapper implements IMap {
         } else {
           if (!functionValue) {
             if (value && typeof value === "object") {
-              destination[key] = { ...value } || null;
+              destination[key] = { ...value };
             } else if (typeof value === "boolean") {
               destination[key] = value;
             } else {

@@ -1,0 +1,109 @@
+import { RefTypeDescriber, TypeDescriber } from "./TypeDescriber";
+import { HttpContentTypeEnum } from "./HttpContentTypeEnum";
+import { HttpMethodEnum } from "./HttpMethodEnum";
+import { HttpStatusEnum } from "./HttpStatusEnum";
+
+export enum ParameterIn {
+  QUERY = "query",
+  HEADER = "header",
+  PATH = "path",
+  COOKIE = "cookie",
+}
+
+export type UrlParamDescriber = {
+  name: string;
+  in: ParameterIn;
+  description: string;
+  required?: boolean;
+  deprecated?: boolean;
+  allowEmptyValue?: boolean;
+};
+
+export type SecuritySchemeType = "http" | "apiKey" | "oauth2" | "openIdConnect" | "mutualTLS";
+
+type BaseSecurityScheme = {
+  type: SecuritySchemeType;
+  description: string;
+};
+
+/**
+ * name: apiKey name
+ */
+type ApiKeySecurityScheme = {
+  type: "apiKey";
+  name: string;
+  scheme: string;
+  in: "query" | "header" | "cookie";
+  bearerFormat: string;
+} & BaseSecurityScheme;
+
+type HttpSecurityScheme = {
+  type: "http";
+  scheme: "bearer";
+  bearerFormat: "bearer" | "JWT";
+} & BaseSecurityScheme;
+
+type OAuth2SecurityScheme = {
+  type: "oauth2";
+  flows: {
+    implicit?: {
+      authorizationUrl: string;
+      scopes: Record<string, string>;
+    };
+    password?: {
+      tokenUrl: string;
+      scopes: Record<string, string>;
+    };
+    clientCredentials?: {
+      tokenUrl: string;
+      scopes: Record<string, string>;
+    };
+    authorizationCode?: {
+      authorizationUrl: string;
+      tokenUrl: string;
+      scopes: Record<string, string>;
+    };
+  };
+} & BaseSecurityScheme;
+
+type OpenIdSecurityScheme = {
+  type: "openIdConnect";
+  description: string;
+  openIdConnectUrl: string;
+};
+
+export type SecurityScheme =
+  | ApiKeySecurityScheme
+  | HttpSecurityScheme
+  | OAuth2SecurityScheme
+  | OpenIdSecurityScheme;
+
+export type ApiDoc = {
+  contentType: HttpContentTypeEnum;
+  requireAuth: boolean;
+  schema: TypeDescriber<any> | RefTypeDescriber;
+  requestBody?: {
+    required: boolean;
+    contentType: HttpContentTypeEnum;
+    description: string;
+    schema: TypeDescriber<any> | RefTypeDescriber;
+  };
+  parameters?: UrlParamDescriber[];
+  securitySchemes?: Record<string, SecurityScheme>;
+};
+
+export type ApiDocRouteType = {
+  method: HttpMethodEnum;
+  path: string;
+  produces: {
+    applicationStatus: string;
+    httpStatus: HttpStatusEnum;
+  }[];
+  description?: string;
+  apiDoc?: ApiDoc;
+  security?: Record<string, any[]>;
+};
+
+export interface IApiDocGenerator {
+  createRouteDoc(route: ApiDocRouteType): void;
+}

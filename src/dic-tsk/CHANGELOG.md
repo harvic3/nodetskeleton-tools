@@ -46,3 +46,9 @@
 ### Update
 
 - Dependencies were removed
+
+## [1.0.9] — 2024-10-04
+
+### Update
+
+- Packages were updated.

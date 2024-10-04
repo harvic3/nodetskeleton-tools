@@ -1,6 +1,6 @@
 {
   "name": "dic-tsk",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "Simple and powerful dependency injection container to use with or without NodeTskeleton template project",
   "repository": {
     "type": "git",
@@ -17,7 +17,7 @@
     "tool"
   ],
   "author": "Vickodev<harvic3@proton.me>",
-  "license": "MIT",
+  "license": "BSD 3-Clause",
   "homepage": "https://github.com/harvic3/nodetskeleton-tools/blob/master/src/mapper-tsk/README.md",
   "bugs": {
     "url": "https://github.com/harvic3/nodetskeleton-tools/issues"
@@ -34,9 +34,9 @@
     "upload": "npm run build && npm publish"
   },
   "devDependencies": {
-    "@types/node": "^20.14.13",
-    "typescript": "^5.5.4",
-    "resources-tsk": "^2.5.1"
+    "@types/node": "^20.16.10",
+    "typescript": "^5.6.2",
+    "resources-tsk": "^2.5.6"
   },
   "dependencies": {}
 }

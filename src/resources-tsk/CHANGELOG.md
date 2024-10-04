@@ -143,3 +143,9 @@
 ### Update
 
 - Added strong type for better inference and avoid errors and also added and interface
+
+## [2.5.6] — 2024-10-04
+
+### Update
+
+- Packages were updated.

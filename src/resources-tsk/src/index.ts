@@ -2,7 +2,7 @@ import { IResources } from "./types";
 export { IResources } from "./types";
 
 export class Resources<LTE extends string, LKD extends string, LMD extends { [K in LKD]: string }, LT extends { [K in LTE]: LMD }> implements IResources {
-  private defaultLanguage: LTE = null;
+  defaultLanguage: LTE = null;
   private globalLanguage: LTE = null;
   private values: LT = {} as LT;
   keys: { [K in LKD]: LKD } = {} as { [K in LKD]: LKD };
@@ -73,21 +73,16 @@ export class Resources<LTE extends string, LKD extends string, LMD extends { [K 
   }
 
   get(resourceName: LKD, language: LTE = null): string {
-    if (language && this.values?.[language]?.[resourceName]) {
+    if (this.values[language]?.[resourceName]) {
       return this.values[language][resourceName];
     }
-    if (
-      this.values[this.globalLanguage] &&
-      this.values[this.globalLanguage][resourceName]
-    ) {
+    if (this.values[this.globalLanguage]?.[resourceName]) {
       return this.values[this.globalLanguage][resourceName];
     }
-    if (
-      this.values[this.defaultLanguage] &&
-      this.values[this.defaultLanguage][resourceName]
-    ) {
+    if (this.values[this.defaultLanguage]?.[resourceName]) {
       return this.values[this.defaultLanguage][resourceName];
     }
+
     throw new Error(`Resource ${resourceName} not found in any local resource.`);
   }
 
@@ -97,17 +92,11 @@ export class Resources<LTE extends string, LKD extends string, LMD extends { [K 
     language: LTE = null,
   ): string {
     let resource: string = null;
-    if (language && this.values?.[language]?.[resourceName]) {
+    if (language && this.values[language]?.[resourceName]) {
       resource = this.values[language][resourceName];
-    } else if (
-      this.values[this.globalLanguage] &&
-      this.values[this.globalLanguage][resourceName]
-    ) {
+    } else if (this.values[this.globalLanguage]?.[resourceName]) {
       resource = this.values[this.globalLanguage][resourceName];
-    } else if (
-      this.values[this.defaultLanguage] &&
-      this.values[this.defaultLanguage][resourceName]
-    ) {
+    } else if (this.values[this.defaultLanguage]?.[resourceName]) {
       resource = this.values[this.defaultLanguage][resourceName];
     }
     if (!resource) {

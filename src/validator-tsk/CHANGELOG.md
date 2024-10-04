@@ -170,3 +170,9 @@
 ### Update
 
 - Dependencies were removed.
+
+## [2.1.1] — 2024-10-04
+
+### Update
+
+- Packages were updated.

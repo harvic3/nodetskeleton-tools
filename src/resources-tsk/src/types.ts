@@ -1,5 +1,6 @@
 export interface IResources {
   keys: Record<string, string>;
+  defaultLanguage: string;
   setDefaultLanguage(defaultLanguage: string): void;
   init(language: string): void;
   updateLocals(locals: Record<string, Record<string, string>>, localKeys: Record<string, string>): void;

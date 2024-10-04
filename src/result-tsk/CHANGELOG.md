@@ -146,3 +146,9 @@
 ### Update
 
 - Documentation was improved
+
+## [2.2.2] — 2024-10-04
+
+### Update
+
+- Packages were updated.

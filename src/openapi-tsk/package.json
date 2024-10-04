@@ -1,22 +1,22 @@
 {
-  "name": "resources-tsk",
-  "version": "2.5.6",
-  "description": "resource tool to use with or without NodeTskeleton template project",
+  "name": "openapi-tsk",
+  "version": "1.0.1",
+  "description": "openapi tool to use with NodeTskeleton template project",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/harvic3/nodetskeleton-tools.git"
+    "url": "https://github.com/harvic3/nodetskeleton-tools"
   },
   "keywords": [
-    "resources",
-    "locals",
+    "openapi",
     "tskeleton",
-    "work flow",
-    "flow control",
-    "tool"
+    "swagger",
+    "docs",
+    "tool",
+    "tsk"
   ],
   "author": "Vickodev<harvic3@proton.me>",
   "license": "BSD 3-Clause",
-  "homepage": "https://github.com/harvic3/nodetskeleton-tools/blob/master/src/resources-tsk/README.md",
+  "homepage": "https://github.com/harvic3/nodetskeleton-tools/blob/master/src/result-tsk/README.md",
   "bugs": {
     "url": "https://github.com/harvic3/nodetskeleton-tools/issues"
   },
@@ -25,7 +25,6 @@
   },
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
-  "runkitExampleFilename": "demo/runkitExample.js",
   "scripts": {
     "build": "rm -rf lib/* && tsc --sourceMap false",
     "build-map": "rm -rf lib/* && tsc",
@@ -35,5 +34,7 @@
     "@types/node": "^20.16.10",
     "typescript": "^5.6.2"
   },
-  "dependencies": {}
+  "dependencies": {
+    "reflect-metadata": "^0.2.2"
+  }
 }
