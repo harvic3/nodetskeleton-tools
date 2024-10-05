@@ -32,9 +32,7 @@ type BaseSecurityScheme = {
 type ApiKeySecurityScheme = {
   type: "apiKey";
   name: string;
-  scheme: string;
   in: "query" | "header" | "cookie";
-  bearerFormat: string;
 } & BaseSecurityScheme;
 
 type HttpSecurityScheme = {
@@ -78,27 +76,33 @@ export type SecurityScheme =
   | OAuth2SecurityScheme
   | OpenIdSecurityScheme;
 
+export type SchemeDescription = TypeDescriber<any> | RefTypeDescriber;
+
 export type ApiDoc = {
-  contentType: HttpContentTypeEnum;
   requireAuth: boolean;
-  schema: TypeDescriber<any> | RefTypeDescriber;
   requestBody?: {
     required: boolean;
     contentType: HttpContentTypeEnum;
     description: string;
-    schema: TypeDescriber<any> | RefTypeDescriber;
+    scheme: SchemeDescription;
   };
   parameters?: UrlParamDescriber[];
   securitySchemes?: Record<string, SecurityScheme>;
 };
 
+export type ApiProduce = {
+  applicationStatus: string;
+  httpStatus: HttpStatusEnum;
+  model?: {
+    contentType: HttpContentTypeEnum;
+    scheme: SchemeDescription;
+  };
+}
+
 export type ApiDocRouteType = {
   method: HttpMethodEnum;
   path: string;
-  produces: {
-    applicationStatus: string;
-    httpStatus: HttpStatusEnum;
-  }[];
+  produces: ApiProduce[];
   description?: string;
   apiDoc?: ApiDoc;
   security?: Record<string, any[]>;

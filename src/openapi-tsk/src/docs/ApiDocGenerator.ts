@@ -1,5 +1,5 @@
 
-import { ApiDoc, IApiDocGenerator, ApiDocRouteType, SecurityScheme, UrlParamDescriber } from "../resources/IApiDocGenerator";
+import { ApiDoc, IApiDocGenerator, ApiDocRouteType, SecurityScheme, UrlParamDescriber, SchemeDescription } from "../resources/IApiDocGenerator";
 import { SecuritySchemesStore } from "../resources/SecuritySchemesStore";
 import httpStatusDescriber from "../resources/httpStatusDescriber";
 import { PropFormatEnum, PropTypeEnum } from "../resources/types";
@@ -153,7 +153,7 @@ export class ApiDocGenerator implements IApiDocGenerator {
     return parameters;
   }
 
-  private buildSchema(schema: ApiDoc["schema"]): SchemaType {
+  private buildSchema(scheme: SchemeDescription): SchemaType {
     const schemaToSet: {
       type?: PropTypeEnum;
       items?: { type: PropTypeEnum.OBJECT | PropTypeEnum.ARRAY; $ref: string };
@@ -164,19 +164,19 @@ export class ApiDocGenerator implements IApiDocGenerator {
       $ref: StringUtil.EMPTY,
     };
 
-    if (schema.type === PropTypeEnum.ARRAY) {
+    if (scheme.type === PropTypeEnum.ARRAY) {
       schemaToSet.items = {
-        type: schema.type,
-        $ref: `#/components/schemas/${schema.schema.name}`,
+        type: scheme.type,
+        $ref: `#/components/schemas/${scheme.schema.name}`,
       };
       delete schemaToSet.type;
       delete schemaToSet.$ref;
-    } else if (schema.type === PropTypeEnum.OBJECT) {
-      schemaToSet.$ref = `#/components/schemas/${schema.schema.name}`;
+    } else if (scheme.type === PropTypeEnum.OBJECT) {
+      schemaToSet.$ref = `#/components/schemas/${scheme.schema.name}`;
       delete schemaToSet.type;
       delete schemaToSet.items;
     } else {
-      schemaToSet.type = schema.type;
+      schemaToSet.type = scheme.type;
       delete schemaToSet.items;
       delete schemaToSet.$ref;
     }
@@ -190,7 +190,7 @@ export class ApiDocGenerator implements IApiDocGenerator {
       required: requestBody?.required,
       content: {
         [requestBody?.contentType]: {
-          schema: { $ref: `#/components/schemas/${requestBody?.schema.schema.name}` },
+          schema: { $ref: `#/components/schemas/${requestBody?.scheme.schema.name}` },
         },
       },
     };
@@ -201,7 +201,7 @@ export class ApiDocGenerator implements IApiDocGenerator {
     if (!apiDoc) return;
 
     let path = route.path;
-    const { contentType, schema, requestBody, parameters, securitySchemes } = apiDoc;
+    const { requestBody, parameters, securitySchemes } = apiDoc;
 
     if (path.includes(":")) path = path.replace(/:(\w+)/g, "{$1}");
     if (!this.apiDoc.paths[path]) {
@@ -215,22 +215,26 @@ export class ApiDocGenerator implements IApiDocGenerator {
       if (parameters) this.apiDoc.paths[path][method].parameters = [];
     }
 
-    produces.forEach(({ httpStatus }) => {
+    produces.forEach(({ httpStatus, model }) => {
+      if (!model) return;
+
+      const { contentType, scheme } = model;
       this.apiDoc.paths[path][method].responses[httpStatus.toString()] = {
         description: httpStatusDescriber[httpStatus],
         content: {
           [contentType]: {
-            schema: this.buildSchema(schema),
+            schema: this.buildSchema(scheme),
           },
         },
       };
-      if (requestBody) {
-        this.apiDoc.paths[path][method].requestBody = this.buildRequestBody(requestBody);
-      }
-      if (parameters) {
-        this.apiDoc.paths[path][method].parameters = this.buildParameters(path, parameters);
-      }
     });
+
+    if (requestBody) {
+      this.apiDoc.paths[path][method].requestBody = this.buildRequestBody(requestBody);
+    }
+    if (parameters) {
+      this.apiDoc.paths[path][method].parameters = this.buildParameters(path, parameters);
+    }
 
     if (securitySchemes) {
       const securityKeys = Object.keys(securitySchemes);

@@ -26,6 +26,4 @@
 
 ## [1.0.8] — 2024-10-04
 
-### Update
-
 - Packages were updated.
