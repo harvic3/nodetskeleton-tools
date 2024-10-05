@@ -2,15 +2,17 @@
 import { EMPTY_CHAR, EQUAL_CHAR, SPACE_CHAR } from "./tsk-tools/StringUtils";
 import { executeCommand } from "./tsk-tools/CommandHandler";
 import { helpDescription } from "./tsk-tools/Templates";
+import { isTSKProject } from "./tsk-tools/FileUtils";
 import { exec } from "child_process";
 import {
-  HELP_COMMAND,
-  SETUP_COMMAND,
-  SEPARATOR,
-  scriptPath,
   IS_TSK_VALID_DIRECTORY,
+  SETUP_COMMAND,
+  HELP_COMMAND,
+  scriptPath,
+  SEPARATOR,
 } from "./Constants";
-import { isTSKProject } from "./tsk-tools/FileUtils";
+
+const PKG_VERSION = require("../package.json").version;
 
 let spinnerInterval;
 const startSpinner = () => {
@@ -65,7 +67,7 @@ const processCommands = async (processArgv: string[]) => {
       }
       break;
     case HELP_COMMAND:
-      console.log(helpDescription);
+      console.log(helpDescription.replace("{{version}}", PKG_VERSION));
       break;
     case SETUP_COMMAND:
       if (!options["project-name"]) {

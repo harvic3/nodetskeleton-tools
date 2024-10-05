@@ -1,6 +1,6 @@
 {
   "name": "run-tsk",
-  "version": "1.0.8",
+  "version": "1.1.0",
   "description": "Tool to install, initialize and interact with NodeTSKeleton project",
   "repository": {
     "type": "git",

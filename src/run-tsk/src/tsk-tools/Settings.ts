@@ -1,4 +1,6 @@
-export default {
+import { SettingsFileType } from "./types"
+
+const settings: SettingsFileType = {
   httpMethodsAllowed: [
     "get",
     "post",
@@ -8,7 +10,9 @@ export default {
   ],
   controllerImportLineToFind: "import container, {",
   controllerFunctionLineToFind: "initializeRoutes(router: IRouter)",
-  controllerRouterLineToFind: "this.setRouter(router());",
+  controllerRouterLineToFind: "this.setRouter(router())",
   containerExportLineToFind: "export { ",
   serviceContextLineToFind: "}"
-}
+};
+
+export default settings;

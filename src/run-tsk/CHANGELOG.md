@@ -27,3 +27,7 @@
 ## [1.0.8] — 2024-10-04
 
 - Packages were updated.
+
+## [1.1.0] — 2024-10-04
+
+- Nodetskeleton changed the way to manage routes and schemes for api documentation.

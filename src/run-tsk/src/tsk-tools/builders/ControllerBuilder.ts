@@ -1,4 +1,4 @@
-import { addLinesAfterPosition, addLinesBeforePosition, getLinePositionByContent, replaceContentLineInPosition } from "../FileUtils";
+import { addLinesBeforePosition, getLinePositionByContent, replaceContentLineInPosition } from "../FileUtils";
 import { writeFileSync, mkdirSync, readFileSync } from "fs";
 import { SettingsFileType } from "../types";
 import { replaceAll } from "../StringUtils";
@@ -28,6 +28,7 @@ export function ensureExistingController(params: {
     params.settingsFile.controllerImportLineToFind,
     importControllerContent,
   );
+
   const functionContextLineNumber = getLinePositionByContent(
     controllerContent,
     params.settingsFile.controllerFunctionLineToFind,
@@ -41,6 +42,7 @@ export function ensureExistingController(params: {
     functionContextLineNumber,
     functionContextTemplate,
   );
+
   const routerLineNumber = getLinePositionByContent(
     controllerContent,
     params.settingsFile.controllerRouterLineToFind,
@@ -51,10 +53,11 @@ export function ensureExistingController(params: {
     "{{EndPoint}}": params.endPoint,
     "{{UseCaseNameCamel}}": params.useCaseNameCamel,
   });
-  controllerContent = addLinesAfterPosition(
+  controllerContent = replaceContentLineInPosition(
     controllerContent,
     routerLineNumber,
-    routerContextTemplate,
+    params.settingsFile.controllerRouterLineToFind,
+    `${params.settingsFile.controllerRouterLineToFind}${templates.routerPrefixToAdd}${routerContextTemplate}`,
   );
 
   writeFileSync(params.controllerPath, controllerContent);

@@ -1,4 +1,4 @@
-export const helpDescription = `run-tsk CLI available commands:
+export const helpDescription = `run-tsk CLI (v{{version}}) available commands:
   > validate
     - The previous command will validate if the current directory is a root TSK project.
 
@@ -16,7 +16,8 @@ export const helpDescription = `run-tsk CLI available commands:
     - Example: run-tsk alias arg=api-name
 `;
 
-const importControllerTemplate = "import container, { {{UseCaseName}}UseCase, ";
+const importControllerTemplate = "import container, { {{UseCaseName}}UseCase,";
+
 const functionControllerTemplate = `
   {{UseCaseNameCamel}}: RequestHandler = async (
     req: IRequest,
@@ -32,7 +33,8 @@ const functionControllerTemplate = `
     );
   };
 `;
-const routeControllerTemplate = `    this.addRoute({
+
+const routeControllerTemplate = `addRoute({
       method: HttpMethodEnum.{{HttpMethodUpper}},
       path: "{{EndPoint}}",
       handlers: [this.{{UseCaseNameCamel}}],
@@ -46,7 +48,8 @@ const routeControllerTemplate = `    this.addRoute({
           httpStatus: HttpStatusEnum.UNAUTHORIZED,
         },
       ],
-    });`;
+    })`;
+
 const controllerTemplate = `${importControllerTemplate}} from "./container/index";
 import { IServiceContainer } from "../../shared/kernel";
 import BaseController, {
@@ -69,15 +72,17 @@ export class {{ApiNameCapitalized}}Controller extends BaseController {
   }
 ${functionControllerTemplate}
   initializeRoutes(router: IRouter): void {
-    this.setRouter(router());
-${routeControllerTemplate}
+    this.setRouter(router()).${routeControllerTemplate};
   }
 }
 
 export default new {{ApiNameCapitalized}}Controller(container);
 `;
+
 const importContainerTemplate = `import { {{UseCaseName}}UseCase } from "../../../../application/modules/{{ApiName}}/useCases/{{ActionName}}";`;
+
 const exportContainerTemplate = `export { {{UseCaseName}}UseCase `;
+
 const addUseCaseContainerTemplate = `
 kernel.addScoped(
   {{UseCaseName}}UseCase.name,
@@ -87,6 +92,7 @@ kernel.addScoped(
     ),
 );
 `;
+
 const controllerContainerTemplate = `import { {{UseCaseName}}UseCase } from "../../../../application/modules/{{ApiName}}/useCases/{{ActionName}}";
 import { LogProvider } from "../../../providers/container";
 import kernel from "../../../shared/kernel";
@@ -96,6 +102,7 @@ ${addUseCaseContainerTemplate}
 ${exportContainerTemplate}};
 export default kernel;
 `;
+
 const useCaseTemplate = `import { BaseUseCase, IResult, Result } from "../../../../shared/useCase/BaseUseCase";
 import { ILogProvider } from "../../../../shared/log/providerContracts/ILogProvider";
 import { LocaleTypeEnum } from "../../../../shared/locals/LocaleType.enum";
@@ -119,6 +126,7 @@ export class {{UseCaseName}}UseCase extends BaseUseCase<unknown> {
   }
 }
 `;
+
 const testUseCaseTemplate = `import { ILogProvider } from "../../../../shared/log/providerContracts/ILogProvider";
 import { ApplicationErrorMock } from "../../../../mocks/ApplicationError.mock";
 import { ApplicationStatus } from "../../../../shared/status/applicationStatus";
@@ -166,7 +174,11 @@ describe("Here your description test", () => {
   });
 });
 `;
+
 const serviceContextNewLine = `  {{ApiNameUpper}} = "{{ApiName}}",`;
+
+const routerPrefixToAdd = `
+      .`;
 
 export const templates = {
   controllerTemplate,
@@ -180,4 +192,5 @@ export const templates = {
   importControllerTemplate,
   testUseCaseTemplate,
   serviceContextNewLine,
+  routerPrefixToAdd,
 };
