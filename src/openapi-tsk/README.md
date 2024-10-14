@@ -21,6 +21,8 @@ But first, you have to setup the project, so if you want, you can do it very fas
 npx run-tsk setup project-name=my-awesome-project
 ```
 
+For normal and typical nodejs projects go to **[Normal projects](#nodejs-typical-projects)**
+
 > The API documentation is done in the initializeRoutes method of each controller as shown below:
 
 ```ts
@@ -309,9 +311,12 @@ When you have already registered (described) a model, it is not necessary to des
       requireAuth: true,
       parameters: [
         TypeDescriber.describeUrlParam({
-          name: "email",
+          name: "userId",
           in: ParameterIn.PATH,
-          description: "User email",
+          description: "User identifier",
+          scheme: {
+            type: PropTypeEnum.STRING,
+          },
         }),
       ],
     },
@@ -479,7 +484,7 @@ The file is created in the root of the project with the name `openapi.json` and 
         }
       }
     },
-    "/v1/users/{email}": {
+    "/v1/users/{userId}": {
       "get": {
         "description": "Get user",
         "responses": {
@@ -516,12 +521,15 @@ The file is created in the root of the project with the name `openapi.json` and 
         },
         "parameters": [
           {
-            "name": "email",
+            "name": "userId",
             "in": "path",
-            "description": "User email",
+            "description": "User identifier",
             "required": true,
             "allowEmptyValue": false,
-            "deprecated": false
+            "deprecated": false,
+            "schema": {
+              "type": "string"
+            }
           }
         ]
       }
@@ -683,6 +691,182 @@ The file is created in the root of the project with the name `openapi.json` and 
 
 You can explore and follow the instructions in the official documentation about NodeTSKeleton
 <a href="https://github.com/harvic3/nodetskeleton?tab=readme-ov-file#create-your-first-use-case" target="_blank" >Go to NodeTskeleton</a>
+
+
+## NodeJS Typical projects
+
+To use this tool in common NodeJS projects you can make something like the following strategy:
+
+1. First you will need to add something like the next code into your config file or similar:
+```ts
+// config/index.ts
+export default {
+  Environments: {
+    Dev: "development",
+    // Other environments
+  },
+  apiDocsInfo: {
+    title: "Your-name-project API",
+    version: "1.0.0",
+    description: "Api documentation for your-name-project",
+    contact: {
+      name: "TSK Support",
+      url: "https://github.com/your-github-username/your-repo-name",
+      email: "johndoe@saturno.com",
+    },
+    license: {
+      name: "BSD 3-Clause",
+    },
+  },
+}
+```
+2. Create a docs folder with the `ApiDocGenerator` class
+```ts
+// api/docs/index.ts
+import { ApiDocGenerator } from "openapi-tsk";
+import config from "../../config";
+
+export const apiDocGenerator = new ApiDocGenerator(process.env.ENV ?? config.Environments.Dev, config.apiDocsInfo);
+```
+3. Use the `ApiDocGenerator` instance class in your controller routes like following:
+```ts
+// In some controller
+// The specs for GET status API route
+apiDocGenerator.createRouteDoc({
+  method: HttpMethodEnum.GET,
+  path: "/status",
+  description: "Check if the API is online",
+  produces: [
+    {
+      applicationStatus: "200", httpStatus: HttpStatusEnum.SUCCESS,
+      model: {
+        contentType: HttpContentTypeEnum.TEXT_PLAIN,
+        scheme: new TypeDescriber<string>({
+          name: PropTypeEnum.STRING,
+          type: PropTypeEnum.PRIMITIVE,
+          props: TypeDescriber.describePrimitive(PropTypeEnum.STRING),
+        }),
+      },
+    },
+  ],
+});
+/*
+Don't worry about this routing style.
+It's because it was using the "oas3-tools", but you can use the typical style for express like: 
+app.get("route-path", req, res, next)...
+*/
+export const statusGET = (req: Request, res: Response, next: NextFunction) => {
+  res.status(200).json("Api online at " + new Date().toISOString());
+};
+
+// The specs for POST user API route
+apiDocGenerator.createRouteDoc({
+  method: HttpMethodEnum.POST,
+  path: "/v1/users/sign-up",
+  description: "Self register user",
+  produces: [
+    {
+      applicationStatus: "200",
+      httpStatus: HttpStatusEnum.CREATED,
+      model: {
+        contentType: HttpContentTypeEnum.APPLICATION_JSON,
+        scheme: new TypeDescriber<Omit<IUserDto, "passwordB64">>({
+          name: "UserDto",
+          type: PropTypeEnum.OBJECT,
+          props: TypeDescriber.describeProps<Omit<IUserDto, "passwordB64">>({
+            maskedUid: PropTypeEnum.STRING,
+            firstName: PropTypeEnum.STRING,
+            lastName: PropTypeEnum.STRING,
+            gender: PropTypeEnum.STRING,
+            email: PropTypeEnum.STRING,
+          }),
+        }),
+      },
+    },
+    // Add other ones as you need
+  ],
+  apiDoc: {
+    requireAuth: false,
+    requestBody: {
+      description: "User data",
+      contentType: HttpContentTypeEnum.APPLICATION_JSON,
+      required: true,
+      scheme: new TypeDescriber<IUserDto>({
+        name: "User",
+        type: PropTypeEnum.OBJECT,
+        props: TypeDescriber.describeProps<IUserDto>({
+          maskedUid: PropTypeEnum.STRING,
+          firstName: PropTypeEnum.STRING,
+          lastName: PropTypeEnum.STRING,
+          gender: PropTypeEnum.STRING,
+          email: PropTypeEnum.STRING,
+          passwordB64: PropTypeEnum.STRING,
+        }),
+      }),
+    },
+  },
+});
+export const v1UsersSign_upPOST = function v1UsersSign_upPOST(req: Request, res: Response, next: NextFunction, body: IUserDto) {
+  res.status(200).json(body);
+};
+
+// The specs for GET user API route
+apiDocGenerator.createRouteDoc({
+  method: HttpMethodEnum.GET,
+  path: "/v1/users/{maskedUid}",
+  description: "Get user by maskedUid",
+  produces: [
+    {
+      applicationStatus: "200",
+      httpStatus: HttpStatusEnum.SUCCESS,
+      model: {
+        contentType: HttpContentTypeEnum.APPLICATION_JSON,
+        // The way to get a created or to be created ref
+        scheme: new RefTypeDescriber({
+          name: "UserDto",
+          type: PropTypeEnum.OBJECT,
+        }),
+      },
+    },
+    // Add other ones as you need
+  ],
+  apiDoc: {
+    requireAuth: true,
+    parameters: [
+      TypeDescriber.describeUrlParam({
+        name: "maskedUid",
+        in: ParameterIn.PATH,
+        description: "User maskedUid",
+        scheme: {
+          type: PropTypeEnum.STRING,
+        },
+      }),
+    ],
+  },
+});
+export const v1UsersEmailGET = function v1UsersEmailGET(req: Request, res: Response, next: NextFunction, maskedUid: string) {
+  const userMock: IUserDto = {
+    maskedUid,
+    firstName: "John",
+    lastName: "Doe",
+    email: "johndoe@saturno.com",
+    gender: Gender.MALE,
+  };
+
+  res.status(200).json(userMock);
+};
+```
+4. Finally you will have to put the next lines in the file were you are managing your web server application:
+```ts
+// In index.ts
+import { apiDocGenerator } from "./api/docs";
+
+// Setup for your server url
+apiDocGenerator.setServerUrl(`http://localhost:${serverPort}`, "Local server");
+apiDocGenerator.saveApiDoc(__dirname, "./openapi.json").finish();
+```
+5. To conclude, is important to mention you that you would have to use a library for the `OpenAPI Swagger web interface` and setup it according to your framework, for example the library to use with `express` is `swagger-ui-express`.
+
 
 ## Warning 💀
 

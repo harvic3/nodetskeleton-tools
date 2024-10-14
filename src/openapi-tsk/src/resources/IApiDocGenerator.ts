@@ -1,7 +1,13 @@
 import { RefTypeDescriber, TypeDescriber } from "./TypeDescriber";
 import { HttpContentTypeEnum } from "./HttpContentTypeEnum";
+import { PropFormatEnum, PropTypeEnum } from "./types";
 import { HttpMethodEnum } from "./HttpMethodEnum";
 import { HttpStatusEnum } from "./HttpStatusEnum";
+
+type ParamScheme = {
+  type: PropTypeEnum;
+  format?: PropFormatEnum;
+}
 
 export enum ParameterIn {
   QUERY = "query",
@@ -17,6 +23,7 @@ export type UrlParamDescriber = {
   required?: boolean;
   deprecated?: boolean;
   allowEmptyValue?: boolean;
+  schema: ParamScheme;
 };
 
 export type SecuritySchemeType = "http" | "apiKey" | "oauth2" | "openIdConnect" | "mutualTLS";

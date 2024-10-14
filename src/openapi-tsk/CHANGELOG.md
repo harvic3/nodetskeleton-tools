@@ -15,3 +15,7 @@
 ## [1.0.4] — 2024-10-05
 
 - Option to support scheme and ref scheme in produces was added
+
+## [1.0.6] — 2024-10-13
+
+- Added scheme to set into parameters and documentation for typical nodejs projects

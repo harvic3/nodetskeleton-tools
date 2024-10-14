@@ -4,5 +4,6 @@ export { PropTypeEnum, PropFormatEnum, ClassProperty } from "./resources/types";
 export { SecuritySchemesStore } from "./resources/SecuritySchemesStore";
 export { HttpContentTypeEnum } from "./resources/HttpContentTypeEnum";
 export { HttpMethodEnum } from "./resources/HttpMethodEnum";
+export { HttpStatusEnum } from "./resources/HttpStatusEnum";
 export { ApiDocGenerator } from "./docs/ApiDocGenerator";
 export { SchemasStore } from "./resources/SchemasStore";

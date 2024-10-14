@@ -1,6 +1,6 @@
 {
   "name": "openapi-tsk",
-  "version": "1.0.4",
+  "version": "1.0.6",
   "description": "openapi tool to use with NodeTskeleton template project",
   "repository": {
     "type": "git",
