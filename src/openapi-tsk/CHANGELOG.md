@@ -19,3 +19,7 @@
 ## [1.0.6] — 2024-10-13
 
 - Added scheme to set into parameters and documentation for typical nodejs projects
+
+## [1.1.0] — 2025-05-01
+
+- Added option to set scheme from zod scheme

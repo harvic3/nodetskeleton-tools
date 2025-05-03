@@ -1,7 +1,8 @@
 {
-  "version": "4.2.2",
   "compilerOptions": {
-    "lib": ["ES2021"],
+    "lib": [
+      "ES2021"
+    ],
     "outDir": "dist",
     "sourceMap": true,
     "target": "es6",
@@ -16,6 +17,12 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true
   },
-  "exclude": ["./src/**/test", "./**/*.test.ts", "./src/**/demo"],
-  "include": ["./src/**/*"]
+  "exclude": [
+    "./src/**/test",
+    "./**/*.test.ts",
+    "./src/**/demo"
+  ],
+  "include": [
+    "./src/**/*"
+  ]
 }

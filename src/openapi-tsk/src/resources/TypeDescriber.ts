@@ -1,9 +1,14 @@
-import { SecurityScheme, SecuritySchemeType, UrlParamDescriber } from "./IApiDocGenerator";
-import { ClassProperty, PropFormatEnum, PropTypeEnum } from "./types";
+import {
+  SecurityScheme,
+  SecuritySchemeType,
+  UrlParamDescriber,
+} from "./IApiDocGenerator";
+import { ClassProperty, PropFormatEnum, PropTypeEnum, ZodObject } from "./types";
 import { SecuritySchemesStore } from "./SecuritySchemesStore";
 import { MetadataClass } from "./MetadataClass";
 import { SchemasStore } from "./SchemasStore";
 import "reflect-metadata";
+import { ZodToOpenAPI } from "./ZodToOpenAPI";
 
 type Primitive =
   | PropTypeEnum.STRING
@@ -91,7 +96,10 @@ export class TypeDescriber<T> {
     });
   }
 
-  static describePrimitive(primitive: Primitive, format?: PropFormatEnum): PrimitiveDefinition {
+  static describePrimitive(
+    primitive: Primitive,
+    format?: PropFormatEnum,
+  ): PrimitiveDefinition {
     return format ? { primitive, format } : { primitive };
   }
 
@@ -117,7 +125,10 @@ export class TypeDescriber<T> {
     return props as Record<keyof T, ClassProperty | TypeDescriber<any>>;
   }
 
-  static describeReference<T>(name: string, input: Record<keyof T, any>): { $ref: string } {
+  static describeReference<T>(
+    name: string,
+    input: Record<keyof T, any>,
+  ): { $ref: string } {
     this.referenceSchemas[name] = {
       type: PropTypeEnum.OBJECT,
       properties: this.describeProps(input),
@@ -125,13 +136,41 @@ export class TypeDescriber<T> {
 
     return { $ref: "#/components/schemas/".concat(name) };
   }
+
+  static describeArrayReference<T>(
+    name: string,
+    input: Record<keyof T, any>,
+  ): { $ref: string } {
+    this.referenceSchemas[name] = {
+      type: PropTypeEnum.ARRAY,
+      properties: this.describeProps(input),
+    };
+
+    return { $ref: "#/components/schemas/".concat(name) };
+  }
+
+  static describeZodObject(
+    name: string,
+    zodObject: ZodObject<any>,
+    type: PropTypeEnum.OBJECT | PropTypeEnum.ARRAY = PropTypeEnum.OBJECT,
+  ): TypeDescriber<any> {
+    const openApiSchema = ZodToOpenAPI.transform(zodObject);
+
+    return new TypeDescriber<any>({
+      name,
+      type,
+      props: openApiSchema.properties as Record<keyof any, ClassProperty>,
+    });
+  }
 }
 
 export class RefTypeDescriber {
   readonly type: PropTypeEnum.OBJECT | PropTypeEnum.ARRAY;
   readonly schema: {
     name: string;
-    definition: { $ref?: string } | { type: PropTypeEnum.ARRAY; items?: { $ref: string } };
+    definition:
+      | { $ref?: string }
+      | { type: PropTypeEnum.ARRAY; items?: { $ref: string } };
   };
 
   constructor(obj: { type: PropTypeEnum.OBJECT | PropTypeEnum.ARRAY; name: string }) {

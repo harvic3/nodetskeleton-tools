@@ -1,5 +1,11 @@
-
-import { ApiDoc, IApiDocGenerator, ApiDocRouteType, SecurityScheme, UrlParamDescriber, SchemeDescription } from "../resources/IApiDocGenerator";
+import {
+  ApiDoc,
+  IApiDocGenerator,
+  ApiDocRouteType,
+  SecurityScheme,
+  UrlParamDescriber,
+  SchemeDescription,
+} from "../resources/IApiDocGenerator";
 import { SecuritySchemesStore } from "../resources/SecuritySchemesStore";
 import httpStatusDescriber from "../resources/httpStatusDescriber";
 import { PropFormatEnum, PropTypeEnum } from "../resources/types";
@@ -14,8 +20,8 @@ type SchemaType =
   | { type?: PropTypeEnum.OBJECT | PropTypeEnum.ARRAY; items?: { $ref: string } };
 
 type RequestBodyType = {
-  description: string;
-  required: boolean;
+  description?: string;
+  required?: boolean;
   content: Record<string, { schema: { $ref: string } }>;
 };
 
@@ -135,13 +141,17 @@ export class ApiDocGenerator implements IApiDocGenerator {
     this.apiDoc.components.securitySchemes = securitySchemes;
   }
 
-  private buildParameters(path: string, parameters: UrlParamDescriber[]): UrlParamDescriber[] | [] {
+  private buildParameters(
+    path: string,
+    parameters: UrlParamDescriber[],
+  ): UrlParamDescriber[] | [] {
     if (!parameters.length) return [];
 
     const parameterNamesInPath = path.match(/(?<=\/:)\w+/g);
     if (parameterNamesInPath?.length) {
-      const everyParameterInPathIsInParameters = parameterNamesInPath.every((parameterName) =>
-        parameters.find((parameter) => parameter.name === parameterName),
+      const everyParameterInPathIsInParameters = parameterNamesInPath.every(
+        (parameterName) =>
+          parameters.find((parameter) => parameter.name === parameterName),
       );
       if (!everyParameterInPathIsInParameters) {
         console.warn(
@@ -189,7 +199,7 @@ export class ApiDocGenerator implements IApiDocGenerator {
       description: requestBody?.description,
       required: requestBody?.required,
       content: {
-        [requestBody?.contentType]: {
+        [requestBody?.contentType as string]: {
           schema: { $ref: `#/components/schemas/${requestBody?.scheme.schema.name}` },
         },
       },
@@ -238,7 +248,9 @@ export class ApiDocGenerator implements IApiDocGenerator {
 
     if (securitySchemes) {
       const securityKeys = Object.keys(securitySchemes);
-      this.apiDoc.paths[path][method].security = securityKeys.map((key) => ({ [key]: [] }));
+      this.apiDoc.paths[path][method].security = securityKeys.map((key) => ({
+        [key]: [],
+      }));
     }
   }
 

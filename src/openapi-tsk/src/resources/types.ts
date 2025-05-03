@@ -1,3 +1,5 @@
+export { ZodObject } from "zod";
+
 export enum PropTypeEnum {
   STRING = "string",
   NUMBER = "number",
@@ -34,5 +36,15 @@ export type ClassProperty = {
   minimum?: number;
   maximum?: number;
   items?: { type: PropTypeEnum };
+  enum?: string[];
   $ref?: string;
+};
+
+export type OpenAPISchema = {
+  type: PropTypeEnum;
+  format?: PropFormatEnum;
+  properties: Record<string, ClassProperty>;
+  items?: ClassProperty;
+  required?: string[];
+  enum?: string[];
 };

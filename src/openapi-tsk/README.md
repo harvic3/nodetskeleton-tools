@@ -9,7 +9,7 @@ OpenAPI-tsk tool is one part of the `NodeTskeleton` template project to install,
 
 ## Using OpenAPI-TSK
 
-The API documentation can already be generated automatically through a strategy in the method where the routes are configured using Open API.
+The API documentation can already be generated automatically through a strategy in the method where the routes are configured using Open API and also using Zod objects.
 
 You can see the API documentation in NodeTSKeleton project going to the next url once you have setup your local project:
 ```text
@@ -211,6 +211,46 @@ produces: [
 apiDoc: {
   requireAuth: false,
 },
+
+// To describe any object using Zod objects
+produces: [
+  {
+    applicationStatus: ApplicationStatus.CREATED,
+    httpStatus: HttpStatusEnum.CREATED,
+    model: {
+      contentType: HttpContentTypeEnum.APPLICATION_JSON,
+      scheme: new ResultDescriber<IUser>({
+        name: UserDto.name,
+        type: PropTypeEnum.OBJECT,
+        props: {
+          data: TypeDescriber.describeZodObject(UserDto.name, UserDto.getValidatorToCreate()),
+          ...ResultDescriber.default(),
+        },
+      }),
+    },
+  },
+],
+apiDoc: {
+  requireAuth: true,
+  requestBody: {
+    description: "User to create",
+    contentType: HttpContentTypeEnum.APPLICATION_JSON,
+    required: true,
+    scheme: TypeDescriber.describeZodObject(UserDto.name, UserDto.getValidatorToCreate()),
+  },
+},
+
+// The function getValidatorToCreate from UserDto returns a Zod object validator:
+getValidatorToCreate(): ValidatorObj<any> {
+  return z.object({
+    name: z.string().nonempty(),
+    lastName: z.string().nonempty(),
+    userName: z.string().optional(),
+    email: z.string().email(),
+    password: z.string().optional(),
+    authId: z.string().optional(),
+  });
+}
 ```
 
 To get an overall idea, here an example:

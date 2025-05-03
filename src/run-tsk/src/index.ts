@@ -16,7 +16,7 @@ const PKG_VERSION = require("../package.json").version;
 
 let spinnerInterval;
 const startSpinner = () => {
-  const spinnerChars = ["|", "/", "-", "\\"];
+  const spinnerChars = ["|", "/", "-", "\\", "*"];
   let i = 0;
   spinnerInterval = setInterval(() => {
     process.stdout.write(`\r${spinnerChars[i++]} TSK is working...`);
