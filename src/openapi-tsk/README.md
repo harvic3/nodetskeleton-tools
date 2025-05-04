@@ -61,6 +61,7 @@ Then once you have added your route, the same method is used to configure proper
       model: {
         contentType: HttpContentTypeEnum.APPLICATION_JSON,
         scheme: new ResultDescriber({
+          name: Result.name,
           type: PropTypeEnum.OBJECT,
           props: ResultDescriber.defaultError(),
         }),
@@ -173,7 +174,7 @@ export class TokenDto implements TokenDtoType {
   }
 }
 
-// To describe a simple Result type (ResultDescriber helps us to do it)
+// To describe a simple Result type (ResultDescriber help us to do it)
 produces: [
   {
     applicationStatus: ApplicationStatus.INVALID_INPUT,
@@ -191,7 +192,7 @@ apiDoc: {
   requireAuth: false,
 },
 
-// To describe any object (TypeDescriber helps us to do it)
+// To describe any object (TypeDescriber help us to do it)
 produces: [
   {
     applicationStatus: ApplicationStatus.SUCCESS,
@@ -219,7 +220,7 @@ produces: [
     httpStatus: HttpStatusEnum.CREATED,
     model: {
       contentType: HttpContentTypeEnum.APPLICATION_JSON,
-      scheme: new ResultDescriber<IUser>({
+      scheme: new ResultDescriber<UserDto>({
         name: UserDto.name,
         type: PropTypeEnum.OBJECT,
         props: {
@@ -251,6 +252,26 @@ getValidatorToCreate(): ValidatorObj<any> {
     authId: z.string().optional(),
   });
 }
+
+
+// To describe path or query parameters and security schemes
+apiDoc: {
+  requireAuth: true,
+  securitySchemes: new SecuritySchemesDescriber(
+    SecuritySchemesDescriber.HTTP,
+    SecuritySchemesDescriber.defaultHttpBearer(),
+  ),
+  parameters: [
+    TypeDescriber.describeUrlParam({
+      name: "userId",
+      in: ParameterIn.PATH,
+      description: "User identifier",
+      schema: {
+        type: PropTypeEnum.STRING,
+      },
+    }),
+  ],
+},
 ```
 
 To get an overall idea, here an example:
@@ -846,7 +867,7 @@ apiDocGenerator.createRouteDoc({
     },
   },
 });
-export const v1UsersSign_upPOST = function v1UsersSign_upPOST(req: Request, res: Response, next: NextFunction, body: IUserDto) {
+export const usersSignUpPOSTV1 = (req: Request, res: Response, next: NextFunction, body: IUserDto) => {
   res.status(200).json(body);
 };
 
@@ -884,7 +905,7 @@ apiDocGenerator.createRouteDoc({
     ],
   },
 });
-export const v1UsersEmailGET = function v1UsersEmailGET(req: Request, res: Response, next: NextFunction, maskedUid: string) {
+export const usersEmailGETV1 = (req: Request, res: Response, next: NextFunction, maskedUid: string) => {
   const userMock: IUserDto = {
     maskedUid,
     firstName: "John",

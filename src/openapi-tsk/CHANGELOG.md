@@ -23,3 +23,7 @@
 ## [1.1.0] — 2025-05-01
 
 - Added option to set scheme from zod scheme
+
+## [1.1.1] — 2025-05-03
+
+- Documentation was updated
