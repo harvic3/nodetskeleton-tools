@@ -71,6 +71,24 @@ describe("ZodToOpenAPI", () => {
     });
   });
 
+  it("should convert Dates to OpenAPI schema", () => {
+    const zodSchema = z.object({
+      createdAt: z.date(),
+      updatedAt: z.date().optional(),
+    });
+
+    const openAPISchema = ZodToOpenAPI.transform(zodSchema);
+
+    expect(openAPISchema).toEqual({
+      type: "object",
+      properties: {
+        createdAt: { type: "string", format: "date", required: true },
+        updatedAt: { type: "string", format: "date", required: false },
+      },
+      required: ["createdAt"],
+    });
+  });
+
   it("should convert arrays to OpenAPI schema", () => {
     const zodSchema = z.object({
       tags: z.array(z.string()),

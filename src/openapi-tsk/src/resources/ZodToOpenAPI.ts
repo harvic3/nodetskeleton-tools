@@ -10,6 +10,8 @@ import {
   ZodEnum,
   ZodLiteral,
   ZodNullable,
+  ZodDefault,
+  ZodDate,
 } from "zod";
 
 export class ZodToOpenAPI {
@@ -108,6 +110,14 @@ export class ZodToOpenAPI {
     if (schema instanceof ZodNullable || schema._def.typeName === "ZodNullable") {
       const nullableSchema = this.convert(schema._def.innerType as ZodTypeAny);
       return { ...nullableSchema, nullable: true };
+    }
+
+    if (schema instanceof ZodDate || schema._def.typeName === "ZodDate") {
+      return { type: PropTypeEnum.STRING, format: PropFormatEnum.DATE };
+    }
+
+    if (schema instanceof ZodDefault || schema._def.typeName === "ZodDefault") {
+      return this.convert(schema._def.innerType as ZodTypeAny);
     }
 
     throw new Error(`Unsupported Zod type: ${schema.constructor.name}`);

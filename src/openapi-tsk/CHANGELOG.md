@@ -27,3 +27,7 @@
 ## [1.1.1] — 2025-05-03
 
 - Documentation was updated
+
+## [1.1.2] - 2025-06-10
+
+- New types were added to zod converter
