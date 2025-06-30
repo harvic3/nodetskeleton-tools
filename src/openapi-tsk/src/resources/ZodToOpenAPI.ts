@@ -10,8 +10,8 @@ import {
   ZodEnum,
   ZodLiteral,
   ZodNullable,
-  ZodDefault,
   ZodDate,
+  ZodDefault,
 } from "zod";
 
 export class ZodToOpenAPI {

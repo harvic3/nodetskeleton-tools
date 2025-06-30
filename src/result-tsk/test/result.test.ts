@@ -1,10 +1,26 @@
-import { Result, ResultExecution, ResultExecutionPromise, ResultT } from "../src/index";
+import {
+  IResult,
+  IResultT,
+  Result,
+  ResultExecution,
+  ResultExecutionPromise,
+  ResultT,
+} from "../src/index";
 import { ResultDto } from "../src/ResultDto";
 import { Person } from "./Person";
 
 describe("when use a result", () => {
   it("it must allow the use of the not generic type class", () => {
     const result = new Result();
+    expect(result.message).toBeUndefined();
+    expect(result.error).toBeUndefined();
+    const resultDto: ResultDto = result.toResultDto();
+    expect(resultDto.message).toBeUndefined();
+    expect(resultDto.error).toBeUndefined();
+  });
+  it("It must to allow to use a Result and IResult as interface", () => {
+    let result: IResult;
+    result = new Result();
     expect(result.message).toBeUndefined();
     expect(result.error).toBeUndefined();
     const resultDto: ResultDto = result.toResultDto();
@@ -51,6 +67,15 @@ describe("when use a result", () => {
   });
   it("if a message is added, the error must be undefined and success must be true", () => {
     const result = new ResultT<Person>();
+    result.setMessage("Entity was created.", 201);
+    expect(result.message).toBe("Entity was created.");
+    expect(result.error).toBeUndefined();
+    expect(result.success).toBeTruthy();
+    expect(result.statusCode).toBe(201);
+  });
+  it("It must to allow to use a ResultT and IResultT as interface", () => {
+    let result: IResultT<Person>;
+    result = new ResultT<Person>();
     result.setMessage("Entity was created.", 201);
     expect(result.message).toBe("Entity was created.");
     expect(result.error).toBeUndefined();
@@ -122,6 +147,27 @@ describe("when use a result", () => {
     expect(resultDto.error).toBeUndefined();
     expect(resultDto.message).toBe("Entity was created.");
   });
+  it("it must allow the use of the generic type class with object data, message and add headers", () => {
+    const result = new ResultT<Person>();
+    const person = new Person("John", "Doe", 17);
+    result.setData(person, 200);
+    result.setMessage("Entity was created.", 200);
+    result.addHeader("headerKey1", "header-value1");
+    result.addHeader("headerKey2", "header-value");
+    expect(result.success).toBeTruthy();
+    expect(result.data).toBeInstanceOf(Person);
+    expect(result.message).toBe("Entity was created.");
+    expect(result.error).toBeUndefined();
+    expect(result.statusCode).toBe(200);
+    expect(result.getHeaders()).not.toBeNull();
+    expect((result.getHeaders() as Record<string, string>)["headerKey1"]).not.toBeNull();
+    expect((result.getHeaders() as Record<string, string>)["headerKey2"]).not.toBeNull();
+
+    const resultDto: ResultDto = result.toResultDto();
+    expect(resultDto.data).not.toBeNull();
+    expect(resultDto.error).toBeUndefined();
+    expect(resultDto.message).toBe("Entity was created.");
+  });
   it("it must allow the use of the generic type class with object data, message and add metadata", () => {
     const result = new ResultT<Person>();
     const person = new Person("John", "Doe", 17);
@@ -142,6 +188,27 @@ describe("when use a result", () => {
     expect(resultDto.error).toBeUndefined();
     expect(resultDto.message).toBe("Entity was created.");
   });
+  it("it must allow the use of the generic type class with object data, message and add headers", () => {
+    const result = new ResultT<Person>();
+    const person = new Person("John", "Doe", 17);
+    result.setData(person, 200);
+    result.setMessage("Entity was created.", 200);
+    result.addHeader("headerKey1", "header-value1");
+    result.addHeader("headerKey2", "header-value");
+    expect(result.success).toBeTruthy();
+    expect(result.data).toBeInstanceOf(Person);
+    expect(result.message).toBe("Entity was created.");
+    expect(result.error).toBeUndefined();
+    expect(result.statusCode).toBe(200);
+    expect(result.getHeaders()).not.toBeNull();
+    expect((result.getHeaders() as Record<string, string>)["headerKey1"]).not.toBeNull();
+    expect((result.getHeaders() as Record<string, string>)["headerKey2"]).not.toBeNull();
+
+    const resultDto: ResultDto = result.toResultDto();
+    expect(resultDto.data).not.toBeNull();
+    expect(resultDto.error).toBeUndefined();
+    expect(resultDto.message).toBe("Entity was created.");
+  });
   it("it must manage the result execution flow if it's success", async () => {
     const person = new Person("John", "Doe", 17);
     const result = new Result();
@@ -152,7 +219,7 @@ describe("when use a result", () => {
       return {
         value: person,
       };
-    }
+    };
 
     const resultExecution = await result.execute(getUser());
 
@@ -166,16 +233,16 @@ describe("when use a result", () => {
     const validation: ResultExecution<boolean> = {
       error: errorMessage,
       statusCode: errorStatusCode,
-      value: true
-    }
+      value: true,
+    };
 
     const sessionLogoff = async (): ResultExecutionPromise<boolean> => {
       return {
         error: errorMessage,
         statusCode: errorStatusCode,
-        value: true
+        value: true,
       };
-    }
+    };
 
     const resultExecution = await result.execute(sessionLogoff());
 

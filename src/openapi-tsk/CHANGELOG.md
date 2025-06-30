@@ -31,3 +31,7 @@
 ## [1.1.2] - 2025-06-10
 
 - New types were added to zod converter
+
+## [1.1.3] - 2025-06-30
+
+- Packages were updated

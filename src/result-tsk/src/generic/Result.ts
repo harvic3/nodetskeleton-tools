@@ -1,9 +1,10 @@
-import { IBaseResult, Metadata } from "../Result.interface";
+import { IBaseResult, Metadata, Headers } from "../Result.interface";
 import { ResultExecutionPromise } from "../Types";
 import { IResult } from "./Result.interface";
 import { ResultDto } from "../ResultDto";
 
 export class Result<T> implements IResult<T> {
+  #headers: Headers = null;
   #metadata: Metadata;
   data: T | string;
   statusCode: number | string;
@@ -22,6 +23,17 @@ export class Result<T> implements IResult<T> {
     return this;
   }
 
+  addHeader(name: string, value: string): IResult<T> {
+    if (!this.#headers) this.#headers = {};
+    Reflect.set(this.#headers, name, value);
+
+    return this;
+  }
+
+  getHeaders(): Record<string, string> | null {
+    return this.#headers;
+  }
+
   getMetadata(): Metadata {
     return this.#metadata;
   }
@@ -36,6 +48,10 @@ export class Result<T> implements IResult<T> {
     return this;
   }
 
+  getStatusCode(): number | string {
+    return this.statusCode;
+  }
+
   setMessage(message: string, statusCode: number | string): IResult<T> {
     this.message = message;
     this.statusCode = statusCode;
@@ -48,6 +64,14 @@ export class Result<T> implements IResult<T> {
     this.statusCode = statusCode;
     this.success = false;
     return this;
+  }
+
+  setSuccess(): void {
+    this.success = true;
+  }
+
+  isSuccess(): boolean {
+    return this.success;
   }
 
   fromResult(result: IBaseResult): IResult<T> {
@@ -70,6 +94,12 @@ export class Result<T> implements IResult<T> {
     return !!this.data;
   }
 
+  setOnlyData(data: string | T): IResult<T> {
+    this.data = data;
+
+    return this;
+  }
+
   setData(data: string | T, statusCode: number | string, message?: string): IResult<T> {
     this.data = data;
     this.statusCode = statusCode;
@@ -80,32 +110,47 @@ export class Result<T> implements IResult<T> {
     return this;
   }
 
-  async execute<RO>(promise: ResultExecutionPromise<RO>): Promise<IResult<T> & { value: RO }> {
-      const value = await promise.then((execution) => {
+  async execute<RO>(
+    promise: ResultExecutionPromise<RO>,
+  ): Promise<IResult<T> & { value: RO }> {
+    const value = await promise
+      .then((execution) => {
         if (execution.error) {
           this.setError(execution.error, execution.statusCode);
         }
         return execution.value;
-      }).catch((error) => {
-        console.error(`Error on result execute ${new Date().toISOString()}: ${JSON.stringify({ message: error.message, stack: error.stack })}`);
-        const errorMessage = error?.statusCode ? `${error.message}` : `Unexpected application error on execute: ${error.message}`;
+      })
+      .catch((error) => {
+        console.error(
+          `Error on result execute ${new Date().toISOString()}: ${JSON.stringify({ message: error.message, stack: error.stack })}`,
+        );
+        const errorMessage = error?.statusCode
+          ? `${error.message}`
+          : `Unexpected application error on execute: ${error.message}`;
         const statusCode = error?.statusCode || 500;
         this.setError(errorMessage, statusCode);
         return null;
       });
 
-      return {
-        ...this,
-        value,
-      };
-    }
-
+    return {
+      ...this,
+      value,
+    };
+  }
 
   toResultDto(): ResultDto {
     const result = new ResultDto();
     result.error = this.error;
     result.message = this.message;
     result.data = this.data;
+
+    return result;
+  }
+
+  static fromSuccess<T>(data: T, statusCode: string | number): IResult<T> {
+    const result = new Result<T>();
+    result.setSuccess();
+    result.setData(data, statusCode);
 
     return result;
   }

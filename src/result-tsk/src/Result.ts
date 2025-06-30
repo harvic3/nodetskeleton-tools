@@ -3,6 +3,7 @@ import { ResultExecutionPromise } from "./Types";
 import { ResultDto } from "./ResultDto";
 
 export class Result implements IResult {
+  #headers?: Record<string, string>;
   #metadata: Metadata;
   statusCode: number | string;
   success: boolean;
@@ -24,6 +25,17 @@ export class Result implements IResult {
     return this.#metadata;
   }
 
+  addHeader(name: string, value: string): IResult {
+    if (!this.#headers) this.#headers = {};
+    Reflect.set(this.#headers, name, value);
+
+    return this;
+  }
+
+  getHeaders(): Record<string, string> | null {
+    return this.#headers;
+  }
+
   hasMetadata(): boolean {
     return !!this.#metadata && Object.keys(this.#metadata).length > 0;
   }
@@ -32,6 +44,10 @@ export class Result implements IResult {
     this.statusCode = statusCode;
     this.success = success;
     return this;
+  }
+
+  getStatusCode(): number | string {
+    throw new Error("Method not implemented.");
   }
 
   setMessage(message: string, statusCode: number | string): IResult {
@@ -48,6 +64,10 @@ export class Result implements IResult {
     return this;
   }
 
+  hasError(): boolean {
+    return !!this.error;
+  }
+
   fromResult(result: IResult): IResult {
     this.error = result.error;
     this.message = result.message;
@@ -56,27 +76,39 @@ export class Result implements IResult {
     return this;
   }
 
-  hasError(): boolean {
-    return !!this.error;
-  }
-
   hasMessage(): boolean {
     return !!this.message;
   }
 
-  async execute<RO>(promise: ResultExecutionPromise<RO>): Promise<IResult & { value: RO }> {
-    const value = await promise.then((execution) => {
-      if (execution.error) {
-        this.setError(execution.error, execution.statusCode);
-      }
-      return execution.value;
-    }).catch((error) => {
-      console.error(`Error on result execute ${new Date().toISOString()}: ${JSON.stringify({ message: error.message, stack: error.stack })}`);
-      const errorMessage = error?.statusCode ? `${error.message}` : `Unexpected application error on execute: ${error.message}`;
-      const statusCode = error?.statusCode || 500;
-      this.setError(errorMessage, statusCode);
-      return null;
-    });
+  setSuccess(): void {
+    this.success = true;
+  }
+
+  isSuccess(): boolean {
+    return this.success;
+  }
+
+  async execute<RO>(
+    promise: ResultExecutionPromise<RO>,
+  ): Promise<IResult & { value: RO }> {
+    const value = await promise
+      .then((execution) => {
+        if (execution.error) {
+          this.setError(execution.error, execution.statusCode);
+        }
+        return execution.value;
+      })
+      .catch((error) => {
+        console.error(
+          `Error on result execute ${new Date().toISOString()}: ${JSON.stringify({ message: error.message, stack: error.stack })}`,
+        );
+        const errorMessage = error?.statusCode
+          ? `${error.message}`
+          : `Unexpected application error on execute: ${error.message}`;
+        const statusCode = error?.statusCode || 500;
+        this.setError(errorMessage, statusCode);
+        return null;
+      });
 
     return {
       ...this,
@@ -94,5 +126,12 @@ export class Result implements IResult {
 
   static fromError(error: string, statusCode: number | string): IResult {
     return new Result().setError(error, statusCode);
+  }
+
+  static fromSuccess(): IResult {
+    const result = new Result();
+    result.setSuccess();
+
+    return result;
   }
 }

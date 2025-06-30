@@ -219,4 +219,16 @@ export class SecuritySchemesDescriber {
       bearerFormat: "JWT",
     };
   }
+
+  static defaultHttpApiKey(
+    apiKeyName: string,
+    into: "query" | "header" | "cookie",
+  ): SecurityScheme {
+    return {
+      type: "apiKey",
+      description: "Api key",
+      name: apiKeyName,
+      in: into,
+    };
+  }
 }

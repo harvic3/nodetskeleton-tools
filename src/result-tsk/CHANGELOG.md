@@ -152,3 +152,9 @@
 ### Update
 
 - Packages were updated.
+
+## [2.2.4] — 2025-30-06
+
+### Update
+
+- Some features were added.
