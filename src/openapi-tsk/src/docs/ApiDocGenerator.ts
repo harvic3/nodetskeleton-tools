@@ -46,6 +46,7 @@ type OpenApiType = {
     Record<
       string,
       {
+        tags?: string[];
         description: string;
         responses: Record<
           string,
@@ -75,6 +76,8 @@ type OpenApiType = {
 };
 
 export class ApiDocGenerator implements IApiDocGenerator {
+  #apiRootPath = "/api";
+
   apiDoc: OpenApiType = {
     openapi: "3.0.3",
     info: {
@@ -121,16 +124,6 @@ export class ApiDocGenerator implements IApiDocGenerator {
 
     this.setSchemas(SchemasStore.get());
     this.setSchemasSecurity(SecuritySchemesStore.get());
-  }
-
-  saveApiDoc(dirName: string, filePath: string): this {
-    const wasDocGenerated = Object.keys(this.apiDoc.paths).length;
-    if (!wasDocGenerated) return this;
-
-    filePath = resolve(join(dirName, filePath));
-    writeFileSync(filePath, JSON.stringify(this.apiDoc, null, 2), "utf8");
-
-    return this;
   }
 
   private setSchemas(schemas: Record<string, any>): void {
@@ -206,6 +199,53 @@ export class ApiDocGenerator implements IApiDocGenerator {
     };
   }
 
+  private filterNonElegibleTags(tags: string[]): string[] {
+    if (!tags.length) return [];
+
+    const noElegibleTags: { value: string | RegExp; regexType: boolean }[] = [
+      { value: "api", regexType: false },
+      { value: /v[0-9]+/, regexType: true },
+    ];
+    return tags.filter(
+      (tag) =>
+        !noElegibleTags.some((noElegibleTag) =>
+          noElegibleTag.regexType
+            ? (noElegibleTag.value as RegExp).test(tag)
+            : noElegibleTag.value === tag,
+        ),
+    );
+  }
+
+  private getTagFromPath(path: string): string[] {
+    const tags: string[] = [];
+    const relativePath = path.replace(this.#apiRootPath, "");
+
+    const pathSegments = this.filterNonElegibleTags(
+      relativePath.split("/").filter(Boolean),
+    );
+    if (pathSegments.length) {
+      tags.push(StringUtil.capitalize(pathSegments[0]));
+    } else {
+      tags.push("Default");
+    }
+
+    return tags;
+  }
+
+  setApiRootPath(path: string): void {
+    this.#apiRootPath = path;
+  }
+
+  saveApiDoc(dirName: string, filePath: string): this {
+    const wasDocGenerated = Object.keys(this.apiDoc.paths).length;
+    if (!wasDocGenerated) return this;
+
+    filePath = resolve(join(dirName, filePath));
+    writeFileSync(filePath, JSON.stringify(this.apiDoc, null, 2), "utf8");
+
+    return this;
+  }
+
   createRouteDoc(route: ApiDocRouteType): void {
     const { produces, method, description, apiDoc } = route;
     if (!apiDoc) return;
@@ -219,7 +259,10 @@ export class ApiDocGenerator implements IApiDocGenerator {
     }
 
     if (!this.apiDoc.paths[path][method]) {
-      this.apiDoc.paths[path][method] = { description: description } as any;
+      this.apiDoc.paths[path][method] = {
+        description: description,
+        tags: this.getTagFromPath(path),
+      } as any;
       this.apiDoc.paths[path][method].responses = {};
       if (requestBody) this.apiDoc.paths[path][method].requestBody = {} as any;
       if (parameters) this.apiDoc.paths[path][method].parameters = [];
