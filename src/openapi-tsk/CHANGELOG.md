@@ -39,3 +39,7 @@
 ## [1.1.4] - 2025-07-14
 
 - Tags are support now
+
+## [1.1.5] - 2025-08-20
+
+- Packages were updated
