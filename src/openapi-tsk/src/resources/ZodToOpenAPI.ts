@@ -120,7 +120,8 @@ export class ZodToOpenAPI {
       return this.convert(schema._def.innerType as ZodTypeAny);
     }
 
-    throw new Error(`Unsupported Zod type: ${schema.constructor.name}`);
+    console.error(`(openapi-tsk) Unsupported Zod type: ${schema.constructor.name}`);
+    return { type: PropTypeEnum.UNKNOWN }
   }
 
   static transform(zodSchema: ZodObject<any>): OpenAPISchema {
@@ -137,17 +138,17 @@ export class ZodToOpenAPI {
       const propertySchema = this.convert(value as ZodTypeAny);
 
       if (
-        !(
+        (
           value instanceof ZodOptional ||
           (value as ZodTypeAny)._def.typeName === "ZodOptional" ||
           value instanceof ZodNullable ||
           (value as ZodTypeAny)._def.typeName === "ZodNullable"
         )
       ) {
+        propertySchema.required = false;
+      } else {
         propertySchema.required = true;
         required.push(key);
-      } else {
-        propertySchema.required = false;
       }
       properties[key] = propertySchema;
     }

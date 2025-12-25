@@ -1,6 +1,6 @@
 {
   "name": "openapi-tsk",
-  "version": "1.1.5",
+  "version": "1.1.6",
   "description": "openapi tool to use with NodeTskeleton template project",
   "repository": {
     "type": "git",
@@ -37,10 +37,14 @@
   },
   "dependencies": {
     "@anatine/zod-openapi": "^2.2.8",
-    "reflect-metadata": "^0.2.2",
+    "reflect-metadata": "^0.2.2"
+  },
+  "peerDependencies": {
     "zod": "^3.25.76"
   },
   "overrides": {
-    "zod": "^3.25.76"
+    "@anatine/zod-openapi": {
+      "zod": "$zod"
+    }
   }
 }

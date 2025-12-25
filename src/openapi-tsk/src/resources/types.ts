@@ -10,6 +10,7 @@ export enum PropTypeEnum {
   NULL = "null",
   UNDEFINED = "undefined",
   PRIMITIVE = "primitive",
+  UNKNOWN = "unknown",
 }
 
 export enum PropFormatEnum {

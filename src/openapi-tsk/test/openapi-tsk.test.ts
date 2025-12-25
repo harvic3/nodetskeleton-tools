@@ -1,5 +1,7 @@
-import { z } from "zod";
+import { z, ZodObject } from "zod";
 import { ZodToOpenAPI } from "../src/resources/ZodToOpenAPI";
+import { TypeDescriber } from "../src/resources/TypeDescriber";
+import { PropTypeEnum } from "../src/resources/types";
 
 describe("ZodToOpenAPI", () => {
   it("should convert a simple Zod object schema to OpenAPI schema", () => {
@@ -121,14 +123,14 @@ describe("ZodToOpenAPI", () => {
     });
   });
 
-  it("should throw an error for unsupported Zod types", () => {
+  it("should return a object with unsupported Zod types", () => {
     const zodSchema = z.object({
       unsupported: z.unknown(),
     });
 
-    expect(() => ZodToOpenAPI.transform(zodSchema)).toThrow(
-      "Unsupported Zod type: ZodUnknown",
-    );
+    const transformed = ZodToOpenAPI.transform(zodSchema);
+
+    expect(transformed).toEqual({ type: PropTypeEnum.OBJECT, properties: { unsupported: { type: "unknown", required: true } }, required: ["unsupported"] });
   });
 
   it("should handle complex schemas with mixed types", () => {
@@ -188,6 +190,44 @@ describe("ZodToOpenAPI", () => {
         authId: { type: "string", required: false },
       },
       required: ["name", "lastName", "email"],
+    });
+  });
+
+  it("should describe a Zod object schema with optional and required fields as an OpenAPI schema", () => {
+    const zodSchema = (): ZodObject<any> => z.object({
+      name: z.string().nonempty(),
+      lastName: z.string().nonempty(),
+      userName: z.string().optional(),
+      email: z.string().email(),
+      password: z.string().optional(),
+      authId: z.string().optional(),
+    });
+
+    const openAPISchema = TypeDescriber.describeZodObject(
+      "User",
+      zodSchema(),
+      PropTypeEnum.OBJECT,
+    );
+
+    expect(openAPISchema).toBeInstanceOf(TypeDescriber);
+    expect(openAPISchema.type).toBe(PropTypeEnum.OBJECT);
+    expect(openAPISchema.properties).toEqual({
+      name: { type: "string", minimum: 1, required: true },
+      lastName: { type: "string", minimum: 1, required: true },
+      userName: { type: "string", required: false },
+      email: { type: "string", format: "email", required: true },
+      password: { type: "string", required: false },
+      authId: { type: "string", required: false },
+    });
+    expect(openAPISchema.schema.name).toBe("User");
+    expect(openAPISchema.schema.type).toBe(PropTypeEnum.OBJECT);
+    expect(openAPISchema.schema.properties).toEqual({
+      name: { type: "string", minimum: 1, nullable: false },
+      lastName: { type: "string", minimum: 1, nullable: false },
+      userName: { type: "string", nullable: false },
+      email: { type: "string", nullable: false, format: 'email' },
+      password: { type: "string", nullable: false },
+      authId: { type: "string", nullable: false },
     });
   });
 });

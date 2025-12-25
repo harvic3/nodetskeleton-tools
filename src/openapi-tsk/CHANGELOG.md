@@ -40,6 +40,10 @@
 
 - Tags are support now
 
-## [1.1.5] - 2025-08-20
+## [1.1.5] - 2025-12-23
 
 - Packages were updated
+
+## [1.1.6] - 2025-12-25
+
+- Fixed issue with unknown zod types
