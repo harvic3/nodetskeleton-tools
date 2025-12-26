@@ -47,3 +47,12 @@
 ## [1.1.6] - 2025-12-25
 
 - Fixed issue with unknown zod types
+
+## [1.1.7] - 2025-12-25
+
+- Fixed issue related to server url addition
+
+## [1.1.9] - 2025-12-25
+
+- Added more content types in HttpContentTypeEnum
+- Updated TypeDescriber to support primitive types directly

@@ -922,8 +922,9 @@ export const usersEmailGETV1 = (req: Request, res: Response, next: NextFunction,
 // In index.ts
 import { apiDocGenerator } from "./api/docs";
 
-// Setup for your server url
-apiDocGenerator.setServerUrl(`http://localhost:${serverPort}`, "Local server");
+// Setup for your server urls
+apiDocGenerator.addServerUrl(`http://localhost:${serverPort}`, "Local server");
+apiDocGenerator.addServerUrl("/", "Current server");
 apiDocGenerator.saveApiDoc(__dirname, "./openapi.json").finish();
 ```
 5. To conclude, is important to mention you that you would have to use a library for the `OpenAPI Swagger web interface` and setup it according to your framework, for example the library to use with `express` is `swagger-ui-express`.

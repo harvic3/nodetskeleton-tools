@@ -7,16 +7,16 @@ import { ClassProperty, PropFormatEnum, PropTypeEnum, ZodObject } from "./types"
 import { SecuritySchemesStore } from "./SecuritySchemesStore";
 import { MetadataClass } from "./MetadataClass";
 import { SchemasStore } from "./SchemasStore";
-import "reflect-metadata";
 import { ZodToOpenAPI } from "./ZodToOpenAPI";
+import "reflect-metadata";
 
-type Primitive =
+export type Primitive =
   | PropTypeEnum.STRING
   | PropTypeEnum.NUMBER
   | PropTypeEnum.BOOLEAN
   | PropTypeEnum.NULL
   | PropTypeEnum.UNDEFINED;
-type PrimitiveDefinition = { primitive: Primitive; format?: PropFormatEnum };
+export type PrimitiveDefinition = { primitive: Primitive; format?: PropFormatEnum };
 
 export class TypeDescriber<T> {
   readonly type: PropTypeEnum.OBJECT | PropTypeEnum.ARRAY | PropTypeEnum.PRIMITIVE;

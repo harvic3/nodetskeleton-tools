@@ -253,7 +253,7 @@ export class ApiDocGenerator implements IApiDocGenerator {
     let path = route.path;
     const { requestBody, parameters, securitySchemes } = apiDoc;
 
-    if (path.includes(":")) path = path.replace(/:(\w+)/g, "{$1}");
+    if (path.includes(":")) path = path.replaceAll(/:(\w+)/g, "{$1}");
     if (!this.apiDoc.paths[path]) {
       this.apiDoc.paths[path] = {};
     }
@@ -297,7 +297,7 @@ export class ApiDocGenerator implements IApiDocGenerator {
     }
   }
 
-  setServerUrl(url: string, description: "Local server"): void {
+  addServerUrl(url: string, description: string): void {
     this.apiDoc.servers.push({
       url,
       description,

@@ -1,6 +1,6 @@
 {
   "name": "openapi-tsk",
-  "version": "1.1.6",
+  "version": "1.1.9",
   "description": "openapi tool to use with NodeTskeleton template project",
   "repository": {
     "type": "git",
@@ -13,7 +13,7 @@
     "docs",
     "tool",
     "tsk",
-    "Zod"
+    "zod"
   ],
   "author": "Vickodev<harvic3@proton.me>",
   "license": "BSD 3-Clause",

@@ -10,8 +10,10 @@ export {
   ApiProduce,
 } from "./resources/IApiDocGenerator";
 export {
+  Primitive,
   TypeDescriber,
   RefTypeDescriber,
+  PrimitiveDefinition,
   SecuritySchemesDescriber,
 } from "./resources/TypeDescriber";
 export { PropTypeEnum, PropFormatEnum, ClassProperty } from "./resources/types";
