@@ -42,7 +42,7 @@ else
 fi
 
 # Create resources
-echo "NODE_ENV=development
+echo "NODE_ENV=dev
 SERVICE_CONTEXT=
 SERVER_ROOT=/api
 SERVER_HOST=localhost

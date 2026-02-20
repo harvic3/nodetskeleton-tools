@@ -35,3 +35,7 @@
 ## [1.1.1] — 2025-05-03
 
 - Packages were updated and minor changes were made.
+
+## [1.1.2] — 2026-02-19
+
+- Fixed env value from development to dev.
